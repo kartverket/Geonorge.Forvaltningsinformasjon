@@ -1,0 +1,7 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "felleskomponenter": "kartverket-felleskomponenter#v8.2.5"
+  }
+}

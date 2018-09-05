@@ -1,6 +1,8 @@
-﻿using Geonorge.Forvaltningsinformasjon.Models;
+﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.Database;
+using Geonorge.Forvaltningsinformasjon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +23,9 @@ namespace Geonorge.Forvaltningsinformasjon
             var applicationSettings = new ApplicationSettings();
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
+            
+            services.AddDbContext<FDV_Drift2Context>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddMvc();
         }

@@ -1,8 +1,15 @@
-﻿@{
+﻿@model List<Geonorge.Forvaltningsinformasjon.Core.Models.Datasett>
+@{
     ViewData["Title"] = "Forvaltningsinformasjon";
 }
 
-    <h1 class="small-h1">FKB Forvaltningsinformasjon</h1>
+<div>
+    <h1 class="small-h1">Forvaltningsinformasjon</h1>
     <div class="col-sm-12">
         <span class="separator-lg"></span>
     </div>
+</div>
+@foreach(var dataset in Model)
+{
+    <span>@dataset.Navn</span><br />
+}

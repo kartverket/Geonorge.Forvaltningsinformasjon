@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Geonorge.Forvaltningsinformasjon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +18,10 @@ namespace Geonorge.Forvaltningsinformasjon
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationSettings = new ApplicationSettings();
+            Configuration.Bind(applicationSettings);
+            services.AddSingleton<ApplicationSettings>(applicationSettings);
+            
             services.AddMvc();
         }
 

@@ -1,15 +1,44 @@
-﻿<!DOCTYPE html>
+﻿@inject ApplicationSettings AppSettings
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Geonorge.Forvaltningsinformasjon</title>
-
-    @RenderSection("Scripts", required: false)
+    <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
+    </environment>
 </head>
-<body>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+<body class="geonorge-container geonorge">
+
+<script>
+    var applicationEnvironment = '@AppSettings.EnvironmentName';
+    var applicationVersionNumber = '@AppSettings.BuildVersionNumber';
+    var authenticationData = { supportsLogin: false, isAuthenticated: false };
+    var cultureData = { supportsMultiCulture: "false", currentCulture: 'no' };
+</script>
+
+@await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
+
+<div class="container">
+    @RenderBody()
+</div>
+
+@await Html.PartialAsync("~/wwwroot/dist/partials/Footer_v2.html")
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+<script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
+<script src="~/dist/js/geonorge-shared/main.js" asp-append-version="true"></script>
+
+<script>
+    searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
+</script>
+
+<script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
+
+@RenderSection("scripts", required: false)
+
 </body>
 </html>

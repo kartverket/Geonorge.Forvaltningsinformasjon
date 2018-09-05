@@ -32,5 +32,27 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Services
                 Result = queryable.ToList(),
             };
         }
+
+        public SentralFkbFylkeSummary GetFylkeSummary(string fylkesnummer)
+        {
+            var result = _context.SentralFkb
+                .Where(s => s.KommuneKommunenrNavigation.FylkeFylkesnr == fylkesnummer)
+                .Select(r => new SentralFkbKommuneViewModel()
+                    {
+                        Kommune = new KommuneViewModel()
+                        {
+                            Navn = r.KommuneKommunenrNavigation.Kommunenavn,
+                            Nummer = r.KommuneKommunenr
+                        },
+                        DirekteoppdateringInfort = r.DirekteoppdateringInfort,
+                        PlanlagtInnforing = r.PlanlagtInnforing
+                    }
+                ).ToList();
+
+            return new SentralFkbFylkeSummary()
+            {
+                Result = result
+            };
+        }
     }
 }

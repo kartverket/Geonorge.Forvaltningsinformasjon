@@ -1,0 +1,15 @@
+﻿@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbFylkeSummary
+@{
+    ViewData["Title"] = "Forvaltningsinformasjon for fylke";
+}
+
+<table class="table">
+@foreach (var item in Model.Result)
+{
+    <tr>
+        <td>@item.Kommune.Navn</td>
+        <td>@item.DirekteoppdateringInfort</td>
+        <td>@item.PlanlagtInnforing</td>
+    </tr>
+}
+</table>

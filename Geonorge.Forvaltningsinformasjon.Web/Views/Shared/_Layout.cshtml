@@ -23,6 +23,14 @@
 @await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
 
 <div class="container">
+    
+    <div>
+        <h1 class="small-h1">@ViewData["title"]</h1>
+        <div class="col-sm-12">
+            <span class="separator-lg"></span>
+        </div>
+    </div>
+    
     @RenderBody()
 </div>
 

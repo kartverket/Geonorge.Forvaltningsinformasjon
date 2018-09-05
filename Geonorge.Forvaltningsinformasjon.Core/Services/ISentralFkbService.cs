@@ -5,5 +5,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
     public interface ISentralFkbService
     {
         SentralFkbSummary GetCountrySummary();
+        SentralFkbFylkeSummary GetFylkeSummary(string fylkesnummer);
     }
 }

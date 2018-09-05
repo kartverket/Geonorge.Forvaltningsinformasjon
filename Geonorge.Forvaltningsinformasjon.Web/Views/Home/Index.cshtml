@@ -9,7 +9,26 @@
         <span class="separator-lg"></span>
     </div>
 </div>
-@foreach(var row in Model.Result)
-{
-    <span>@row.Fylke - @row.AntallDirekteOppdatering av @row.AntallKommunerTotalt</span><br />
-}
+
+<p>Antall kommuner i Norge som oppdaterer FKB-data direkte i Sentral felles kartdatabase: <strong>@Model.TotaltAntallKommunerDirekteOppdatering()</strong></p>
+
+<div class="col-md-6">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Fylke</th>
+            <th>Kommuner med direkte oppdatering</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach(var row in Model.Result)
+        {
+            <tr>
+                <td>@row.Fylke.Fylkesnavn</td>
+                <td>@row.AntallDirekteOppdatering av @row.AntallKommunerTotalt</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+ </div>

@@ -1,4 +1,4 @@
-﻿@model List<Geonorge.Forvaltningsinformasjon.Core.Models.Datasett>
+﻿@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbSummary
 @{
     ViewData["Title"] = "Forvaltningsinformasjon";
 }
@@ -9,7 +9,7 @@
         <span class="separator-lg"></span>
     </div>
 </div>
-@foreach(var dataset in Model)
+@foreach(var row in Model.Result)
 {
-    <span>@dataset.Navn</span><br />
+    <span>@row.Fylke - @row.AntallDirekteOppdatering av @row.AntallKommunerTotalt</span><br />
 }

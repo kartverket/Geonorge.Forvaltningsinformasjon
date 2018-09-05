@@ -1,4 +1,7 @@
-﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.Database;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Models;
+using Geonorge.Forvaltningsinformasjon.Core.Services;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.Database;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.Services;
 using Geonorge.Forvaltningsinformasjon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +29,9 @@ namespace Geonorge.Forvaltningsinformasjon
             
             services.AddDbContext<FDV_Drift2Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // configure dependency injection
+            services.AddTransient<ISentralFkbService, SentralFkbService>();
             
             services.AddMvc();
         }

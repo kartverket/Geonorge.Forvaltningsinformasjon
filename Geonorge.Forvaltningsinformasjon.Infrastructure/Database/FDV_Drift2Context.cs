@@ -8,6 +8,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Database
         public FDV_Drift2Context()
         {
         }
+        
+        public FDV_Drift2Context(string connectionString) : this(new DbContextOptionsBuilder<FDV_Drift2Context>()
+            .UseSqlServer(connectionString).Options)
+        { }
+        
 
         public FDV_Drift2Context(DbContextOptions<FDV_Drift2Context> options)
             : base(options)

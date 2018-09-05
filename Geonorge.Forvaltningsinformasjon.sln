@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geonorge.Forvaltningsinformasjon.Web", "Geonorge.Forvaltningsinformasjon.Web\Geonorge.Forvaltningsinformasjon.Web.csproj", "{7ED25CFF-2F3F-4DE9-98F8-68E8C78A8058}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geonorge.Forvaltningsinformasjon.Core", "Geonorge.Forvaltningsinformasjon.Core\Geonorge.Forvaltningsinformasjon.Core.csproj", "{C096E519-90CD-45DB-BBC1-F08048219BE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geonorge.Forvaltningsinformasjon.Infrastructure", "Geonorge.Forvaltningsinformasjon.Infrastructure\Geonorge.Forvaltningsinformasjon.Infrastructure.csproj", "{FDAF1B43-7D3D-4CEF-A9CF-7A149607680B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7ED25CFF-2F3F-4DE9-98F8-68E8C78A8058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED25CFF-2F3F-4DE9-98F8-68E8C78A8058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED25CFF-2F3F-4DE9-98F8-68E8C78A8058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C096E519-90CD-45DB-BBC1-F08048219BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C096E519-90CD-45DB-BBC1-F08048219BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C096E519-90CD-45DB-BBC1-F08048219BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C096E519-90CD-45DB-BBC1-F08048219BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDAF1B43-7D3D-4CEF-A9CF-7A149607680B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDAF1B43-7D3D-4CEF-A9CF-7A149607680B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDAF1B43-7D3D-4CEF-A9CF-7A149607680B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDAF1B43-7D3D-4CEF-A9CF-7A149607680B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

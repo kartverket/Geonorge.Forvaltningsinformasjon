@@ -3,6 +3,8 @@
 #resharper
 .idea
 
+node_modules
+
 *.pubxml
 
 ## Ignore Visual Studio temporary files, build results, and

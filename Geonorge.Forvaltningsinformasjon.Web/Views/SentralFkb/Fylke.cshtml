@@ -4,12 +4,21 @@
 }
 
 <table class="table">
-@foreach (var item in Model.Result)
-{
+    <thead>
     <tr>
-        <td>@item.Kommune.Navn</td>
-        <td>@item.DirekteoppdateringInfort</td>
-        <td>@item.PlanlagtInnforing</td>
+        <th>Kommune</th>
+        <th>Direkteoppdatering innført</th>
+        <th>Planlagt innført</th>
     </tr>
-}
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Result)
+    {
+        <tr>
+            <td>@item.Kommune.Navn</td>
+            <td>@item.DirekteoppdateringInfort</td>
+            <td>@item.PlanlagtInnforing</td>
+        </tr>
+    }
+    </tbody>
 </table>

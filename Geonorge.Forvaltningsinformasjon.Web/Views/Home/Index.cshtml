@@ -18,7 +18,7 @@
         @foreach(var row in Model.Result)
         {
             <tr>
-                <td>@row.Fylke.Fylkesnavn</td>
+                <td><a asp-controller="SentralFkb" asp-action="Fylke" asp-route-fylkesnummer="@row.Fylke.Fylkesnr">@row.Fylke.Fylkesnavn</a></td>
                 <td>@row.AntallDirekteOppdatering av @row.AntallKommunerTotalt</td>
             </tr>
         }

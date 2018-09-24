@@ -5,9 +5,12 @@ using Geonorge.Forvaltningsinformasjon.Infrastructure.Services;
 using Geonorge.Forvaltningsinformasjon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace Geonorge.Forvaltningsinformasjon
 {
@@ -32,8 +35,12 @@ namespace Geonorge.Forvaltningsinformasjon
 
             // configure dependency injection
             services.AddTransient<ISentralFkbService, SentralFkbService>();
-            
-            services.AddMvc();
+
+            // Add the localization services to the services container
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +54,22 @@ namespace Geonorge.Forvaltningsinformasjon
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("no"),
+                new CultureInfo("en"),
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("no"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
+
 
             app.UseStaticFiles();
 

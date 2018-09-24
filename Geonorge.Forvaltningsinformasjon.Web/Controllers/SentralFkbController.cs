@@ -13,7 +13,19 @@ namespace Geonorge.Forvaltningsinformasjon.Controllers
         {
             _sentralFkbService = sentralFkbService;
         }
-        
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet("fylker")]
+        public IActionResult Fylker()
+        {
+            SentralFkbSummary model = _sentralFkbService.GetCountrySummary();
+            return View(model);
+        }
+
         [HttpGet("fylke/{fylkesnummer}")]
         public IActionResult Fylke(string fylkesnummer)
         {

@@ -1,24 +1,29 @@
-﻿@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbFylkeSummary
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+
+@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbFylkeSummary
 @{
-    ViewData["Title"] = "Forvaltningsinformasjon for fylke";
+    ViewData["Title"] = Localizer["Forvaltningsinformasjon for fylke"];
 }
 
 <table class="table">
     <thead>
-    <tr>
-        <th>Kommune</th>
-        <th>Direkteoppdatering innført</th>
-        <th>Planlagt innført</th>
-    </tr>
+        <tr>
+            <th>Kommune</th>
+            <th>Direkteoppdatering innført</th>
+            <th>Planlagt innført</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Result)
-    {
-        <tr>
-            <td>@item.Kommune.Navn</td>
-            <td>@item.DirekteoppdateringInfort</td>
-            <td>@item.PlanlagtInnforing</td>
-        </tr>
-    }
+        @foreach (var item in Model.Result)
+        {
+            <tr>
+                <td>@item.Kommune.Navn</td>
+                <td>@item.DirekteoppdateringInfort</td>
+                <td>@item.PlanlagtInnforing</td>
+            </tr>
+        }
     </tbody>
 </table>

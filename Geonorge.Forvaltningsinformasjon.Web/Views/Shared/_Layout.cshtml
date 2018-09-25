@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
 </head>
-<body class="geonorge-container geonorge">
+<body class="geonorge-container prototype geonorge">
+    <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
     <script>
     var applicationEnvironment = '@AppSettings.EnvironmentName';
@@ -25,7 +26,7 @@
 
     @await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
 
-    <div class="container">
+    <div class="body-content">
         <div class="container container-breadcrumbs" id="navTabCont">
             <ul class="breadcrumbs col-md-12">
                 <li><a href="@AppSettings.UrlGeonorgeRoot">Geonorge</a></li>
@@ -33,15 +34,18 @@
                 @RenderSection("breadcrumb", false)
             </ul>
         </div>
-        <div>
-            <h1 class="small-h1">@ViewData["title"]</h1>
-            <div class="col-sm-12">
-                <span class="separator-lg"></span>
-            </div>
+        <div class="container">
+            <section class="Heading">
+                <div>
+                    <h1 class="small-h1">@ViewData["title"]</h1>
+                    <div class="col-sm-12">
+                        <span class="separator-lg"></span>
+                    </div>
+                </div>
+            </section>
+            @RenderBody()
         </div>
-        @RenderBody()
     </div>
-
     @await Html.PartialAsync("~/wwwroot/dist/partials/Footer_v2.html")
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>

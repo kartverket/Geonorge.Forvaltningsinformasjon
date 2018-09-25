@@ -2,7 +2,6 @@
 
 @inject IViewLocalizer Localizer
 
-@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbSummary
 @{
     ViewData["Title"] = Localizer["Forvaltningsinformasjon FKB"];
 }
@@ -12,17 +11,18 @@
 }
 
 @section breadcrumb
-{
-    <li><a href="">@Localizer["FKB"]</a></li>
+    {
+    <li><a href="/sentralfkb/fylker">@Localizer["FKB"]</a></li>
+    @RenderSection("breadcrumb")
 }
 
 <div class="row">
     <div class="col-sm-12 col-md-2">
         <div class="row">
-            <a href="sentralfkb/fylker">@Localizer["Forvaltning FKB"]</a>
+            <a href="/sentralfkb/fylker">@Localizer["Forvaltning FKB"]</a>
         </div>
         <div class="row">
-            <a href="">@Localizer["Aktivitetsoversikt"]</a>
+            <a href="/sentralfkb/activity-overview">@Localizer["Aktivitetsoversikt"]</a>
         </div>
     </div>
     <div class="col-sm-12 col-md-8">

@@ -14,11 +14,6 @@ namespace Geonorge.Forvaltningsinformasjon.Controllers
             _sentralFkbService = sentralFkbService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet("fylker")]
         public IActionResult Fylker()
         {
@@ -33,5 +28,12 @@ namespace Geonorge.Forvaltningsinformasjon.Controllers
 
             return View(model);
         }
+
+        [HttpGet("activity-overview")]
+        public IActionResult GetActivityOverview()
+        {
+            return View("ActivityOverview");
+        }
+
     }
 }

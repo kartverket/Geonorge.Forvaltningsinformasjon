@@ -1,4 +1,7 @@
-﻿@inject ApplicationSettings AppSettings
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject ApplicationSettings AppSettings
+@inject IViewLocalizer Localizer
 
 <!DOCTYPE html>
 <html>
@@ -11,42 +14,51 @@
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
 </head>
-<body class="geonorge-container geonorge">
+<body class="geonorge-container prototype geonorge">
+    <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-<script>
+    <script>
     var applicationEnvironment = '@AppSettings.EnvironmentName';
     var applicationVersionNumber = '@AppSettings.BuildVersionNumber';
     var authenticationData = { supportsLogin: false, isAuthenticated: false };
-    var cultureData = { supportsMultiCulture: "false", currentCulture: 'no' };
-</script>
+    var cultureData = { supportsMultiCulture: "true", currentCulture: 'no' };
+    </script>
 
-@await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
+    @await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
 
-<div class="container">
-    
-    <div>
-        <h1 class="small-h1">@ViewData["title"]</h1>
-        <div class="col-sm-12">
-            <span class="separator-lg"></span>
+    <div class="body-content">
+        <div class="container container-breadcrumbs" id="navTabCont">
+            <ul class="breadcrumbs col-md-12">
+                <li><a href="@AppSettings.UrlGeonorgeRoot">Geonorge</a></li>
+                <li><a href="/">@Localizer["Forvaltningsinformasjon"]</a></li>
+                @RenderSection("breadcrumb", false)
+            </ul>
+        </div>
+        <div class="container">
+            <section class="Heading">
+                <div>
+                    <h1 class="small-h1">@ViewData["title"]</h1>
+                    <div class="col-sm-12">
+                        <span class="separator-lg"></span>
+                    </div>
+                </div>
+            </section>
+            @RenderBody()
         </div>
     </div>
-    
-    @RenderBody()
-</div>
+    @await Html.PartialAsync("~/wwwroot/dist/partials/Footer_v2.html")
 
-@await Html.PartialAsync("~/wwwroot/dist/partials/Footer_v2.html")
+    <script src="~/dist/vendor.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-shared/main.js" asp-append-version="true"></script>
 
-<script src="~/dist/vendor.js" asp-append-version="true"></script>
-<script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
-<script src="~/dist/js/geonorge-shared/main.js" asp-append-version="true"></script>
-
-<script>
+    <script>
     searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
-</script>
+    </script>
 
-<script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
 
-@RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Forvaltningsinformasjon FKB"];
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb
+    {
+    <li><a href="/sentralfkb/fylker">@Localizer["FKB"]</a></li>
+    @RenderSection("breadcrumb")
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-2">
+        <div class="row">
+            <a href="/sentralfkb/fylker">@Localizer["Forvaltning FKB"]</a>
+        </div>
+        <div class="row">
+            <a href="/sentralfkb/activity-overview">@Localizer["Aktivitetsoversikt"]</a>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        @RenderSection("fkbSection")
+    </div>
+</div>

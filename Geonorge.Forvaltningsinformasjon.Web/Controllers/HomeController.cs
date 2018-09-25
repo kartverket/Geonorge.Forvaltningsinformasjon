@@ -22,8 +22,7 @@ namespace Geonorge.Forvaltningsinformasjon.Controllers
         
         public IActionResult Index()
         {
-            SentralFkbSummary model = _sentralFkbService.GetCountrySummary();
-            return View(model);
+            return View();
         }
 
 

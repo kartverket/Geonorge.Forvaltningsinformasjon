@@ -3,7 +3,7 @@
 @inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = Localizer["Forvaltningsinformasjon FKB"];
+    ViewData["Title"] = Localizer["FKB-data"];
 }
 
 @{
@@ -12,7 +12,7 @@
 
 @section breadcrumb
     {
-    <li><a href="/sentralfkb/fylker">@Localizer["FKB"]</a></li>
+    <li><a href="/sentralfkb/fylker">@Localizer["FKB-data"]</a></li>
     @RenderSection("breadcrumb")
 }
 

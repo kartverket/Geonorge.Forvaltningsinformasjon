@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["FKB-data"];
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb
+{
+    <li><a href="~/fkb-data/management/area/counties">@Localizer["FKB-data"]</a></li>
+    @RenderSection("breadcrumb")
+}
+
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <div class="row">
+            @Localizer["Velg en kommune eller et fylke"]
+        </div>
+        <div class="row">
+            <form action=@Url.Action("Area", "Search", new { AreaCode = ""}) method="get" class="custom-select">
+                <select class="form-control" name="AreaCode" onchange="this.form.submit()">
+                    <option Selected disabled>@Localizer["Velg kommune/fylke"]</option>
+                    <optgroup label="Fylker"></optgroup>
+                    <optgroup label="Kommuner"></optgroup>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-9 col-md-9">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <div class="row">
+            <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltning FKB"]</a>
+        </div>
+        <div class="row">
+            <a href="~/fkb-data/management/activity-overview/activities">@Localizer["Aktivitetsoversikt"]</a>
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-9">
+        @RenderSection("fkbSection")
+    </div>
+</div>

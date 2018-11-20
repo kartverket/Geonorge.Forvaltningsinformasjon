@@ -1,13 +1,10 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Common;
-using Geonorge.Forvaltningsinformasjon.Core.Entities.FkbData.Management.Area;
-using Geonorge.Forvaltningsinformasjon.Core.Models;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Geonorge.Forvaltningsinformasjon.Core.Entities.FkbData.Management;
 using System.Globalization;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.FkbData.Management.Area;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area
 {
@@ -20,47 +17,19 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area
             _repository = repository;
         }
 
-        public List<IMunicipality> GetAll()
+        public List<IMunicipality> Get()
         {
-            return _repository.Get<Kommune>().Select(k => Convert(k)).ToList();
+            return _repository.Municipalities.Get();
         }
 
-        public List<IMunicipality> GetAllByCounty(string number)
+        public IMunicipality Get(string id)
         {
-            return _repository.Get<Kommune>().Where(k => k.FylkeFylkesnr == number).Select(k => Convert(k)).ToList();
+            return _repository.Municipalities.Get(id);
         }
 
-        private IMunicipality Convert(Kommune kommune)
+        public List<IMunicipality> GetByCounty(string id)
         {
-            IMunicipality municipality = new Municipality()
-            {
-                Number = kommune.Kommunenr,
-                Name = kommune.Kommunenavn,
-            };
-
-            SentralFkb introductionDescriptor = kommune.SentralFkb.FirstOrDefault();
-
-            if (introductionDescriptor != default(SentralFkb))
-            {
-                if (!string.IsNullOrWhiteSpace(introductionDescriptor.DirekteoppdateringInfort))
-                {
-                    municipality.IntroductionDate = DateTime.ParseExact(
-                        introductionDescriptor.DirekteoppdateringInfort,
-                        "yyyymmdd",
-                        CultureInfo.InvariantCulture,
-                        DateTimeStyles.None);
-                }
-
-                if (!string.IsNullOrWhiteSpace(introductionDescriptor.PlanlagtInnforing))
-                {
-                    municipality.PlannedIntroductionDate = DateTime.ParseExact(
-                        introductionDescriptor.PlanlagtInnforing,
-                        "yyyymmdd",
-                        CultureInfo.InvariantCulture,
-                        DateTimeStyles.None);
-                }
-            }
-            return municipality;
+            return _repository.Municipalities.GetByCounty(id);
         }
     }
 }

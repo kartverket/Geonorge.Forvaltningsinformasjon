@@ -1,4 +1,4 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.FkbData.Management.Area;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area

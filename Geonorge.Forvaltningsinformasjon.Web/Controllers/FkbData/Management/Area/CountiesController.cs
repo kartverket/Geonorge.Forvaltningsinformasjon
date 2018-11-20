@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.FkbData.Management.Area;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Manageme
         {
             CountiesViewModel model = new CountiesViewModel()
             {
-                Counties = _service.GetAll(),
+                Counties = _service.Get()
             };
             model.DirectUpdateCount = model.Counties.Sum(c => c.DirectUpdateCount);
 

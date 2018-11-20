@@ -1,9 +1,8 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Common;
-using Geonorge.Forvaltningsinformasjon.Core.Models;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
 using System.Collections.Generic;
 using System.Linq;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.FkbData.Management.Area;
-using Geonorge.Forvaltningsinformasjon.Core.Entities.FkbData.Management.Area;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area
 {
@@ -16,15 +15,14 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area
             _repository = repository;
         }
 
-        public List<ICounty> GetAll()
+        public List<ICounty> Get()
         {
-            return _repository.Get<Fylke>().Select(f => new County()
-            {
-                Number = f.Fylkesnr,
-                Name = f.Fylkesnavn,
-                MunicipalityCount = f.Kommune.Count,
-                DirectUpdateCount = f.Kommune.Where(k => k.SentralFkb.First().DirekteoppdateringInfort != null).Count()
-            } as ICounty).ToList();
+            return _repository.Counties.Get();
+        }
+
+        public ICounty Get(string id)
+        {
+            return _repository.Counties.Get(id);
         }
     }
 }

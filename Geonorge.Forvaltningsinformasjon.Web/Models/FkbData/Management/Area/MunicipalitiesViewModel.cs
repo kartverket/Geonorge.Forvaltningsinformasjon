@@ -1,10 +1,7 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.FkbData.Management.Area;
-using Geonorge.Forvaltningsinformasjon.Core.Entities.FkbData.Management;
-using System;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
 {

@@ -1,6 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Common;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.Database;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities;
 using Geonorge.Forvaltningsinformasjon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,11 +31,9 @@ namespace Geonorge.Forvaltningsinformasjon
             services.AddDbContext<FDV_Drift2Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            // configure dependency injection
-            services.AddTransient<IRepository, Repository>();
-
-            // allow App Core to add its own dependencies
-            StartupInitializer.InitializeDepenencies(services);
+            // register dependencies
+            Infrastructure.StartupInitializer.InitializeDepenencies(services);
+            Core.StartupInitializer.InitializeDepenencies(services);
 
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");

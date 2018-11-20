@@ -29,8 +29,8 @@
                 @foreach (var county in Model.Counties)
                 {
                     <tr>
-                        <td>@county.Number</td>
-                        <td><a href="~/fkb-data/management/area/municipalities?countyNumber=@county.Number">@county.Name</a></td>
+                        <td>@county.Id</td>
+                        <td><a href="~/fkb-data/management/area/municipalities/by-county?id=@county.Id">@county.Name</a></td>
                         <td>@county.DirectUpdateCount av @county.MunicipalityCount</td>
                     </tr>
                 }

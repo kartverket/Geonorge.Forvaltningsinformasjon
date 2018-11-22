@@ -1,6 +1,7 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities;
+﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities;
 using Geonorge.Forvaltningsinformasjon.Models;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -34,6 +35,8 @@ namespace Geonorge.Forvaltningsinformasjon
             // register dependencies
             Infrastructure.StartupInitializer.InitializeDepenencies(services);
             Core.StartupInitializer.InitializeDepenencies(services);
+
+            services.AddTransient<IContextViewModelHelper, ContextViewModelHelper>();
 
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");

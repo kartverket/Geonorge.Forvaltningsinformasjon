@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Manageme
     public class CountiesController : Controller
     {
         private ICountyService _service;
+        private IContextViewModelHelper _contextViewModelHelper;
 
-        public CountiesController(ICountyService service)
+        public CountiesController(ICountyService service, IContextViewModelHelper contextViewModelHelper)
         {
             _service = service;
+            _contextViewModelHelper = contextViewModelHelper;
         }
 
         [HttpGet("")]
@@ -21,9 +24,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Manageme
         {
             CountiesViewModel model = new CountiesViewModel()
             {
-                Counties = _service.Get()
+                Counties = _service.Get(),
             };
             model.DirectUpdateCount = model.Counties.Sum(c => c.DirectUpdateCount);
+
+            ViewBag.ContextViewModel = _contextViewModelHelper.Create();
+            ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.Management;
 
             return View("Views/FkbData/Management/Area/Counties.cshtml", model);
         }

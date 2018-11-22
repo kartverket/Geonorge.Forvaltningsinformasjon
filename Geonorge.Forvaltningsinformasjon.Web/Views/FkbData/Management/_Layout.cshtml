@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 
 @inject IViewLocalizer Localizer
 
@@ -11,7 +12,7 @@
 }
 
 @section breadcrumb
-{
+    {
     <li><a href="~/fkb-data/management/area/counties">@Localizer["FKB-data"]</a></li>
     @RenderSection("breadcrumb")
 }
@@ -22,11 +23,35 @@
             @Localizer["Velg en kommune eller et fylke"]
         </div>
         <div class="row">
-            <form action=@Url.Action("Area", "Search", new { AreaCode = ""}) method="get" class="custom-select">
-                <select class="form-control" name="AreaCode" onchange="this.form.submit()">
+            <form action=@Url.Action("Select", "Context", new { aspect = ViewBag.ContextViewModel.Aspect }) method="get" class="custom-select">
+                <select class="form-control" name="Key" onchange="this.form.submit()">
                     <option Selected disabled>@Localizer["Velg kommune/fylke"]</option>
-                    <optgroup label="Fylker"></optgroup>
-                    <optgroup label="Kommuner"></optgroup>
+                    <optgroup label="Fylker">
+                        @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
+                        {
+                            if (ViewBag.ContextViewModel.SelectedKey == item.Key)
+                            {
+                                <option selected value="@item.Key">@item.Value</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        }
+                    </optgroup>
+                    <optgroup label="Kommuner">
+                        @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Municipalities)
+                        {
+                            if (ViewBag.ContextViewModel.SelectedKey == item.Key)
+                            {
+                                <option selected value="@item.Key">@item.Value</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        }
+                    </optgroup>
                 </select>
             </form>
         </div>

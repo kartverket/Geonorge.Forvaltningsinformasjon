@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp" />
+    <Folder Include="Models\FkbData\Management\ActivityOverview\" />
   </ItemGroup>
 
   <ItemGroup>

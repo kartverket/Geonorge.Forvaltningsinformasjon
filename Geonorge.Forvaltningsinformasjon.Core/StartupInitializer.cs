@@ -1,5 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
-using Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area;
+using Geonorge.Forvaltningsinformasjon.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Geonorge.Forvaltningsinformasjon.Core

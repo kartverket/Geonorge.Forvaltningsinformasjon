@@ -2,10 +2,8 @@
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.DataSets
 {

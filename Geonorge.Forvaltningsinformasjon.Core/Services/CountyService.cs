@@ -4,7 +4,7 @@ using System.Linq;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 
-namespace Geonorge.Forvaltningsinformasjon.Core.Services.FkbData.Management.Area
+namespace Geonorge.Forvaltningsinformasjon.Core.Services
 {
     class CountyService : ICountyService
     {

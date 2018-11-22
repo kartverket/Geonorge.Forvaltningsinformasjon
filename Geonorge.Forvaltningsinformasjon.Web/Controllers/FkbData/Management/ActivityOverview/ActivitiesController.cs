@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.ActivityOverview
@@ -9,9 +11,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ac
     [Route("fkb-data/management/activity-overview/activities")]
     public class ActivitiesController : Controller
     {
-        [HttpGet("")]
-        public IActionResult Index()
+        private IContextViewModelHelper _contextViewModelHelper;
+
+        public ActivitiesController(IContextViewModelHelper contextViewModelHelper)
         {
+            _contextViewModelHelper = contextViewModelHelper;
+        }
+
+        [HttpGet("")]
+        public IActionResult Index(string id, string isCounty)
+        {
+            ViewBag.ContextViewModel = _contextViewModelHelper.Create(id);
+            ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.ActivityOverview;
             return View("Views/FkbData/Management/ActivityOverview/Activities.cshtml");
         }
     }

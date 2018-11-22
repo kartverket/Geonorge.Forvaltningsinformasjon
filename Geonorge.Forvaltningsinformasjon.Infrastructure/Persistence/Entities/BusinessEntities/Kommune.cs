@@ -32,11 +32,13 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
                 {
                     return null;
                 }
-                return DateTime.ParseExact(
+                DateTime fos = DateTime.ParseExact(
                     SentralFkb.First().PlanlagtInnforing,
-                    "yyyymmdd",
+                    "yyyyMMdd",
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);
+                System.Diagnostics.Debug.WriteLine(SentralFkb.First().PlanlagtInnforing + " --- " + fos.ToString());
+                return fos;
             }
         }
         public DateTime? IntroductionDate
@@ -49,7 +51,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
                 }
                 return DateTime.ParseExact(
                     SentralFkb.First().DirekteoppdateringInfort,
-                    "yyyymmdd",
+                    "yyyyMMdd",
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);
             }

@@ -21,7 +21,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         {
             if (aspect == ContextViewModel.EnumAspect.Management)
             {
-                if (_contextViewModelHelper.IsCounty(key))
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    return RedirectToAction("Index", "Counties");
+                }
+                else if (_contextViewModelHelper.IsCounty(key))
                 {
                     return RedirectToAction("Index", "Municipalities", new { id = _contextViewModelHelper.Key2Id(key) });
                 }
@@ -29,7 +33,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             }
             else if (aspect == ContextViewModel.EnumAspect.ActivityOverview)
             {
-                return RedirectToAction("Index", "ActivityOverview", new { id = _contextViewModelHelper.Key2Id(key), isCounty = _contextViewModelHelper.IsCounty(key)});
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    return RedirectToAction("Index", "Activities");
+                }
+                return RedirectToAction("Index", "Activities", new { id = _contextViewModelHelper.Key2Id(key), isCounty = _contextViewModelHelper.IsCounty(key)});
             }
             throw new Exception();
         }

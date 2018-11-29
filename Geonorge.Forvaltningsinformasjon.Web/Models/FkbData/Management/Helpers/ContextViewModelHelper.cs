@@ -39,7 +39,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers
 
         public string Id2Key(string id, bool isCounty)
         {
-            return isCounty ? $"F{id}" : $"M{id}";
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                return isCounty ? $"F{id}" : $"M{id}";
+            }
+            return "";
         }
     }
 }

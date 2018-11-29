@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
+@using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers
 
 @inject IViewLocalizer Localizer
+@inject IContextViewModelHelper ContextHelper
 
 @{
     ViewData["Title"] = Localizer["FKB-data"];
@@ -23,9 +24,10 @@
             @Localizer["Velg en kommune eller et fylke"]
         </div>
         <div class="row">
-            <form action=@Url.Action("Select", "Context", new { aspect = ViewBag.ContextViewModel.Aspect }) method="get" class="custom-select">
+            <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
+                <input type="hidden" name="Aspect" value="@ViewBag.ContextViewModel.Aspect " />
                 <select class="form-control" name="Key" onchange="this.form.submit()">
-                    <option Selected disabled>@Localizer["Velg kommune/fylke"]</option>
+                    <option value="">@Localizer["Norge (hele landet)"]</option>
                     <optgroup label="Fylker">
                         @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
                         {
@@ -62,10 +64,30 @@
 <div class="row">
     <div class="col-sm-3 col-md-3">
         <div class="row">
-            <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltning FKB"]</a>
+            @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
+            {
+                <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltning FKB"]</a>
+            }
+            else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
+            {
+                <a href="~/fkb-data/management/area/municipalities/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltning FKB"]</a>
+            }
+            else
+            {
+                throw new Exception("Municipality details are not implemented.");
+            }
         </div>
+
         <div class="row">
-            <a href="~/fkb-data/management/activity-overview/activities">@Localizer["Aktivitetsoversikt"]</a>
+            <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+              new {
+                id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
+                isCounty = ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey)
+            } :
+              null
+              )">
+                @Localizer["Aktivitetsoversikt"]
+            </a>
         </div>
     </div>
     <div class="col-sm-3 col-md-9">

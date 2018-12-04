@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area.CountiesViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section breadcrumb
+{
+    <li><a href="">@Localizer["Forvaltning FKB"]</a></li>
+}
+
+@section fkbSection
+{
+    <p>@Localizer["Antall kommuner i Norge som oppdaterer FKB-data direkte i Sentral felles kartdatabase: "]<strong>@Model.DirectUpdateCount</strong></p>
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="10">@Localizer["Fylkesnr."]</th>
+                    <th width="20">@Localizer["Fylke"]</th>
+                    <th width="70">@Localizer["Kommuner med direkte oppdatering"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var county in Model.Counties)
+                {
+                    <tr>
+                        <td>@county.Id</td>
+                        <td><a href="~/fkb-data/management/area/municipalities/by-county?id=@county.Id">@county.Name</a></td>
+                        <td>@county.DirectUpdateCount av @county.MunicipalityCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

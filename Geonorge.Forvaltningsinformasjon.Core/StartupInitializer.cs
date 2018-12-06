@@ -10,6 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core
         {
             services.AddTransient<ICountyService, CountyService>();
             services.AddTransient<IMunicipalityService, MunicipalityService>();
+            services.AddTransient<IDataSetService, DataSetService>();
         }
     }
 }

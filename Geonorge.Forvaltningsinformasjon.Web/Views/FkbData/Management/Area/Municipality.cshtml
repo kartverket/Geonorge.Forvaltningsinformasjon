@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area.MunicipalityViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section breadcrumb
+{
+    <li><a href="">@Localizer["Forvaltning FKB"]</a></li>
+}
+
+@section fkbSection
+{
+    <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+}

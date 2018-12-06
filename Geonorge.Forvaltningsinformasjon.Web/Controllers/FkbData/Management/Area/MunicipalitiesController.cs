@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
@@ -23,12 +25,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
         }
 
         [HttpGet("by-county")]
-        public IActionResult Index([FromQuery]string id)
+        public IActionResult Index([FromQuery]int id)
         {
             MunicipalitiesViewModel model = new MunicipalitiesViewModel()
             {
-                Municipalities = _service.GetByCounty(int.Parse(id)),
-                CountyName = _countyService.Get(int.Parse(id)).Name,
+                Municipalities = _service.GetByCounty(id),
+                CountyName = _countyService.Get(id).Name,
             };
             model.DirectUpdateCount = model.Municipalities.Where(m => m.IntroductionState == IntroductionState.Introduced).Count();
 
@@ -39,10 +41,35 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public IActionResult Get(int id)
         {
-            //IMunicipality _service.Get(id);
-            throw new System.Exception();
+            IMunicipality municipality = _service.Get(id);
+            MunicipalityViewModel model = new MunicipalityViewModel()
+            {
+                //DataSets = _
+            };
+
+            switch (municipality.IntroductionState)
+            {
+                case IntroductionState.NotPlanned:
+                    model.Caption = "Ikke planlagt innføring av direkteoppdatering i Sentral FKB";
+                    break;
+                case IntroductionState.Planned:
+                    model.Caption = "Direkteoppdatering i Sentral FKB planlagt innført {0}";
+                    model.DateTime = municipality.PlannedIntroductionDate;
+                    break;
+                case IntroductionState.Introduced:
+                    model.Caption = "Direkteoppdatering i Sentral FKB innført {0}";
+                    model.DateTime = municipality.IntroductionDate;
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException();
+            }
+
+            ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
+            ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.Management;
+
+            return View("Views/FkbData/Management/Area/Municipality.cshtml", model);
         }
     }
 }

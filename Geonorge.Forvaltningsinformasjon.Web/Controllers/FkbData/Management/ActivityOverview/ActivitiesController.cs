@@ -19,7 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ac
         }
 
         [HttpGet("")]
-        public IActionResult Index([FromQuery] string id, [FromQuery]bool isCounty)
+        public IActionResult Index([FromQuery] int id, [FromQuery]bool isCounty)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, isCounty));
             ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.ActivityOverview;

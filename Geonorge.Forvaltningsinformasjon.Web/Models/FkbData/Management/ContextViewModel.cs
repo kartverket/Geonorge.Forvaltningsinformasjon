@@ -9,7 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management
             Management,
             ActivityOverview,
             TransactionData,
-            OperatingState
+            OperationalStatus           // this one is not a real aspect
         }
 
         public Dictionary<string, string> Counties { get; }

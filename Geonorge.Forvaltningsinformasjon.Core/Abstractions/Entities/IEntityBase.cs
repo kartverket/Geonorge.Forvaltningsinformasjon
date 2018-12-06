@@ -6,6 +6,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
 {
     public interface IEntityBase
     {
-        string Id { get; }
+        int Id { get; }
     }
 }

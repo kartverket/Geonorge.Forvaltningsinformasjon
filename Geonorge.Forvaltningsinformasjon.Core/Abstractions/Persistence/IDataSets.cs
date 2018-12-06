@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
 {
-    public interface IMunicipalityDataSet : IDataSet<IMunicipality>
+    public interface IDataSets : IEntities<IDataSet>
     {
-        List<IMunicipality> GetByCounty(string id);
     }
 }

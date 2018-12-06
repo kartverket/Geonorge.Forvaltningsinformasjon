@@ -2,7 +2,7 @@
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
 {
-    public interface ICountyDataSet : IDataSet<ICounty>
+    public interface ICounties : IEntities<ICounty>
     {
         
     }

@@ -40,7 +40,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                         }
                         else
                         {
-                            throw new NotImplementedException("Page for municipality details not implemented yet");
+                            action = "Get";
+                            controller = "Municipalities";
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key) };
                         }
                     }
                     break;

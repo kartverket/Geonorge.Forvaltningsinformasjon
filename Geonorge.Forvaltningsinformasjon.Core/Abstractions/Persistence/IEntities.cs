@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
 {
-    public interface IDataSet<T>
+    public interface IEntities<T>
     {
         List<T> Get();
 
-        T Get(string id);
+        T Get(int id);
 
-        bool Exists(string id);
+        bool Exists(int id);
     }
 }

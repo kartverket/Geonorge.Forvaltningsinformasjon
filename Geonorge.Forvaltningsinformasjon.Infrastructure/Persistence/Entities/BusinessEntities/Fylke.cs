@@ -5,7 +5,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
 {
     public partial class Fylke : ICounty
     {
-        public string Id
+        public string Number
         {
             get
             {
@@ -32,6 +32,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
             get
             {
                 return Kommune.Where(k => k.SentralFkb.First().DirekteoppdateringInfort != null).Count();
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return int.Parse(Fylkesnr);
             }
         }
     }

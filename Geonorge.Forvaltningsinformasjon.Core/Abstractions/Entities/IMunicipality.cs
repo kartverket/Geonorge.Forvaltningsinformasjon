@@ -5,6 +5,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
 {
     public interface IMunicipality : IEntityBase
     {
+        string Number { get; }
         string Name { get; }
 
         DateTime? PlannedIntroductionDate { get; }

@@ -4,7 +4,8 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
 {
     public interface IRepository
     {
-        ICountyDataSet Counties { get; }
-        IMunicipalityDataSet Municipalities { get; }
+        ICounties Counties { get; }
+        IMunicipalities Municipalities { get; }
+        IDataSets DataSets { get; }
     }
 }

@@ -22,12 +22,12 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             return _repository.Municipalities.Get();
         }
 
-        public IMunicipality Get(string id)
+        public IMunicipality Get(int id)
         {
             return _repository.Municipalities.Get(id);
         }
 
-        public List<IMunicipality> GetByCounty(string id)
+        public List<IMunicipality> GetByCounty(int id)
         {
             return _repository.Municipalities.GetByCounty(id);
         }

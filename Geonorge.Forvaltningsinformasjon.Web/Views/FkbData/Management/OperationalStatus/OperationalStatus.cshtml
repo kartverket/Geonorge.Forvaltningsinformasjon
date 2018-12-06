@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section breadcrumb
+{
+    <li><a href="">@Localizer["Driftsstatus"]</a></li>
+}
+
+@section fkbSection
+{
+    <div class="row">
+        <a href="http://status.kartverket.no">http://status.kartverket.no</a>
+        @Localizer["(direktelenke)"]
+    </div>
+    <div class="row" style="overflow:hidden">
+        <embed src="http://status.kartverket.no/category/sfkb/feed" type="text/html" style="width:100%;height:100%">
+    </div>
+}

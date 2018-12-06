@@ -1,6 +1,6 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.DataSets;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityCollections;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure
@@ -10,8 +10,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
         public static void InitializeDepenencies(IServiceCollection services)
         {
             services.AddTransient<IRepository, Repository>();
-            services.AddTransient<ICountyDataSet, CountyDataSet>();
-            services.AddTransient<IMunicipalityDataSet, MunicipalityDataSet>();
+            services.AddTransient<ICounties, Counties>();
+            services.AddTransient<IMunicipalities, Municipalities>();
+            services.AddTransient<IDataSets, DataSets>();
         }
     }
 }

@@ -27,8 +27,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
         {
             MunicipalitiesViewModel model = new MunicipalitiesViewModel()
             {
-                Municipalities = _service.GetByCounty(id),
-                CountyName = _countyService.Get(id).Name,
+                Municipalities = _service.GetByCounty(int.Parse(id)),
+                CountyName = _countyService.Get(int.Parse(id)).Name,
             };
             model.DirectUpdateCount = model.Municipalities.Where(m => m.IntroductionState == IntroductionState.Introduced).Count();
 
@@ -36,6 +36,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
             ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.Management;
 
             return View("Views/FkbData/Management/Area/Municipalities.cshtml", model);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(string id)
+        {
+            //IMunicipality _service.Get(id);
+            throw new System.Exception();
         }
     }
 }

@@ -21,48 +21,44 @@
 <div class="row">
     <div class="col-sm-3 col-md-3">
         <div class="row">
-            @Localizer["Velg en kommune eller et fylke"]
+            <div class="row">
+                @Localizer["Velg en kommune eller et fylke"]
+            </div>
+            <div class="row">
+                <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
+                    <input type="hidden" name="Aspect" value="@ViewBag.ContextViewModel.Aspect " />
+                    <select class="form-control" name="Key" onchange="this.form.submit()">
+                        <option value="">@Localizer["Norge (hele landet)"]</option>
+                        <optgroup label="Fylker">
+                            @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
+                            {
+                                if (ViewBag.ContextViewModel.SelectedKey == item.Key)
+                                {
+                                    <option selected value="@item.Key">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+                            }
+                        </optgroup>
+                        <optgroup label="Kommuner">
+                            @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Municipalities)
+                            {
+                                if (ViewBag.ContextViewModel.SelectedKey == item.Key)
+                                {
+                                    <option selected value="@item.Key">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+                            }
+                        </optgroup>
+                    </select>
+                </form>
+            </div>
         </div>
-        <div class="row">
-            <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
-                <input type="hidden" name="Aspect" value="@ViewBag.ContextViewModel.Aspect " />
-                <select class="form-control" name="Key" onchange="this.form.submit()">
-                    <option value="">@Localizer["Norge (hele landet)"]</option>
-                    <optgroup label="Fylker">
-                        @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
-                        {
-                            if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                            {
-                                <option selected value="@item.Key">@item.Value</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Key">@item.Value</option>
-                            }
-                        }
-                    </optgroup>
-                    <optgroup label="Kommuner">
-                        @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Municipalities)
-                        {
-                            if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                            {
-                                <option selected value="@item.Key">@item.Value</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Key">@item.Value</option>
-                            }
-                        }
-                    </optgroup>
-                </select>
-            </form>
-        </div>
-    </div>
-    <div class="col-sm-9 col-md-9">
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-3 col-md-3">
         <div class="row">
             @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
             {
@@ -88,6 +84,16 @@
               )">
                 @Localizer["Aktivitetsoversikt"]
             </a>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <a href="@Url.Action("Index", "OperationalStatus", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+              new {
+                id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
+                isCounty = ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey)
+            } :
+              null)">@Localizer["Driftsstatus"]</a>
         </div>
     </div>
     <div class="col-sm-3 col-md-9">

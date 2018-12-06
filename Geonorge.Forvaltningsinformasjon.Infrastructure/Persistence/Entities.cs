@@ -8,13 +8,13 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence
 {
-    class DataSetBase<T, TImpl> : IDataSet<T> 
+    class Entities<T, TImpl> : IEntities<T> 
         where T : IEntityBase 
         where TImpl : class, T
     {
         protected FDV_Drift2Context _dbContext;
 
-        public DataSetBase(FDV_Drift2Context dbContext)
+        public Entities(FDV_Drift2Context dbContext)
         {
             _dbContext = dbContext;
         }
@@ -24,12 +24,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence
             return _dbContext.Set<TImpl>().AsEnumerable<T>().ToList();
         }
 
-        public T Get(string id)
+        public T Get(int id)
         {
             return _dbContext.Set<TImpl>().Where(e => e.Id == id).First();
         }
 
-        public bool Exists(string id)
+        public bool Exists(int id)
         {
             return _dbContext.Set<TImpl>().Where(e => e.Id == id).FirstOrDefault() != default(TImpl);
         }

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.DataSets
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityCollections
 {
-    class CountyDataSet : DataSetBase<ICounty, Fylke>, ICountyDataSet
+    class Counties : Entities<ICounty, Fylke>, ICounties
     {
-        public CountyDataSet(FDV_Drift2Context dbContext) : base(dbContext)
+        public Counties(FDV_Drift2Context dbContext) : base(dbContext)
         {
         }
 

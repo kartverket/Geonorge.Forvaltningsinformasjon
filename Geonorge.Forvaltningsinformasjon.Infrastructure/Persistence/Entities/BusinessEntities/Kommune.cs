@@ -10,7 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
 {
     public partial class Kommune : IMunicipality
     {
-        public string Id
+        public string Number
         {
             get
             {
@@ -70,6 +70,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
                     return IntroductionState.Planned;
                 }
                 return IntroductionState.NotPlanned;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return int.Parse(Kommunenr);
             }
         }
     }

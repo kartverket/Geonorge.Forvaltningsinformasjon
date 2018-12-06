@@ -19,27 +19,59 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         [HttpGet("select")]
         public IActionResult Select(string key, ContextViewModel.EnumAspect aspect)
         {
-            if (aspect == ContextViewModel.EnumAspect.Management)
+            string action;
+            string controller;
+            dynamic parameters = null;
+
+            switch (aspect)
             {
-                if (string.IsNullOrWhiteSpace(key))
-                {
-                    return RedirectToAction("Index", "Counties");
-                }
-                else if (_contextViewModelHelper.IsCounty(key))
-                {
-                    return RedirectToAction("Index", "Municipalities", new { id = _contextViewModelHelper.Key2Id(key) });
-                }
-                throw new NotImplementedException("Page for municaplity details not implemented yet");
+                case ContextViewModel.EnumAspect.Management:
+                    {
+                        if (string.IsNullOrWhiteSpace(key))
+                        {
+                            action = "Index";
+                            controller = "Counties";
+                        }
+                        else if (_contextViewModelHelper.IsCounty(key))
+                        {
+                            action = "Index";
+                            controller = "Municipalities";
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key) };
+                        }
+                        else
+                        {
+                            action = "Get";
+                            controller = "Municipalities";
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key) };
+                        }
+                    }
+                    break;
+                case ContextViewModel.EnumAspect.ActivityOverview:
+                    {
+                        action = "Index";
+                        controller = "Activities";
+
+                        if (!string.IsNullOrWhiteSpace(key))
+                        {
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key), isCounty = _contextViewModelHelper.IsCounty(key) };
+                        }
+                    }
+                    break;
+                case ContextViewModel.EnumAspect.OperationalStatus:
+                    {
+                        action = "Index";
+                        controller = "OperationalStatus";
+
+                        if (!string.IsNullOrWhiteSpace(key))
+                        {
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key), isCounty = _contextViewModelHelper.IsCounty(key) };
+                        }
+                    }
+                    break;
+                default:
+                    throw new Exception("Invalid aspect");
             }
-            else if (aspect == ContextViewModel.EnumAspect.ActivityOverview)
-            {
-                if (string.IsNullOrWhiteSpace(key))
-                {
-                    return RedirectToAction("Index", "Activities");
-                }
-                return RedirectToAction("Index", "Activities", new { id = _contextViewModelHelper.Key2Id(key), isCounty = _contextViewModelHelper.IsCounty(key)});
-            }
-            throw new Exception();
+            return RedirectToAction(action, controller, parameters);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
             Fdvdatamottak = new HashSet<Fdvdatamottak>();
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public int? FdvprosjektId { get; set; }
         public int? DatasettId { get; set; }
         public int? FdvdatasettForvaltningstypeId { get; set; }

@@ -20,7 +20,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             return _repository.Counties.Get();
         }
 
-        public ICounty Get(string id)
+        public ICounty Get(int id)
         {
             return _repository.Counties.Get(id);
         }

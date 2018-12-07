@@ -7,5 +7,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 {
     public interface IDataSetService : IEntityServiceBase<IDataSet>
     {
+        List<IDataSet> GetByMunicipality(int id);
     }
 }

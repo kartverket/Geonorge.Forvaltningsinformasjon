@@ -25,5 +25,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
         {
             return _repository.DataSets.Get(id);
         }
+
+        public List<IDataSet> GetByMunicipality(int id)
+        {
+            return _repository.DataSets.GetByMunicipality(id);
+        }
     }
 }

@@ -209,6 +209,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
             {
                 entity.ToTable("FDVDatasett");
 
+                entity.Property(e => e.Id).HasConversion(v => (long)v, v => (int)v);
+
                 entity.Property(e => e.DatasettId).HasColumnName("Datasett_Id");
 
                 entity.Property(e => e.FdvdatasettForvaltningstypeId).HasColumnName("FDVDatasettForvaltningstype_Id");

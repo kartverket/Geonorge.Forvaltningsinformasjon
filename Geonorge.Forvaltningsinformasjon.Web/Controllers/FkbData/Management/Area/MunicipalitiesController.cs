@@ -15,12 +15,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
     {
         private IMunicipalityService _service;
         private ICountyService _countyService;
+        private IDataSetService _dataSetService;
         private IContextViewModelHelper _contextViewModelHelper;
 
-        public MunicipalitiesController(IMunicipalityService service, ICountyService countyService, IContextViewModelHelper contextViewModelHelper)
+        public MunicipalitiesController(
+            IMunicipalityService service,
+            ICountyService countyService,
+            IDataSetService dataSetService,
+            IContextViewModelHelper contextViewModelHelper)
         {
             _service = service;
             _countyService = countyService;
+            _dataSetService = dataSetService;
             _contextViewModelHelper = contextViewModelHelper;
         }
 
@@ -46,7 +52,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
             IMunicipality municipality = _service.Get(id);
             MunicipalityViewModel model = new MunicipalityViewModel()
             {
-                //DataSets = _
+                DataSets = _dataSetService.GetByMunicipality(id)
             };
 
             switch (municipality.IntroductionState)

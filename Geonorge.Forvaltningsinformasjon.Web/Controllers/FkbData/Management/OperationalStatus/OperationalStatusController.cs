@@ -25,7 +25,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Op
 
 
         [HttpGet("")]
-        public IActionResult Index([FromQuery] string id, [FromQuery]bool isCounty)
+        public IActionResult Index([FromQuery] int id, [FromQuery]bool isCounty)
         {
             WebClient wclient = new WebClient();
             string RSSData = wclient.DownloadString(_operationalStatus);

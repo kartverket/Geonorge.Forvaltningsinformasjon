@@ -24,7 +24,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence
             return _dbContext.Set<TImpl>().AsEnumerable<T>().ToList();
         }
 
-        public T Get(int id)
+        public virtual T Get(int id)
         {
             return _dbContext.Set<TImpl>().Where(e => e.Id == id).First();
         }

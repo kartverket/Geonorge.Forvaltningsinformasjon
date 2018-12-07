@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
+namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 {
-    public interface IDataSets : IEntities<IDataSet>
+    public interface IDataSetService : IEntityServiceBase<IDataSet>
     {
         List<IDataSet> GetByMunicipality(int id);
     }

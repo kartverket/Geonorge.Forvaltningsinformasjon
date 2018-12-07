@@ -29,9 +29,10 @@
                 @foreach (var item in Model.Municipalities)
                 {
                     <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Name</td>
-                        <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</tr>
+                        <td>@item.Number</td>
+                        <td><a href="~/fkb-data/management/area/municipalities/@item.Id">@item.Name</a></td>
+                        <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                    </tr>
                 }
             </tbody>
         </table>

@@ -10,7 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.H
     {
         ContextViewModel Create(string selectedKey = "");
         bool IsCounty(string key);
-        string Key2Id(string key);
-        string Id2Key(string id, bool isCounty);
+        int Key2Id(string key);
+        string Id2Key(int id, bool isCounty);
     }
 }

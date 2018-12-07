@@ -20,5 +20,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityColl
         {
             return _dbContext.Set<Kommune>().Where(k => k.FylkeFylkesnrNavigation.Id == id).Include(k => k.SentralFkb).AsEnumerable<IMunicipality>().ToList();
         }
+
+        public override IMunicipality Get(int id)
+        {
+            return _dbContext.Set<Kommune>().Where(k => k.Id == id).Include(k => k.SentralFkb).First();
+        }
     }
 }

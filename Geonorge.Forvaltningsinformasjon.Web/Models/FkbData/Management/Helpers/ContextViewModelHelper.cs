@@ -32,14 +32,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers
             return key[0] == 'F';
         }
 
-        public string Key2Id(string key)
+        public int Key2Id(string key)
         {
-            return key.Remove(0, 1);
+            return int.Parse(key.Remove(0, 1));
         }
 
-        public string Id2Key(string id, bool isCounty)
+        public string Id2Key(int id, bool isCounty)
         {
-            if (!string.IsNullOrWhiteSpace(id))
+            if (id > 0)
             {
                 return isCounty ? $"F{id}" : $"M{id}";
             }

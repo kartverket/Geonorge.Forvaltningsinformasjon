@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model List<Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.OperationalStatus.AtomFeedEntryViewModel>
 
 @inject IViewLocalizer Localizer
 
@@ -17,9 +18,16 @@
         <div class="row">
             <a href="http://status.kartverket.no">http://status.kartverket.no</a>
             @Localizer["(direktelenke)"]
+            <br/><br />
         </div>
-        <div class="row" style="overflow:hidden">
-            <embed src="http://status.kartverket.no/category/sfkb/feed" type="text/html" style="width:100%;height:100%">
-        </div>
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    @Html.Raw(item.Title)
+                    @Html.Raw(item.Content)
+                    @Html.Raw($"Opprettet: {item.Published.ToString("dd'.'MM'.'yyyy")} Sist oppdatert: {item.Updated.ToString("dd'.'MM'.'yyyy")}")
+                </div>
+                <br />
+            }
     </div>
 }

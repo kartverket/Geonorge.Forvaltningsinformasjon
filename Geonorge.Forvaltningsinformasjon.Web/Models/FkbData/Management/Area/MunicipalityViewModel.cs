@@ -19,7 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
             switch (updateType)
             {
                 case UpdateType.Direct:
-                    return "DirekteOppdatering";
+                    return "Direkteoppdatering";
                 case UpdateType.Historical:
                     return "Historisk datasett";
                 case UpdateType.Sosi:

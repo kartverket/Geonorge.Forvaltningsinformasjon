@@ -18,18 +18,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityColl
 
         public override List<ITransactionData> Get()
         {
-            return _dbContext.Set<SentralFkbStatistikk>()
-                .GroupBy(s => s.DatasettId)
-                .Select(g => new SentralFkbStatistikk
-                {
-                    AntTransAr = g.Sum(s => s.AntTransAr),
-                    AntTransMnd = g.Sum(s => s.AntTransMnd),
-                    AntTransUke = g.Sum(s => s.AntTransUke),
-                    DatasettIdNavigation = g.First().DatasettIdNavigation
-                })
-                .Include(s => s.DatasettIdNavigation)
-                .OrderBy(s => s.DataSetName)
-                .ToList<ITransactionData>();
+            return GetTransactionData(_dbContext.Set<SentralFkbStatistikk>());
         }
 
         public List<ITransactionData> GetByCounty(int id)
@@ -38,27 +27,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityColl
 
             IQueryable<Kommune> kommuner = _dbContext.Set<Kommune>().Where(k => k.FylkeFylkesnr == strId);
 
-            return _dbContext.Set<SentralFkbStatistikk>()
-                .Where(s => kommuner.Any(k => k.Kommunenr == s.KommuneKommunenr))
-                .GroupBy(s => s.DatasettId)
-                .Select(g => new SentralFkbStatistikk
-                {
-                    AntTransAr = g.Sum(s => s.AntTransAr),
-                    AntTransMnd = g.Sum(s => s.AntTransMnd),
-                    AntTransUke = g.Sum(s => s.AntTransUke),
-                    DatasettIdNavigation = g.First().DatasettIdNavigation
-                })
-                .Include(s => s.DatasettIdNavigation)
-                .OrderBy(s => s.DataSetName)
-                .ToList<ITransactionData>();
+            return GetTransactionData(_dbContext.Set<SentralFkbStatistikk>().Where(s => kommuner.Any(k => k.Kommunenr == s.KommuneKommunenr)));
         }
 
         public List<ITransactionData> GetByMunicipality(int id)
         {
             string strId = id.ToString();
 
-            return _dbContext.Set<SentralFkbStatistikk>()
-                .Where(s => s.KommuneKommunenr == strId)
+            return GetTransactionData(_dbContext.Set<SentralFkbStatistikk>().Where(s => s.KommuneKommunenr == strId));
+        }
+
+        private List<ITransactionData> GetTransactionData(IQueryable<SentralFkbStatistikk> sentralFkbStatistikks)
+        {
+            return sentralFkbStatistikks
                 .GroupBy(s => s.DatasettId)
                 .Select(g => new SentralFkbStatistikk
                 {

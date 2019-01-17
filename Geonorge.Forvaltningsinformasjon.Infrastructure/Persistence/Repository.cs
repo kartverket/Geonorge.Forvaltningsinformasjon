@@ -7,40 +7,22 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence
     public class Repository : IRepository
     {
         private FDV_Drift2Context _dbContext;
-        private ICounties _counties;
-        private IMunicipalities _municipalities;
-        private IDataSets _dataSets;
 
-        public ICounties Counties
-        {
-            get
-            {
-                return _counties;
-            }
-        }
+        public ICounties Counties { get; }
 
-        public IMunicipalities Municipalities
-        {
-            get
-            {
-                return _municipalities;
-            }
-        }
+        public IMunicipalities Municipalities { get; }
 
-        public IDataSets DataSets
-        {
-            get
-            {
-                return _dataSets;
-            }
-        }
+        public IDataSets DataSets { get; }
 
-        public Repository(FDV_Drift2Context dbContext, ICounties counties, IMunicipalities municipalities, IDataSets datasets)
+        public ITransactionDataStore TransactionData { get; }
+
+        public Repository(FDV_Drift2Context dbContext, ICounties counties, IMunicipalities municipalities, IDataSets datasets, ITransactionDataStore transactionData)
         {
             _dbContext = dbContext;
-            _counties = counties;
-            _municipalities = municipalities;
-            _dataSets = datasets;
+            Counties = counties;
+            Municipalities = municipalities;
+            DataSets = datasets;
+            TransactionData = transactionData;
         }
     }
 }       

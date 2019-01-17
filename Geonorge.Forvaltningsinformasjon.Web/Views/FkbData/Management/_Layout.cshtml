@@ -73,7 +73,7 @@
                 <a href="~/fkb-data/management/area/municipalities/@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltning FKB"]</a>
             }
         </div>
-
+        <br />
         <div class="row">
             <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
@@ -85,6 +85,23 @@
                 @Localizer["Aktivitetsoversikt"]
             </a>
         </div>
+        <br />
+        <div class="row">
+            @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
+            {
+                <a href="~/fkb-data/management/transaction-data/transaction-data">@Localizer["Transaksjonsdata"]</a>
+            }
+            else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
+            {
+                <a href="~/fkb-data/management/transaction-data/transaction-data/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
+            }
+            else
+            {
+                <a href="~/fkb-data/management/transaction-data/transaction-data/by-municipality?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
+            }
+        </div>
+
+        <br />
         <br />
         <br />
         <div class="row">

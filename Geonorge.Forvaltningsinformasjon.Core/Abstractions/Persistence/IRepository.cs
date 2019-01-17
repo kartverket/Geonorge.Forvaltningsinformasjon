@@ -7,5 +7,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence
         ICounties Counties { get; }
         IMunicipalities Municipalities { get; }
         IDataSets DataSets { get; }
+        ITransactionDataStore TransactionData { get; }
     }
 }

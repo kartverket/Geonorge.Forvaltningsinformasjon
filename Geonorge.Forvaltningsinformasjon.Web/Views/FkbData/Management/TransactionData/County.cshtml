@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.TransactionData.TransactionDataViewModel
+
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section breadcrumb
+    {
+    <li><a href="">@Localizer["Transaksjonsdata"]</a></li>
+}
+
+@section fkbSection
+    {
+    <p>@Localizer["Fylkesoversikt for "] @Model.AdministrativeUnitName</p>
+
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Datasett/Transaksjoner"]</th>
+                    <th>@Localizer["Uke"]</th>
+                    <th>@Localizer["Måned"]</th>
+                    <th>@Localizer["År"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transactionData in Model.TransactionData)
+                {
+                    <tr>
+                        <td>@transactionData.DataSetName</td>
+                        <td>@transactionData.SumLastWeek</td>
+                        <td>@transactionData.SumLastMonth</td>
+                        <td>@transactionData.SumLastYear</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

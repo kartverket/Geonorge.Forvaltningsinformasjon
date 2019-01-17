@@ -9,6 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
             DistribusjonDatasett = new HashSet<DistribusjonDatasett>();
             Fdvdatasett = new HashSet<Fdvdatasett>();
             FdvdatasettArbeid = new HashSet<FdvdatasettArbeid>();
+            SentralFkbStatistikk = new HashSet<SentralFkbStatistikk>();
         }
 
         public int Id { get; set; }
@@ -27,5 +28,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
         public ICollection<DistribusjonDatasett> DistribusjonDatasett { get; set; }
         public ICollection<Fdvdatasett> Fdvdatasett { get; set; }
         public ICollection<FdvdatasettArbeid> FdvdatasettArbeid { get; set; }
+        public ICollection<SentralFkbStatistikk> SentralFkbStatistikk { get; set; }
     }
 }

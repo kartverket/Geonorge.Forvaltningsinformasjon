@@ -55,6 +55,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
         public virtual DbSet<PuljeManed> PuljeManed { get; set; }
         public virtual DbSet<Rolle> Rolle { get; set; }
         public virtual DbSet<SentralFkb> SentralFkb { get; set; }
+        public virtual DbSet<SentralFkbStatistikk> SentralFkb_Statistikk { get; set; }
         public virtual DbSet<Tilgang> Tilgang { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -866,6 +867,44 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
                     .WithMany(p => p.SentralFkb)
                     .HasForeignKey(d => d.Pulje)
                     .HasConstraintName("FK_SentralFKB_PuljeManed");
+            });
+
+            modelBuilder.Entity<SentralFkbStatistikk>(entity =>
+            {
+                entity.ToTable("SentralFKB_Statistikk");
+
+                entity.Property(e => e.AntObjekter).HasColumnName("Ant_objekter");
+
+                entity.Property(e => e.AntTransAr).HasColumnName("Ant_trans_ar");
+
+                entity.Property(e => e.AntTransMnd).HasColumnName("Ant_trans_mnd");
+
+                entity.Property(e => e.AntTransOppdateringsdato)
+                    .HasColumnName("Ant_trans_oppdateringsdato")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.AntTransUke).HasColumnName("Ant_trans_uke");
+
+                entity.Property(e => e.DatasettId).HasColumnName("Datasett_Id");
+
+                entity.Property(e => e.GeonorgeFildato)
+                    .HasColumnName("Geonorge_fildato")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.GeonorgeOppdateringsdato)
+                    .HasColumnName("Geonorge_oppdateringsdato")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.KommuneKommunenr)
+                    .IsRequired()
+                    .HasColumnName("Kommune_Kommunenr")
+                    .HasMaxLength(4);
+
+                entity.HasOne(d => d.DatasettIdNavigation)
+                    .WithMany(p => p.SentralFkbStatistikk)
+                    .HasForeignKey(d => d.DatasettId)
+                    .HasConstraintName("FK_SentralFkbStatistikk_Datasett");
+
             });
 
             modelBuilder.Entity<Tilgang>(entity =>

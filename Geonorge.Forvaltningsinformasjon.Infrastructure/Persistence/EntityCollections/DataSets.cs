@@ -18,9 +18,16 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityColl
 
         public List<IDataSet> GetByMunicipality(int id)
         {
-            int projectId = _dbContext.Set<Fdvprosjekt>().Where(p => p.KommuneKommunenrNavigation.Id == id).OrderBy(p => p.Ar).Last().Id;
+            Fdvprosjekt project = _dbContext.Set<Fdvprosjekt>().Where(p => p.KommuneKommunenrNavigation.Id == id).OrderBy(p => p.Ar).LastOrDefault();
 
-            return _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == projectId).Include(d => d.Datasett).AsEnumerable<IDataSet>().ToList();
+            if (project != null)
+            {
+                return _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == project.Id).Include(d => d.Datasett).AsEnumerable<IDataSet>().ToList();
+            }
+            else
+            {
+                return new List<IDataSet>();
+            }
         }
     }
 }

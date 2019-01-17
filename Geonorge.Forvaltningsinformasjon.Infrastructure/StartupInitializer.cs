@@ -13,6 +13,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
             services.AddTransient<ICounties, Counties>();
             services.AddTransient<IMunicipalities, Municipalities>();
             services.AddTransient<IDataSets, DataSets>();
+            services.AddTransient<ITransactionDataStore, TransactionDataStore>();
         }
     }
 }

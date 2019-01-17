@@ -20,7 +20,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.Entities
         {
             get
             {
-                return (UpdateType)FdvdatasettForvaltningstypeId;
+                return (UpdateType)(FdvdatasettForvaltningstypeId - 1);
             }
         }
     }

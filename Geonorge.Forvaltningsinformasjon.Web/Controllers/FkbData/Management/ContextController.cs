@@ -57,6 +57,27 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                         }
                     }
                     break;
+                case ContextViewModel.EnumAspect.TransactionData:
+                    {
+                        if (string.IsNullOrWhiteSpace(key))
+                        {
+                            action = "Index";
+                            controller = "TransactionData";
+                        }
+                        else if (_contextViewModelHelper.IsCounty(key))
+                        {
+                            action = "GetByCounty";
+                            controller = "TransactionData";
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key) };
+                        }
+                        else
+                        {
+                            action = "GetByMunicipality";
+                            controller = "TransactionData";
+                            parameters = new { id = _contextViewModelHelper.Key2Id(key) };
+                        }
+                    }
+                    break;
                 case ContextViewModel.EnumAspect.OperationalStatus:
                     {
                         action = "Index";

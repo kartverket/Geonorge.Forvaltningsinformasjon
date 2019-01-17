@@ -22,7 +22,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityColl
 
             if (project != null)
             {
-                return _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == project.Id).Include(d => d.Datasett).AsEnumerable<IDataSet>().ToList();
+                return _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == project.Id).Include(d => d.Datasett).AsEnumerable<IDataSet>().OrderBy(d => d.Name).ToList();
             }
             else
             {

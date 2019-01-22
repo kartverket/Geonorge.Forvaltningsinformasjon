@@ -8,7 +8,31 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Transac
 {
     public class TransactionDataViewModel
     {
-        public string AdministrativeUnitName { get; set; }
-        public List<ITransactionData> TransactionData;
+        public string AdministrativeUnitName { get; set;}
+        public List<ITransactionData> TransactionData { get; set; }
+
+        public int SumLastWeek
+        {
+            get
+            {
+                return TransactionData.Sum(d => d.SumLastWeek);
+            }
+        }
+
+        public int SumLastMonth
+        {
+            get
+            {
+                return TransactionData.Sum(d => d.SumLastMonth);
+            }
+        }
+        public int SumLastYear
+        {
+            get
+            {
+                return TransactionData.Sum(d => d.SumLastYear);
+            }
+        }
+
     }
 }

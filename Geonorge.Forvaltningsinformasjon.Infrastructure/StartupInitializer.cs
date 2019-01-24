@@ -1,6 +1,6 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.Persistence.EntityCollections;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure

@@ -1,4 +1,4 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
 using System.Collections.Generic;
 using System.Linq;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;

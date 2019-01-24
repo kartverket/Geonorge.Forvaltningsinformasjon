@@ -1,5 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Persistence;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using System;
 using System.Collections.Generic;

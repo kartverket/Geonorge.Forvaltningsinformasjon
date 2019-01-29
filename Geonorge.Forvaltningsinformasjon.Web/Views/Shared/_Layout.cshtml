@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
@@ -6,13 +6,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
-    <environment exclude="Development">
-        <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
-    </environment>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
+  <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendorfonts.min.css" asp-append-version="true" />
+  <environment exclude="Development">
+    <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
+  </environment>
 </head>
 <body class="geonorge-container prototype geonorge">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>

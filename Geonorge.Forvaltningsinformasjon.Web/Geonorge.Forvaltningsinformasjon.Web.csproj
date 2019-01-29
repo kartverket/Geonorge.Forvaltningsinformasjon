@@ -9,6 +9,485 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\chosen-sprite%402x.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\chosen-sprite.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_444444_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_555555_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_777620_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_777777_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\main.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\main.min.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\vendor.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\vendor.min.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\vendorfonts.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\vendorfonts.min.css" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\glyphicons-halflings-regular.eot">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\glyphicons-halflings-regular.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\glyphicons-halflings-regular.ttf">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\glyphicons-halflings-regular.woff">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\glyphicons-halflings-regular.woff2">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\I4k9un7TZVWzRVT-T8y3USBnSvpkopQaUR-2r7iU.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\JXh38I15wypJXxuGMBp0EAVxt0G0biEntp43Qt6E.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\KeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\lAoFXXQEzZoMSUteGWKCWcynf_cDxXwCLxiixG1c.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\MzqLaYbbbCL9X6EvaIy3USBnSvpkopQaUR-2r7iU.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\oNo9fC8O2RDydKj12by3USBnSvpkopQaUR-2r7iU.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\statusicon.eot">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\statusicon.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\statusicon.ttf">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\statusicon.woff">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\tzj9b56b8RgXW8FAriS3USBnSvpkopQaUR-2r7iU.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\Y3_3JNqUVRAQQRNVteQ.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf" />
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\arrow-select-blue.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\arrow-select-orange.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\chevron-down.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\chevron-up.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\favicon.ico">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\geonorge_logo_350px.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\geonorge_logo_350px_dev.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\geonorge_logo_350px_test.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\gif\gif_loading-01.gif">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\gif\loading.gif">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\kvlogo_col.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\loader.gif">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\lock.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\opendata.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\png\Dot_ffffff_8px-01.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\png\geonorge.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\png\kartverket.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\png\norgeskart-marker.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\search_icon-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arealplan.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arrow-down.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arrow-right.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arrow-up.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\Arrow_414042_12px_mobile.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arrow_414042_6px-01-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\arrow_414042_8px-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\Arrow_968c83_12px_mobile.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\breadcrumb-arrow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-default.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-green.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-lime.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-orange.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-red.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked-yellow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-checked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-default.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-green.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-lime.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-orange.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-red.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked-yellow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checkbox-unchecked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\checked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\danger.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\datadeling.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\dekningskart.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\den-norske-loeve.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\dok.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-disabled-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-white-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\external_link_3867c8_12px-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\external_link_ffffff_12px-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\file-xml-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\file-xml.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format-checked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format-checked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format-warning-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format-warning.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\format.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\geonorge_devlogo.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\geonorge_logo.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\geonorge_testlogo.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\gml.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-disabled-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-gray.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-white-added.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\handlekurv.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-aapen-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-aapen-green.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-aapen-red.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-aapen-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-aapen-yellow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-lukket-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-lukket-green.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-lukket-red.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-lukket-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\hengelaas-lukket-yellow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\info-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\info-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\info.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\inspire.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-needs-permission-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-needs-permission-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-needs-permission.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-unavailable-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-unavailable-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-unavailable.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned-white.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lukk_968c83_50px-01-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\metadata-i-soketjeneste.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\metadatatjeneste.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\netverkstjeneste.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\norge-digitalt.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\open_fe5000_50px-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\produktark.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection-checked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection-checked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection-warning-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection-warning.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\projection.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\radio-checked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\radio-checked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\radio-unchecked-disabled.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\radio-unchecked.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\seksjonstegn-circle.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\seksjonstegn.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\smile-green.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\smile-red.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\smile-yellow.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\soek.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\sosi.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\spatialdataservice.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\tick_fe5000_16px.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\tjenestestatus.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\totop_3867c8_75px-01.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\warning.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\svg\wfs.svg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\images\unlock.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
@@ -24,6 +503,11 @@
   <ItemGroup>
     <Folder Include="ClientApp" />
     <Folder Include="Models\FkbData\Management\ActivityOverview\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
 
   <ItemGroup>

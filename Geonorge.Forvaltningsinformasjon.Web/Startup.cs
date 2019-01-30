@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Geonorge.Forvaltningsinformasjon
@@ -59,19 +60,19 @@ namespace Geonorge.Forvaltningsinformasjon
 
             var supportedCultures = new[]
             {
-                new CultureInfo("no"),
-                new CultureInfo("en"),
+                new CultureInfo("nb-NO"),
+                new CultureInfo("en-US"),
             };
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("no"),
+                DefaultRequestCulture = new RequestCulture("nb-NO"),
                 // Formatting numbers, dates, etc.
                 SupportedCultures = supportedCultures,
                 // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
+                SupportedUICultures = supportedCultures,
+                RequestCultureProviders = new List<IRequestCultureProvider>()   // @TMP single-language solution
             });
-
 
             app.UseStaticFiles();
 

@@ -15,9 +15,10 @@
 
 @section fkbSection
     {
-    <p>@Localizer["Kommuneoversikt for "] @Model.AdministrativeUnitName</p>
+    <div class="col-md-7">
+        <h4 style="text-align:center">@Localizer["Kommuneoversikt for "] @Model.AdministrativeUnitName</h4>
+        <p>Tabellen viser antall ganger det har blitt gjort endringer på datasettet (minst ett objekt er nytt, endret eller slettet).</p>
 
-    <div class="col-md-6">
         <table class="table">
             <thead>
                 <tr>

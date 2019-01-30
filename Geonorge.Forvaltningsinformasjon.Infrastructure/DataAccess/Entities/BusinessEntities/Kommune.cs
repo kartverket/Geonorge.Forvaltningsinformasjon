@@ -32,13 +32,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
                 {
                     return null;
                 }
-                DateTime fos = DateTime.ParseExact(
+                return DateTime.ParseExact(
                     SentralFkb.First().PlanlagtInnforing,
                     "yyyyMMdd",
                     CultureInfo.InvariantCulture,
-                    DateTimeStyles.None);
-                System.Diagnostics.Debug.WriteLine(SentralFkb.First().PlanlagtInnforing + " --- " + fos.ToString());
-                return fos;
+                    DateTimeStyles.None);          
             }
         }
         public DateTime? IntroductionDate

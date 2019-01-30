@@ -1,6 +1,9 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers
 {
@@ -19,8 +22,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers
         {
             ContextViewModel viewModel = new ContextViewModel();
 
-            _countyService.Get().ForEach(c => viewModel.Counties.Add($"F{c.Id}", c.Name));
-            _municipalityService.Get().ForEach(m => viewModel.Municipalities.Add($"M{m.Id}", m.Name));
+            List<ICounty> counties = _countyService.Get();
+            List<IMunicipality> municipalities = _municipalityService.Get();
+
+            counties.Sort((x, y) => x.Name.CompareTo(y.Name));
+            municipalities.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            counties.ForEach(c => viewModel.Counties.Add($"F{c.Id}", c.Name));
+            municipalities.ForEach(m => viewModel.Municipalities.Add($"M{m.Id}", m.Name));
 
             viewModel.SelectedKey = selectedKey;
 

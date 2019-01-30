@@ -74,7 +74,7 @@
             }
         </div>
         <br />
-        <div class="row">
+        <div class="row" style="display:none">
             <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
                 id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
@@ -85,7 +85,6 @@
                 @Localizer["Aktivitetsoversikt"]
             </a>
         </div>
-        <br />
         <div class="row">
             @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
             {

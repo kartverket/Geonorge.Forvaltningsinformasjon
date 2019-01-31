@@ -372,6 +372,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
                     .WithMany(p => p.FdvprosjektStatusFaktureringNavigation)
                     .HasForeignKey(d => d.StatusFakturering)
                     .HasConstraintName("FK_FDVProsjekt_FDVStatusFakturering");
+                entity.HasQueryFilter(e => e.Aktiv == 1);
             });
 
             modelBuilder.Entity<FdvprosjektLenke>(entity =>
@@ -502,6 +503,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
                 entity.Property(e => e.FylkesnavnDos)
                     .HasColumnName("Fylkesnavn_dos")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Aktiv).HasColumnName("Aktiv");
+
+                entity.HasQueryFilter(e => e.Aktiv == 1);
             });
 
             modelBuilder.Entity<Kartkontor>(entity =>
@@ -577,6 +582,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
                     .WithMany(p => p.Kommune)
                     .HasForeignKey(d => d.KoordsysKoordsys)
                     .HasConstraintName("FK_Kommune_Koordsys");
+
+                entity.HasQueryFilter(e => e.Aktiv == 1);
             });
 
             modelBuilder.Entity<Koordsys>(entity =>

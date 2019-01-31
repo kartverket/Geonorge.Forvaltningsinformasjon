@@ -18,5 +18,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
         public int? BbNordOstE { get; set; }
 
         public ICollection<Kommune> Kommune { get; set; }
+
+        public int? Aktiv { get; set; }
     }
 }

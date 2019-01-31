@@ -33,6 +33,5 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
         {
             return _dbContext.Set<TImpl>().Where(e => e.Id == id).FirstOrDefault() != default(TImpl);
         }
-
     }
 }

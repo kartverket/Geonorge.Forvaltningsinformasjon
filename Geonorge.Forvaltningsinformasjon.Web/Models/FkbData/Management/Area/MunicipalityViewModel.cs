@@ -10,6 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
 {
     public class MunicipalityViewModel
     {
+        public string Name { get; set; }
         public List<IDataSet> DataSets { get; set; }
         public string Caption { get; set; }
         public DateTime? DateTime { get; set; }

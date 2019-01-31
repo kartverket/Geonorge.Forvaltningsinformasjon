@@ -8,13 +8,19 @@
     Layout = "../_Layout.cshtml";
 }
 
+@{
+    ViewData["Title"] = Localizer["Forvaltning FKB"];
+}
+
+
 @section breadcrumb
-{
+    {
     <li><a href="">@Localizer["Forvaltning FKB"]</a></li>
+    <li><a href="">@Localizer["Norge"]</a></li>
 }
 
 @section fkbSection
-{
+    {
     <p>@Localizer["Antall kommuner i Norge som oppdaterer FKB-data direkte i Sentral felles kartdatabase: "]<strong>@Model.DirectUpdateCount</strong></p>
     <div class="col-md-6">
         <table class="table">

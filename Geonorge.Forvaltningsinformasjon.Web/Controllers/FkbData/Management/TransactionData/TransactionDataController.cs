@@ -37,7 +37,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Tr
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
-                TransactionData = _transactionDataService.Get()
+                TransactionData = _transactionDataService.Get(),
+                AdministrativeUnitName = "Norge"
             };
             return View("Views/FkbData/Management/TransactionData/Country.cshtml", model);
         }

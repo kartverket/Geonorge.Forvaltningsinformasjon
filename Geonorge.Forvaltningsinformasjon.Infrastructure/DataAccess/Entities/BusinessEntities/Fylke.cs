@@ -35,11 +35,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
             }
         }
 
+        private int _id = 0;
         public int Id
         {
             get
             {
-                return int.Parse(Fylkesnr);
+                return _id == 0 ? _id = int.Parse(Fylkesnr) : _id;
             }
         }
     }

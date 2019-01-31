@@ -71,11 +71,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
             }
         }
 
+        private int _id = 0;
         public int Id
         {
             get
             {
-                return int.Parse(Kommunenr);
+                return _id == 0 ? _id = int.Parse(Kommunenr) : _id;
             }
         }
     }

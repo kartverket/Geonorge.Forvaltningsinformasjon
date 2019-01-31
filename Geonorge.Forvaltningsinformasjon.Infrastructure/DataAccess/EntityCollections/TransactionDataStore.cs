@@ -23,7 +23,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public List<ITransactionData> GetByCounty(int id)
         {
-            string strId = id.ToString();
+            string strId = string.Format("{0:D2}", id);
 
             IQueryable<Kommune> kommuner = _dbContext.Set<Kommune>().Where(k => k.FylkeFylkesnr == strId);
 
@@ -32,7 +32,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public List<ITransactionData> GetByMunicipality(int id)
         {
-            string strId = id.ToString();
+            string strId = string.Format("{0:D4}", id);
 
             return GetTransactionData(_dbContext.Set<SentralFkbStatistikk>().Where(s => s.KommuneKommunenr == strId));
         }

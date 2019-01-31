@@ -8,9 +8,14 @@
     Layout = "../_Layout.cshtml";
 }
 
+@{
+    ViewData["Title"] = Localizer["Transaksjonsdata"];
+}
+
 @section breadcrumb
     {
     <li><a href="">@Localizer["Transaksjonsdata"]</a></li>
+    <li><a href="">@Model.AdministrativeUnitName</a></li>
 }
 
 @section fkbSection

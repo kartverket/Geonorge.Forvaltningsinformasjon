@@ -8,9 +8,15 @@
     Layout = "../_Layout.cshtml";
 }
 
+@{
+    ViewData["Title"] = Localizer["Forvaltning FKB"];
+}
+
+
 @section breadcrumb
     {
     <li><a href="">@Localizer["Forvaltning FKB"]</a></li>
+    <li><a href="">@Model.Name.</a></li>
 }
 
 @section fkbSection

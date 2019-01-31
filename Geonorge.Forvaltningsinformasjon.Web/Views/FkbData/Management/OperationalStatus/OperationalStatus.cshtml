@@ -7,13 +7,17 @@
     Layout = "../_Layout.cshtml";
 }
 
+@{
+    ViewData["Title"] = Localizer["Driftsstatus"];
+}
+
 @section breadcrumb
-{
+    {
     <li><a href="">@Localizer["Driftsstatus"]</a></li>
 }
 
 @section fkbSection
-{
+    {
     <div class="col-md-9" style="margin:10px">
         <div class="row">
             <h4>
@@ -22,20 +26,20 @@
             </h4>
             <br /><br />
         </div>
-            @foreach (var item in Model)
-            {
-                <div class="row">
-                    <b>
-                        @Html.Raw(item.Title)
-                    </b>
-                    @Html.Raw(item.Content)
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <b>
+                    @Html.Raw(item.Title)
+                </b>
+                @Html.Raw(item.Content)
 
-                    <small>
-                        @Html.Raw($"Opprettet: {item.Published.ToString("dd'.'MM'.'yyyy")} Sist oppdatert: {item.Updated.ToString("dd'.'MM'.'yyyy")}")
-                    </small>
-                </div>
-                <br />
-                <hr />
-            }
+                <small>
+                    @Html.Raw($"Opprettet: {item.Published.ToString("dd'.'MM'.'yyyy")} Sist oppdatert: {item.Updated.ToString("dd'.'MM'.'yyyy")}")
+                </small>
+            </div>
+            <br />
+            <hr />
+        }
     </div>
 }

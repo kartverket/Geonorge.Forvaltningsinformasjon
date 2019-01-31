@@ -52,7 +52,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
             IMunicipality municipality = _service.Get(id);
             MunicipalityViewModel model = new MunicipalityViewModel()
             {
-                DataSets = _dataSetService.GetByMunicipality(id)
+                DataSets = _dataSetService.GetByMunicipality(id),
+                Name = municipality.Name
             };
 
             switch (municipality.IntroductionState)

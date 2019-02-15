@@ -1,27 +1,18 @@
-﻿@model Geonorge.Forvaltningsinformasjon.Core.Models.SentralFkbSummary
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Forvaltningsinformasjon";
+    ViewData["Title"] = Localizer["Forvaltningsinformasjon"];
 }
 
-<p>Antall kommuner i Norge som oppdaterer FKB-data direkte i Sentral felles kartdatabase: <strong>@Model.TotaltAntallKommunerDirekteOppdatering()</strong></p>
-
-<div class="col-md-6">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Fylke</th>
-            <th>Kommuner med direkte oppdatering</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @foreach(var row in Model.Result)
-        {
-            <tr>
-                <td>@row.Fylke.Fylkesnavn</td>
-                <td>@row.AntallDirekteOppdatering av @row.AntallKommunerTotalt</td>
-            </tr>
-        }
-        </tbody>
-    </table>
- </div>
+<div>
+    <div class="row">
+        <h3>
+            FKB-data
+        </h3>
+    </div>
+    <div class="row">
+        <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltning FKB"]</a>
+    </div>
+</div>

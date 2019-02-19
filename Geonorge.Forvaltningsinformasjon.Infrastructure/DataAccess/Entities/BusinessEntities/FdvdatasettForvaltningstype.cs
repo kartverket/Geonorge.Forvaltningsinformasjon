@@ -1,26 +1,25 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
 {
-    public partial class Fdvdatasett : IDataSet
+    public partial class FdvdatasettForvaltningstype : IDataSetUpdateType
     {
         public string Name
         {
             get
             {
-                return Datasett.Navn;
+                return Type;
             }
         }
 
-        public IDataSetUpdateType UpdateType
+        public string Description
         {
             get
             {
-                return FdvdatasettForvaltningstype;
+                return Beskrivelse;
             }
         }
     }

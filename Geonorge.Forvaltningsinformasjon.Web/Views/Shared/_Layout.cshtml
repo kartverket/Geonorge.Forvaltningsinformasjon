@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
@@ -19,7 +19,7 @@
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
     <script>
-    var applicationEnvironment = '@AppSettings.EnvironmentName';
+    var applicationEnvironment = '@AppSettings.EnvironmentName'.toLowerCase();
     var applicationVersionNumber = '@AppSettings.BuildVersionNumber';
     var authenticationData = { supportsLogin: false, isAuthenticated: false };
     var cultureData = { supportsMultiCulture: "true", currentCulture: 'no' };

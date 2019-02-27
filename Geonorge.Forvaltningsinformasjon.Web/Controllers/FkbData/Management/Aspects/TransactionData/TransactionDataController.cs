@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.TransactionData;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.TransactionData
+namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.TransactionData.Aspects
 {
     [Route("fkb-data/management/transaction-data/transaction-data")]
     public class TransactionDataController : Controller
@@ -40,7 +36,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Tr
                 TransactionData = _transactionDataService.Get(),
                 AdministrativeUnitName = "Norge"
             };
-            return View("Views/FkbData/Management/TransactionData/Country.cshtml", model);
+            return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
         }
 
         [HttpGet("by-county")]
@@ -54,7 +50,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Tr
                 TransactionData = _transactionDataService.GetByCounty(id),
                 AdministrativeUnitName = _countyService.Get(id).Name
             };
-            return View("Views/FkbData/Management/TransactionData/County.cshtml", model);
+            return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
         }
 
         [HttpGet("by-municipality")]
@@ -68,7 +64,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Tr
                 TransactionData = _transactionDataService.GetByMunicipality(id),
                 AdministrativeUnitName = _municipalityService.Get(id).Name
             };
-            return View("Views/FkbData/Management/TransactionData/Municipality.cshtml", model);
+            return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
 {
     public class ContextViewModel
     {

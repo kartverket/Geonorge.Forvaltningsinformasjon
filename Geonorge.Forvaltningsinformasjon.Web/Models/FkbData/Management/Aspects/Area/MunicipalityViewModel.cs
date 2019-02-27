@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Area
 {
     public class MunicipalityViewModel
     {

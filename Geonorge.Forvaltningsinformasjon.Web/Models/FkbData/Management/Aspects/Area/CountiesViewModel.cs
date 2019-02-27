@@ -1,7 +1,7 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using System.Collections.Generic;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Area
 {
     public class CountiesViewModel
     {

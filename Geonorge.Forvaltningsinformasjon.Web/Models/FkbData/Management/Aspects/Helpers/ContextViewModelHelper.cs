@@ -1,11 +1,9 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Helpers
 {
     public class ContextViewModelHelper : IContextViewModelHelper
     {

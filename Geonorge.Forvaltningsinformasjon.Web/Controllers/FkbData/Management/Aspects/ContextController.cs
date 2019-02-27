@@ -1,10 +1,9 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
+﻿using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
+namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Aspects
 {
     [Route("fkb-data/management/context")]
     public class ContextController : Controller

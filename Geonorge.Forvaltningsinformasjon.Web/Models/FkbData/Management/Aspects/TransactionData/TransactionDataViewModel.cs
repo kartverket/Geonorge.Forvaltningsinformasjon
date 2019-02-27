@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.TransactionData
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData
 {
     public class TransactionDataViewModel
     {

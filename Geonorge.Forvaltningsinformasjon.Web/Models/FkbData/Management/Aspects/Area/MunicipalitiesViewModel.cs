@@ -3,7 +3,7 @@ using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Area
 {
     public class MunicipalitiesViewModel
     {

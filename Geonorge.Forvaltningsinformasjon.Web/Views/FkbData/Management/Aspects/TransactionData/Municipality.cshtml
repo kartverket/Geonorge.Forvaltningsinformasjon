@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData.TransactionDataViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section aspectsSection
+{
+    <div style="text-align:center">
+        <h4>@Localizer["Kommuneoversikt for "] @Model.AdministrativeUnitName</h4>
+        <p>Tabellen viser antall ganger det har blitt gjort endringer på datasettet (minst ett objekt er nytt, endret eller slettet).</p>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Localizer["Datasett/Transaksjoner"]</th>
+                <th>@Localizer["Uke"]</th>
+                <th>@Localizer["Måned"]</th>
+                <th>@Localizer["År"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transactionData in Model.TransactionData)
+            {
+                <tr>
+                    <td>@transactionData.DataSetName</td>
+                    <td>@transactionData.SumLastWeek</td>
+                    <td>@transactionData.SumLastMonth</td>
+                    <td>@transactionData.SumLastYear</td>
+                </tr>
+            }
+            <tr>
+                <td>@Localizer["Totalt"]</td>
+                <td>@Model.SumLastWeek</td>
+                <td>@Model.SumLastMonth</td>
+                <td>@Model.SumLastYear</td>
+            </tr>
+        </tbody>
+    </table>
+}

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Area;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Area;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Management.Area
+namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Management.Area.Aspects
 {
     [Route("fkb-data/management/area/counties")]
     public class CountiesController : Controller
@@ -31,7 +31,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.Area.FkbData.Manageme
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             ViewBag.ContextViewModel.Aspect = ContextViewModel.EnumAspect.Management;
 
-            return View("Views/FkbData/Management/Area/Counties.cshtml", model);
+            return View("Views/FkbData/Management/Aspects/Area/Counties.cshtml", model);
         }
     }
 }

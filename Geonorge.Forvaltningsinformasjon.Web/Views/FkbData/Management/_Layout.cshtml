@@ -10,12 +10,12 @@
 }
 
 @section breadcrumb
-    {
+{
     <li>@Localizer["Forvaltning FKB"]</li>
 }
 
 <ul id="tabs" class="nav nav-tabs">
-    <li class="tab active">
+    <li @if ((string)ViewData["currentTab"] == "area") { <text>class="active"</text>}>
         @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
         {
             <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltningssystem"]</a>
@@ -29,7 +29,7 @@
             <a href="~/fkb-data/management/area/municipalities/@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltningssystem"]</a>
         }
     </li>
-    <li class="tab" style="display:none">
+    <li @if ((string)ViewData["currentTab"] == "area") { <text>class="active"</text>} style="display:none">
         <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
                 id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
@@ -40,7 +40,7 @@
             @Localizer["Aktivitetsoversikt"]
         </a>
     </li>
-    <li class="tab">
+    <li @if ((string)ViewData["currentTab"] == "transaction-data") { <text> class="active" </text> }>
         @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
         {
             <a href="~/fkb-data/management/transaction-data/transaction-data">@Localizer["Transaksjonsdata"]</a>
@@ -54,7 +54,7 @@
             <a href="~/fkb-data/management/transaction-data/transaction-data/by-municipality?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
         }
     </li>
-    <li class="tab">
+    <li @if ((string)ViewData["currentTab"] == "operational-status") { <text> class="active" </text> }>
         <a href="@Url.Action("Index", "OperationalStatus", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
                 id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),

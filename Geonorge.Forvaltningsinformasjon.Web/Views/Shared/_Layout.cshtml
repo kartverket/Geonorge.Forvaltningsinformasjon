@@ -11,7 +11,7 @@
   <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
   <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendorfonts.min.css" asp-append-version="true" />
-  <environment exclude="Development">
+  <environment Exclude="Development">
     <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
   </environment>
 </head>
@@ -60,8 +60,7 @@
     </script>
 
     <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
-
+    <script src="~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

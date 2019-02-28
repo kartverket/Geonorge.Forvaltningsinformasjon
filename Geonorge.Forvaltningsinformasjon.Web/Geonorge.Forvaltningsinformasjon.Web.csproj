@@ -515,6 +515,10 @@
   <ItemGroup>
     <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\main.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\main.min.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\vendor.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\vendor.min.js" />
   </ItemGroup>
 
   <ItemGroup>

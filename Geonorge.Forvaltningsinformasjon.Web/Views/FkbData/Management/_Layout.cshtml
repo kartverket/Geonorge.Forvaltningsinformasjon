@@ -1,114 +1,69 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers
+@using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers
 
 @inject IViewLocalizer Localizer
 @inject IContextViewModelHelper ContextHelper
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = Localizer["Forvaltning FKB"];
 }
 
 @section breadcrumb
-    {
-    <li><a href="~/fkb-data/management/area/counties">@Localizer["FKB-data"]</a></li>
-    @RenderSection("breadcrumb")
+{
+    <li>@Localizer["Forvaltning FKB"]</li>
 }
 
-<div class="row">
-    <div class="col-md-3">
-        <div class="row">
-            <div class="row">
-                @Localizer["Velg en kommune eller et fylke"]
-            </div>
-            <div class="row">
-                <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
-                    <input type="hidden" name="Aspect" value="@ViewBag.ContextViewModel.Aspect " />
-                    <select class="form-control" name="Key" onchange="this.form.submit()">
-                        <option value="">@Localizer["Norge (hele landet)"]</option>
-                        <optgroup label="Fylker">
-                            @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
-                            {
-                                if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                                {
-                                    <option selected value="@item.Key">@item.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Key">@item.Value</option>
-                                }
-                            }
-                        </optgroup>
-                        <optgroup label="Kommuner">
-                            @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Municipalities)
-                            {
-                                if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                                {
-                                    <option selected value="@item.Key">@item.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Key">@item.Value</option>
-                                }
-                            }
-                        </optgroup>
-                    </select>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
-            {
-                <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltning FKB"]</a>
-            }
-            else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
-            {
-                <a href="~/fkb-data/management/area/municipalities/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltning FKB"]</a>
-            }
-            else
-            {
-                <a href="~/fkb-data/management/area/municipalities/@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltning FKB"]</a>
-            }
-        </div>
-        <br />
-        <div class="row" style="display:none">
-            <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+<ul id="tabs" class="nav nav-tabs">
+    <li @if ((string)ViewData["currentTab"] == "area") { <text>class="active"</text>}>
+        @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
+        {
+            <a href="~/fkb-data/management/area/counties">@Localizer["Forvaltningssystem"]</a>
+        }
+        else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
+        {
+            <a href="~/fkb-data/management/area/municipalities/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltningssystem"]</a>
+        }
+        else
+        {
+            <a href="~/fkb-data/management/area/municipalities/@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Forvaltningssystem"]</a>
+        }
+    </li>
+    <li @if ((string)ViewData["currentTab"] == "area") { <text>class="active"</text>} style="display:none">
+        <a href="@Url.Action("Index", "Activities", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
                 id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
                 isCounty = ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey)
             } :
               null
               )">
-                @Localizer["Aktivitetsoversikt"]
-            </a>
-        </div>
-        <div class="row">
-            @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
-            {
-                <a href="~/fkb-data/management/transaction-data/transaction-data">@Localizer["Transaksjonsdata"]</a>
-            }
-            else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
-            {
-                <a href="~/fkb-data/management/transaction-data/transaction-data/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
-            }
-            else
-            {
-                <a href="~/fkb-data/management/transaction-data/transaction-data/by-municipality?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
-            }
-        </div>
-
-        <br />
-        <br />
-        <br />
-        <div class="row">
-            <a href="@Url.Action("Index", "OperationalStatus", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+            @Localizer["Aktivitetsoversikt"]
+        </a>
+    </li>
+    <li @if ((string)ViewData["currentTab"] == "transaction-data") { <text> class="active" </text> }>
+        @if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
+        {
+            <a href="~/fkb-data/management/transaction-data/transaction-data">@Localizer["Transaksjonsdata"]</a>
+        }
+        else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
+        {
+            <a href="~/fkb-data/management/transaction-data/transaction-data/by-county?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
+        }
+        else
+        {
+            <a href="~/fkb-data/management/transaction-data/transaction-data/by-municipality?id=@ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey)">@Localizer["Transaksjonsdata"]</a>
+        }
+    </li>
+    <li @if ((string)ViewData["currentTab"] == "operational-status") { <text> class="active" </text> }>
+        <a href="@Url.Action("Index", "OperationalStatus", !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
               new {
                 id =  ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
                 isCounty = ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey)
             } :
               null)">@Localizer["Driftsstatus"]</a>
-        </div>
-    </div>
-    <div class="col-sm-3 col-md-9">
+        </li>
+    </ul>
+
+    <div>
         @RenderSection("fkbSection")
     </div>
-</div>

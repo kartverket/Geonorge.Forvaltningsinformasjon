@@ -1,7 +1,7 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities;
 using Geonorge.Forvaltningsinformasjon.Models;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;

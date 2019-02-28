@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <Content Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <EmbeddedResource Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <None Remove="Models\FkbData\Management\ActivityOverview\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\chosen-sprite%402x.png" />
     <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\chosen-sprite.png" />
     <Content Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -502,12 +509,16 @@
 
   <ItemGroup>
     <Folder Include="ClientApp" />
-    <Folder Include="Models\FkbData\Management\ActivityOverview\" />
+    <Folder Include="Models\FkbData\Management\Aspects\ActivityOverview\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\main.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\main.min.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\vendor.js" />
+    <None Include="wwwroot\Content\bower_components\kartverket-felleskomponenter\assets\js\vendor.min.js" />
   </ItemGroup>
 
   <ItemGroup>

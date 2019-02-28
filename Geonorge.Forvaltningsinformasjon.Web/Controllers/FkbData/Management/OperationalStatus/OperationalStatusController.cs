@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.ServiceModel.Syndication;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using Geonorge.Forvaltningsinformasjon.Models;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.OperationalStatus;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.OperationalStatus
 {
     [Route("fkb-data/management/operational-status/operationalstatus")]
     public class OperationalStatusController : Controller
     {
-        private string _operationalStatus;
+        private readonly string  _operationalStatus;
         private IContextViewModelHelper _contextViewModelHelper;
 
         public OperationalStatusController(IContextViewModelHelper contextViewModelHelper, ApplicationSettings applicationSettings)

@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Area.MunicipalityViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "area";
+}
+
+@section aspectsSection
+    {
+    <div style="text-align:center">
+        <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
+        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Localizer["Datasett"]</th>
+                <th>@Localizer["Forvaltningstype"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataSet in Model.DataSets)
+            {
+                <tr>
+                    <td>@dataSet.Name</td>
+                    <td title="@dataSet.UpdateType.Description">@dataSet.UpdateType.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

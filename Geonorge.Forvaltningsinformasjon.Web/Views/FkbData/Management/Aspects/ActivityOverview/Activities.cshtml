@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "activities";
+}
+
+@section breadcrumb
+{
+    <li><a href="">@Localizer["Aktivitetsoversikt"]</a></li>
+}
+
+@section aspectsSection
+{
+    Coming soon...
+}

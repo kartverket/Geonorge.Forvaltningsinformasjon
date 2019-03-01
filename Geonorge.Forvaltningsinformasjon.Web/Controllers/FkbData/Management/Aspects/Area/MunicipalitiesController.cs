@@ -58,7 +58,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management.Ar
 
             switch (municipality.IntroductionState)
             {
-                case IntroductionState.NotPlanned:
+                case IntroductionState.NotIntroduced:
                     model.Caption = "Ikke planlagt innføring av direkteoppdatering i Sentral FKB";
                     break;
                 case IntroductionState.Planned:

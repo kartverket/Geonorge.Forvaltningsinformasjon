@@ -3,7 +3,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums
 {
     public enum IntroductionState
     {
-        NotPlanned,
+        NotIntroduced,
         Planned,
         Introduced
     }

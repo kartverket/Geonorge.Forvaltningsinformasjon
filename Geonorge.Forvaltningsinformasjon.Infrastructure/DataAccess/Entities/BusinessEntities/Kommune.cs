@@ -67,7 +67,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
                 {
                     return IntroductionState.Planned;
                 }
-                return IntroductionState.NotPlanned;
+                return IntroductionState.NotIntroduced;
             }
         }
 

@@ -15,8 +15,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
         {
             switch (introductionState)
             {
-                case IntroductionState.NotPlanned:
-                    return "Ikke planlagt";
+                case IntroductionState.NotIntroduced:
+                    return "Ikke innført";
                 case IntroductionState.Planned:
                     return "Direkteoppdatering planlagt innført {0}";
                 case IntroductionState.Introduced:

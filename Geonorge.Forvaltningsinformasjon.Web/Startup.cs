@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 
 namespace Geonorge.Forvaltningsinformasjon
 {
@@ -44,6 +45,8 @@ namespace Geonorge.Forvaltningsinformasjon
 
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            ConfigureProxy(applicationSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +85,35 @@ namespace Geonorge.Forvaltningsinformasjon
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void ConfigureProxy(ApplicationSettings settings)
+        {
+            if (!string.IsNullOrWhiteSpace(settings.UrlProxy))
+            {
+                WebProxy proxy = new WebProxy(settings.UrlProxy);
+
+                if (!(string.IsNullOrWhiteSpace(settings.UserNameProxy) || string.IsNullOrWhiteSpace(settings.PasswordProxy)))
+                {
+                    NetworkCredential credentials = new NetworkCredential
+                    {
+                        UserName = settings.UserNameProxy,
+                        Password = settings.PasswordProxy
+                    };
+
+                    if (!string.IsNullOrWhiteSpace(settings.CredentialVerificationDomain))
+                    {
+                        credentials.Domain = settings.CredentialVerificationDomain; 
+                    }
+                    proxy.Credentials = credentials;
+                }
+                else
+                {
+                    proxy.Credentials = CredentialCache.DefaultCredentials;
+                }
+
+                WebRequest.DefaultWebProxy = proxy;
+            }
         }
     }
 }

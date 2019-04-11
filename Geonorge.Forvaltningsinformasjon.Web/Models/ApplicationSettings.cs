@@ -6,5 +6,10 @@
         public string EnvironmentName { get; set; }
         public string UrlGeonorgeRoot { get; set; }
         public string UrlOperationalStatus { get; set; }
+        public string UrlProxy { get; set; }
+        public string UserNameProxy { get; set; }
+        public string PasswordProxy { get; set; }
+
+        public string CredentialVerificationDomain { get; set; }
     }
 }

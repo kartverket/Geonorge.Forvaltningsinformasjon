@@ -34,7 +34,7 @@
             <input type="checkbox" class="menu-trigger-chk sr-only" id="menuToggler" />
             <div class="menu">
                 <label for="menuToggler" class="menu-trigger" href="#topMenu" ng-cloak>
-                    <span>{{localizedText.menu[langCode]}}</span>
+                    <span>{{localizedText.menu[langCode] == undefined ? 'Meny' : localizedText.menu[langCode] }}</span>
                 </label>
             </div>
             <div class="menu-content">

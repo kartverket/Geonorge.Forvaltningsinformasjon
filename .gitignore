@@ -4,7 +4,7 @@
 .idea
 
 node_modules
-wwwroot/dist/
+Geonorge.Forvaltningsinformasjon.Web/wwwroot/dist/
 
 *.pubxml
 

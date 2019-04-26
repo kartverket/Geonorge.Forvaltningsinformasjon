@@ -12,7 +12,7 @@
     "bootstrap": "3.3.5",
     "font-awesome": "^4.6.3",
     "geonorge-base": "^9.0.4",
-    "geonorge-shared-partials": "0.0.60"
+    "geonorge-shared-partials": "0.0.67"
   },
   "devDependencies": {
     "aspnet-webpack": "^2.0.1",

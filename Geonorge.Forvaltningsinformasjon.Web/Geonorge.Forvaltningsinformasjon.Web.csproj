@@ -511,6 +511,7 @@
   <ItemGroup>
     <Folder Include="ClientApp" />
     <Folder Include="Models\FkbData\Management\Aspects\ActivityOverview\" />
+    <Folder Include="wwwroot\dist\" />
   </ItemGroup>
 
   <ItemGroup>

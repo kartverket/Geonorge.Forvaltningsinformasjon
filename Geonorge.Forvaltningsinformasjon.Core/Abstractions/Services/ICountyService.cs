@@ -4,5 +4,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 {
     public interface ICountyService : IEntityServiceBase<ICounty>
     {
+        ICounty GetByMunicipalityId(int municipalityId);
     }
 }

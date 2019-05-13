@@ -24,5 +24,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
         {
             return _repository.Counties.Get(id);
         }
+
+        public ICounty GetByMunicipalityId(int municipalityId)
+        {
+            return _repository.Counties.GetByMunicipalityId(municipalityId);
+        }
     }
 }

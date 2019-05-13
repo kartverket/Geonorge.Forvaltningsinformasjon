@@ -17,5 +17,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         {
             return _dbContext.Set<Fylke>().Include(f => f.Kommune).ThenInclude(k => k.SentralFkb).ToList<ICounty>();
         }
+
+        public ICounty GetByMunicipalityId(int municipalityId)
+        {
+            Kommune kommune = _dbContext.Set<Kommune>().Where(k => k.Id == municipalityId).FirstOrDefault();
+
+            return kommune.FylkeFylkesnrNavigation;
+        }
     }
 }

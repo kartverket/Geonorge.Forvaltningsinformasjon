@@ -22,12 +22,34 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
             if (project != null)
             {
-                return _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == project.Id).Include(d => d.Datasett).Include(d => d.FdvdatasettForvaltningstype).AsEnumerable<IDataSet>().OrderBy(d => d.Name).ToList();
+                IOrderedEnumerable<Fdvdatasett> datasets = _dbContext.Set<Fdvdatasett>().Where(d => d.FdvprosjektId == project.Id && d.Datasett.Type == "FKB").Include(d => d.Datasett).Include(d => d.FdvdatasettForvaltningstype).AsEnumerable<Fdvdatasett>().OrderBy(d => d.Name);
+
+                string strId = string.Format("{0:D4}", id);
+                IQueryable<SentralFkbStatistikk> statistics = _dbContext.Set<SentralFkbStatistikk>().Where(s => s.KommuneKommunenr == strId);
+
+                IEnumerable<Fdvdatasett> result = datasets.GroupJoin(
+                                                        statistics, d => d.DatasettId, 
+                                                        s => s.DatasettId, 
+                                                        (d, s) => new {  Ds = d, Stat = s }
+                                                    ).SelectMany(
+                                                        d => d.Stat.DefaultIfEmpty(),
+                                                        (d, s) => ExtendDataSet(d.Ds, s)
+                                                        );
+                return result.ToList<IDataSet>();
             }
             else
             {
                 return new List<IDataSet>();
             }
+        }
+
+        private Fdvdatasett ExtendDataSet(Fdvdatasett dataSet, SentralFkbStatistikk statistics)
+        {
+            if (statistics != null)
+            {
+                dataSet.UpdateDate = statistics.GeonorgeFildato;
+            }
+            return dataSet;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
     {
         string Name { get; }
         IDataSetUpdateType UpdateType { get; }
+        DateTime? UpdateDate { get; }
     }
 }

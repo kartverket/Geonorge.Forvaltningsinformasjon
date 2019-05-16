@@ -8,6 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
 {
     public partial class Fdvdatasett : IDataSet
     {
+        private DateTime? _updateDate;
+
         public string Name
         {
             get
@@ -21,6 +23,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
             get
             {
                 return FdvdatasettForvaltningstype;
+            }
+        }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public DateTime? UpdateDate
+        {
+            get
+            {
+                return _updateDate;
+            }
+            set
+            {
+                _updateDate = value;
             }
         }
     }

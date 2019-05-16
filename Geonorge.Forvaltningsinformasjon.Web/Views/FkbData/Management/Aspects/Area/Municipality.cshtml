@@ -20,6 +20,7 @@
             <tr>
                 <th>@Localizer["Datasett"]</th>
                 <th>@Localizer["Forvaltningstype"]</th>
+                <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                 <tr>
                     <td>@dataSet.Name</td>
                     <td title="@dataSet.UpdateType.Description">@dataSet.UpdateType.Name</td>
+                    <td>@dataSet.UpdateDate</td>
                 </tr>
             }
         </tbody>

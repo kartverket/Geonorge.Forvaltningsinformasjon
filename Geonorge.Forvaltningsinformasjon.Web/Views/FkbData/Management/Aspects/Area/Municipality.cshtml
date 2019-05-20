@@ -13,7 +13,7 @@
     {
     <div style="text-align:center">
         <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
-        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("yyyy'-'MM'-'dd") : "")</p>
     </div>
     <table class="table">
         <thead>
@@ -29,7 +29,7 @@
                 <tr>
                     <td>@dataSet.Name</td>
                     <td title="@dataSet.UpdateType.Description">@dataSet.UpdateType.Name</td>
-                    <td>@dataSet.UpdateDate</td>
+                    <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("yyyy'-'MM'-'dd") : "")</td>
                 </tr>
             }
         </tbody>

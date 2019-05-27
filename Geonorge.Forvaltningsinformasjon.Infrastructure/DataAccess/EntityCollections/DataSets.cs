@@ -48,6 +48,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             if (statistics != null)
             {
                 dataSet.UpdateDate = statistics.GeonorgeFildato;
+                dataSet.IsEmpty = !statistics.AntObjekter.HasValue || statistics.AntObjekter.Value == 0;
             }
             return dataSet;
         }

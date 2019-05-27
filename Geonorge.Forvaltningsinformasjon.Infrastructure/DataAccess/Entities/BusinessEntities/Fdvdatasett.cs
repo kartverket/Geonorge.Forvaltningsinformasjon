@@ -2,6 +2,7 @@
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
@@ -9,6 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
     public partial class Fdvdatasett : IDataSet
     {
         private DateTime? _updateDate;
+        private bool _isEmpty;
 
         public string Name
         {
@@ -26,7 +28,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
             }
         }
 
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        [NotMapped]
         public DateTime? UpdateDate
         {
             get
@@ -36,6 +38,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
             set
             {
                 _updateDate = value;
+            }
+        }
+
+        [NotMapped]
+        public bool IsEmpty
+        {
+            get
+            {
+                return _isEmpty;
+            }
+            set
+            {
+                _isEmpty = value;
             }
         }
     }

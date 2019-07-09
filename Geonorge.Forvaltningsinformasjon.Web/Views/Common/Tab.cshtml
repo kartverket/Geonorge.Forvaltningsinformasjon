@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common
+
+@inject IViewLocalizer Localizer
+@inject IContextViewModelHelper ContextHelper
+
+<ul id="tabs" class="nav nav-tabs">
+    @foreach (TabViewModel tab in ViewData["tabs"] as TabViewModel[])
+    {
+        <li @if ((string)ViewData["currentTab"] == tab.Controller) { <text> class="active" </text> }>
+            @if (tab.Aspect)
+            {
+                if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
+                {
+                    <a href="@Url.Action("Country", tab.Controller, new { })">@Localizer[tab.Caption]</a>
+                }
+                else if (ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey))
+                {
+                    <a href="@Url.Action("County", tab.Controller, new { id = ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey) })">@Localizer[tab.Caption]</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Municipality", tab.Controller, new { id = ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey) })">@Localizer[tab.Caption]</a>
+                }
+            }
+            else
+            {
+                <a href="@Url.Action("Index", tab.Controller, !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+                    new
+                    {
+                        id = ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),
+                        isCounty = ContextHelper.IsCounty(ViewBag.ContextViewModel.SelectedKey)
+                    } :
+                    null
+                    )">
+                    @Localizer[tab.Caption]
+                </a>
+            }
+        </li>
+    }
+</ul>

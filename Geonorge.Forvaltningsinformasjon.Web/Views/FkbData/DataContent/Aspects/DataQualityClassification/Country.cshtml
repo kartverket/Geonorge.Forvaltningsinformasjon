@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "DataQualityClassification";
+}
+
+@section aspectsSection
+    {
+    <div style="text-align:center">
+        <h4>@Localizer["Landsoversikt"]</h4>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Localizer["Klasse"]</th>
+                <th>@Localizer["Areal"]</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+}

@@ -8,5 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
         IMunicipalities Municipalities { get; }
         IDataSets DataSets { get; }
         ITransactionDataStore TransactionData { get; }
+        IDataQualityClassifications DataQualityClassifications { get; }
+        IDataQualityDistributions DataQualityDistributions { get; }
+        IDataAgeDistributions DataAgeDistributions { get; }
     }
 }

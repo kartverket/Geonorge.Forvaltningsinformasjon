@@ -7,13 +7,16 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
 {
     public class StartupInitializer
     {
-        public static void InitializeDepenencies(IServiceCollection services)
+        public static void InitializeDependencies(IServiceCollection services)
         {
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<ICounties, Counties>();
             services.AddTransient<IMunicipalities, Municipalities>();
             services.AddTransient<IDataSets, DataSets>();
             services.AddTransient<ITransactionDataStore, TransactionDataStore>();
+            services.AddTransient<IDataQualityClassifications, DataQualityClassifications>();
+            services.AddTransient<IDataAgeDistributions, DataAgeDistributions>();
+            services.AddTransient<IDataQualityDistributions, DataQualityDistributions>();
         }
     }
 }

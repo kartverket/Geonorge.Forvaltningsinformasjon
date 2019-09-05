@@ -9,7 +9,14 @@
         public string UrlProxy { get; set; }
         public string UserNameProxy { get; set; }
         public string PasswordProxy { get; set; }
-
         public string CredentialVerificationDomain { get; set; }
+
+        public ConnectionStrings ConnectionStrings { get; set; }
+    }
+
+    public class ConnectionStrings
+    {
+        public string KOS { get; set; }
+        public string Georef { get; set; }
     }
 }

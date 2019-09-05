@@ -28,7 +28,7 @@
             {
                 <tr>
                     <td>@dataSet.Name</td>
-                    <td title="@dataSet.UpdateType.Description">@dataSet.UpdateType.Name</td>
+                    <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
                     <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") : dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
                 </tr>
             }

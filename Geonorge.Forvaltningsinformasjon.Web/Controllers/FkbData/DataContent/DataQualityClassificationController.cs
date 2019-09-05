@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
@@ -11,20 +13,26 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
     public class DataQualityClassificationController : Controller
     {
         private IContextViewModelHelper _contextViewModelHelper;
+        private IDataQualityClassificationService _service;
 
         public DataQualityClassificationController(
-            IContextViewModelHelper contextViewModelHelper)
+            IContextViewModelHelper contextViewModelHelper,
+            IDataQualityClassificationService service)
         {
             _contextViewModelHelper = contextViewModelHelper;
+            _service = service;
         }
 
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
+            DataQualityClassificationModel model = new DataQualityClassificationModel
+            {
+                Classifications = _service.Get()
+            };
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml");
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml", model);
         }
-
 
         [HttpGet("county")]
         public IActionResult County([FromQuery]int id)

@@ -8,7 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
     public interface IDataSet : IEntityBase
     {
         string Name { get; }
-        IDataSetUpdateType UpdateType { get; }
+        string UpdateTypeName { get; }
+        string UpdateTypeDescription { get; }
         DateTime? UpdateDate { get; }
         bool IsEmpty { get; }
     }

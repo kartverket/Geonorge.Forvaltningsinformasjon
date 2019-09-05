@@ -1,4 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities;
+﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Georef;
 using Geonorge.Forvaltningsinformasjon.Models;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
@@ -30,9 +31,12 @@ namespace Geonorge.Forvaltningsinformasjon
             var applicationSettings = new ApplicationSettings();
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
-            
-            services.AddDbContext<FDV_Drift2Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // register databases
+            Infrastructure.StartupInitializer.InitializeDatabases(
+                services,
+                applicationSettings.ConnectionStrings.KOS,
+                applicationSettings.ConnectionStrings.Georef);
 
             // register dependencies
             Infrastructure.StartupInitializer.InitializeDependencies(services);

@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassificationModel
+
 @inject IViewLocalizer Localizer
 
 @{
@@ -20,6 +22,14 @@
                 <th>@Localizer["Areal"]</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @foreach (var item in Model.Classifications)
+            {
+            <tr>
+                <td>@item.Class</td>
+                <td>@item.Area</td>
+            </tr>
+            }
+        </tbody>
     </table>
 }

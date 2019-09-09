@@ -23,9 +23,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         {
             string strId = string.Format("{0:D2}", id);
 
-            IQueryable<Municipality> kommuner = _dbContext.Set<Municipality>().Where(k => k.CountyId == strId);
+            IQueryable<Municipality> municipalities = _dbContext.Set<Municipality>().Where(k => k.CountyId == strId);
 
-            return GetTransactionData(_dbContext.Set<TransactionData>().Where(s => kommuner.Any(k => k.Number == s.MunicipalityNumber)));
+            return GetTransactionData(_dbContext.Set<TransactionData>().Where(s => municipalities.Any(k => k.Number == s.MunicipalityNumber)));
         }
 
         public List<ITransactionData> GetByMunicipality(int id)
@@ -35,9 +35,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             return GetTransactionData(_dbContext.Set<TransactionData>().Where(s => s.MunicipalityNumber == strId));
         }
 
-        private List<ITransactionData> GetTransactionData(IQueryable<TransactionData> sentralFkbStatistikks)
+        private List<ITransactionData> GetTransactionData(IQueryable<TransactionData> transactionData)
         {
-            return sentralFkbStatistikks
+            return transactionData
                 .GroupBy(s => s.DataSetId)
                 .Select(g => new TransactionData
                 {

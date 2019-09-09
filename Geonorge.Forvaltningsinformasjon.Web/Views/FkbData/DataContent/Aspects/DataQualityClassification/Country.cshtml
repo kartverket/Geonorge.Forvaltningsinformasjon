@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassificationModel
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification.DataQualityClassificationModel
 
 @inject IViewLocalizer Localizer
 
@@ -19,15 +19,24 @@
         <thead>
             <tr>
                 <th>@Localizer["Klasse"]</th>
-                <th>@Localizer["Areal"]</th>
+                <th>@Localizer["Areal"] (km<sup>2</sup>)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Classifications)
             {
             <tr>
-                <td>@item.Class</td>
-                <td>@item.Area</td>
+                <td>FKB-@item.Class</td>
+                <td>
+                    @if (item.Area > 10000.0)
+                    {
+                        <text>@((item.Area / 1000000.0).ToString("### ##0.##"))</text>;
+                    }
+                    else
+                    {
+                        <text>@item.Area.ToString("# ##0.##") (m<sup>2</sup>)</text>;
+                    }
+                </td>
             </tr>
             }
         </tbody>

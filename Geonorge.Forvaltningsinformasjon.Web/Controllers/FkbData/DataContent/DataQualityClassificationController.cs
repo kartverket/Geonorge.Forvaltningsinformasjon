@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
@@ -13,14 +9,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
     public class DataQualityClassificationController : Controller
     {
         private IContextViewModelHelper _contextViewModelHelper;
-        private IDataQualityClassificationService _service;
+        private IDataQualityClassificationService _dataQualityClassificationService;
+        private ICountyService _countyService;
+        private IMunicipalityService _municipalityService;
 
         public DataQualityClassificationController(
             IContextViewModelHelper contextViewModelHelper,
-            IDataQualityClassificationService service)
+            IDataQualityClassificationService dataQualityClassificationService,
+            ICountyService countyService,
+            IMunicipalityService municipalityService)
         {
             _contextViewModelHelper = contextViewModelHelper;
-            _service = service;
+            _dataQualityClassificationService = dataQualityClassificationService;
+            _countyService = countyService;
+            _municipalityService = municipalityService;
         }
 
         public IActionResult Country()
@@ -28,7 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
-                Classifications = _service.Get()
+                Classifications = _dataQualityClassificationService.Get()
             };
 
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml", model);
@@ -39,7 +41,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml");
+            DataQualityClassificationModel model = new DataQualityClassificationModel
+            {
+                Classifications = _dataQualityClassificationService.GetByCounty(id),
+                AdministrativeUnitName = _countyService.Get(id).Name
+            };
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
         }
 
         [HttpGet("municipality")]
@@ -47,7 +54,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml");
+            DataQualityClassificationModel model = new DataQualityClassificationModel
+            {
+                Classifications = _dataQualityClassificationService.GetByMunicipality(id),
+                AdministrativeUnitName = _municipalityService.Get(id).Name
+            };
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
         }
     }
 }

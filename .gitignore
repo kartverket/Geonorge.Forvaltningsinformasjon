@@ -5,6 +5,7 @@
 
 node_modules
 Geonorge.Forvaltningsinformasjon.Web/wwwroot/dist/
+Geonorge.Forvaltningsinformasjon.Web/appsettings.json
 
 *.pubxml
 
@@ -167,5 +168,3 @@ $RECYCLE.BIN/
 
 # Visual Studio 2015 cache/options directory
 .vs/
-
-Geonorge\.Forvaltningsinformasjon/wwwroot/dist/

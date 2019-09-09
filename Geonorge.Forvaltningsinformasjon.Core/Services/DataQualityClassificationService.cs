@@ -23,7 +23,17 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
         public IDataQualityClassification Get(int id)
         {
-            return _repository.DataQualityClassifications.Get(id);
+            throw new NotImplementedException();
+        }
+
+        public List<IDataQualityClassification> GetByCounty(int id)
+        {
+            return _repository.DataQualityClassifications.GetByCounty(id);
+        }
+
+        public List<IDataQualityClassification> GetByMunicipality(int id)
+        {
+            return _repository.DataQualityClassifications.GetByMunicipality(id);
         }
     }
 }

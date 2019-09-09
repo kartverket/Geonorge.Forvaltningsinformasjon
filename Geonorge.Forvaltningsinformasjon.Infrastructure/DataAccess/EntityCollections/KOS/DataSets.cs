@@ -20,12 +20,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
             if (project != null)
             {
-                IOrderedEnumerable<FdvDataSet> datasets = _dbContext.Set<FdvDataSet>().Where(d => d.ProjectId == project.Id && d.DataSet.Type == "FKB").Include(d => d.DataSet).Include(d => d.UpdateType).AsEnumerable<FdvDataSet>().OrderBy(d => d.Name);
+                IOrderedEnumerable<FdvDataSet> dataSets = _dbContext.Set<FdvDataSet>().Where(d => d.ProjectId == project.Id && d.DataSet.Type == "FKB").Include(d => d.DataSet).Include(d => d.UpdateType).AsEnumerable<FdvDataSet>().OrderBy(d => d.Name);
 
                 string strId = string.Format("{0:D4}", id);
                 IQueryable<TransactionData> statistics = _dbContext.Set<TransactionData>().Where(s => s.MunicipalityNumber == strId);
 
-                IEnumerable<FdvDataSet> result = datasets.GroupJoin(
+                IEnumerable<FdvDataSet> result = dataSets.GroupJoin(
                                                         statistics, d => d.DataSetId, 
                                                         s => s.DataSetId, 
                                                         (d, s) => new {  Ds = d, Stat = s }

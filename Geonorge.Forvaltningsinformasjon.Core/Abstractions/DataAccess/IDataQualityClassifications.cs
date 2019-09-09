@@ -7,5 +7,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
 {
     public interface IDataQualityClassifications : IEntities<IDataQualityClassification>
     {
+        List<IDataQualityClassification> GetByCounty(int id);
+        List<IDataQualityClassification> GetByMunicipality(int id);
     }
 }

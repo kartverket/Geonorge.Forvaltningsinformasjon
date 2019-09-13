@@ -10,9 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <Content Remove="ClientApp\**" />
     <Content Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="Models\FkbData\Management\ActivityOverview\**" />
+    <None Remove="ClientApp\**" />
     <None Remove="Models\FkbData\Management\ActivityOverview\**" />
   </ItemGroup>
 
@@ -509,7 +513,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp" />
     <Folder Include="Models\FkbData\Management\Aspects\ActivityOverview\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>

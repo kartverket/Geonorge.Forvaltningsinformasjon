@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "../_Layout.cshtml";
+}
+
+@section fkbSection
+    {
+    <partial name="~/Views/Common/Context.cshtml" />
+
+    <div class="col-md-7">
+        @RenderSection("aspectsSection")
+    </div>
+}

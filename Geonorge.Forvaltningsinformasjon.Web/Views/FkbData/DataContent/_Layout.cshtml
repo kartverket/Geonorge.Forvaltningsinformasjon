@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = Localizer["Datainnhold FKB"];
+    ViewData["tabs"] = new TabViewModel[] {
+        new TabViewModel() { Caption = "Kvalitetsinndeling (ABCD)", Controller = "DataQualityClassification", Aspect = true},
+        new TabViewModel() { Caption = "Aldersfordeling", Controller = "DataAgeDistribution", Aspect = true},
+        new TabViewModel() { Caption = "Kvalitetsfordeling", Controller = "DataQualityDistribution", Aspect = true},
+};
+}
+
+@section breadcrumb
+{
+    <li>@Localizer["Datainnhold FKB"]</li>
+}
+
+<partial name="~/Views/Common/Tab.cshtml" />
+
+<div>
+    @RenderSection("fkbSection")
+</div>

@@ -1,7 +1,8 @@
-﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities;
+﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Georef;
 using Geonorge.Forvaltningsinformasjon.Models;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -30,13 +31,16 @@ namespace Geonorge.Forvaltningsinformasjon
             var applicationSettings = new ApplicationSettings();
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
-            
-            services.AddDbContext<FDV_Drift2Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // register databases
+            Infrastructure.StartupInitializer.InitializeDatabases(
+                services,
+                applicationSettings.ConnectionStrings.KOS,
+                applicationSettings.ConnectionStrings.Georef);
 
             // register dependencies
-            Infrastructure.StartupInitializer.InitializeDepenencies(services);
-            Core.StartupInitializer.InitializeDepenencies(services);
+            Infrastructure.StartupInitializer.InitializeDependencies(services);
+            Core.StartupInitializer.InitializeDependencies(services);
 
             services.AddTransient<IContextViewModelHelper, ContextViewModelHelper>();
 

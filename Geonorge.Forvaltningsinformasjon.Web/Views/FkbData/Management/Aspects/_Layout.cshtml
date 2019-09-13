@@ -1,50 +1,11 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Geonorge.Forvaltningsinformasjon.Web.Abstractions.FkbData.Management.Aspects.Helpers
-
-@inject IViewLocalizer Localizer
-@inject IContextViewModelHelper ContextHelper
-
-@{
+﻿@{
     Layout = "../_Layout.cshtml";
 }
 
 @section fkbSection
 {
-    <div class="col-md-3" style="display:inline-block;padding:0">
-        @Localizer["Velg en kommune eller et fylke"]
-        <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
-            <input type="hidden" name="Aspect" value="@ViewBag.ContextViewModel.Aspect " />
-            <select class="form-control" name="Key" onchange="this.form.submit()">
-                <option value="">@Localizer["Norge (hele landet)"]</option>
-                <optgroup label="Fylker">
-                    @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Counties)
-                    {
-                        if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                        {
-                            <option selected value="@item.Key">@item.Value</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Key">@item.Value</option>
-                        }
-                    }
-                </optgroup>
-                <optgroup label="Kommuner">
-                    @foreach (KeyValuePair<string, string> item in ViewBag.ContextViewModel.Municipalities)
-                    {
-                        if (ViewBag.ContextViewModel.SelectedKey == item.Key)
-                        {
-                            <option selected value="@item.Key">@item.Value</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Key">@item.Value</option>
-                        }
-                    }
-                </optgroup>
-            </select>
-        </form>
-    </div>
+    <partial name="~/Views/Common/Context.cshtml"/>
+    
     <div class="col-md-7">
         @RenderSection("aspectsSection")
     </div>

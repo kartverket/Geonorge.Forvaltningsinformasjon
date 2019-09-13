@@ -6,8 +6,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
 {
     public class Repository : IRepository
     {
-        private FDV_Drift2Context _dbContext;
-
         public ICounties Counties { get; }
 
         public IMunicipalities Municipalities { get; }
@@ -16,13 +14,28 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
 
         public ITransactionDataStore TransactionData { get; }
 
-        public Repository(FDV_Drift2Context dbContext, ICounties counties, IMunicipalities municipalities, IDataSets datasets, ITransactionDataStore transactionData)
+        public IDataQualityClassifications DataQualityClassifications { get; }
+
+        public IDataQualityDistributions DataQualityDistributions { get; }
+
+        public IDataAgeDistributions DataAgeDistributions { get; }
+
+        public Repository(
+            ICounties counties, 
+            IMunicipalities municipalities, 
+            IDataSets datasets, 
+            ITransactionDataStore transactionData,
+            IDataQualityClassifications dataQualityClassifications,
+            IDataAgeDistributions dataAgeDistributions,
+            IDataQualityDistributions dataQualityDistributions)
         {
-            _dbContext = dbContext;
             Counties = counties;
             Municipalities = municipalities;
             DataSets = datasets;
             TransactionData = transactionData;
+            DataQualityClassifications = dataQualityClassifications;
+            DataAgeDistributions = dataAgeDistributions;
+            DataQualityDistributions = dataQualityDistributions;
         }
     }
 }       

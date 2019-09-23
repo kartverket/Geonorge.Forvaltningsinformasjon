@@ -1,14 +1,15 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
 {
-    internal class Municipality : IMunicipality
+    internal class Municipality : BoundingBox, IMunicipality
     {
         private int _id = 0;
 
@@ -74,10 +75,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
         public County County { get; set; }
         public short? CoordSys { get; set; }
         public string VerticalDatum { get; set; }
-        public int? BBoxSouthVestN { get; set; }
-        public int? BBoxSouthVestNE { get; set; }
-        public int? BBoxNorthEastN { get; set; }
-        public int? BBoxNorthEastE { get; set; }
         public int? Active { get; set; }
         public ICollection<Project> Project { get; set; }
         public ICollection<CentralFkb> CentralFkb { get; set; }

@@ -7,5 +7,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQu
     {
         public List<IDataQualityClassification> Classifications { get; set; }
         public string AdministrativeUnitName { get; set; }
+        public IBoundingBox AdministrativeUnitBBox { get; set; }
     }
 }

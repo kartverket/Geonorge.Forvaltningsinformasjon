@@ -1,4 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification;
 using Microsoft.AspNetCore.Mvc;
@@ -40,11 +41,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         public IActionResult County([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
+            ICounty county = _countyService.Get(id);
 
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
-                AdministrativeUnitName = _countyService.Get(id).Name
+                AdministrativeUnitName = county.Name,
+                AdministrativeUnitBBox = county as IBoundingBox
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
         }
@@ -53,11 +56,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         public IActionResult Municipality([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
+            IMunicipality municipality = _municipalityService.Get(id);
 
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
-                AdministrativeUnitName = _municipalityService.Get(id).Name
+                AdministrativeUnitName = municipality.Name,
+                AdministrativeUnitBBox = municipality as IBoundingBox
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
         }

@@ -112,10 +112,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
                         .HasColumnName("Fylkesnr")
                         .HasMaxLength(2)
                         .ValueGeneratedNever();
-                entity.Property(e => e.BBoxNorthEastE).HasColumnName("BB_NordOst_E");
-                entity.Property(e => e.BBoxNorthEastN).HasColumnName("BB_NordOst_N");
-                entity.Property(e => e.BBoxSouthWestE).HasColumnName("BB_SorVest_E");
-                entity.Property(e => e.BBoxSouthWestN).HasColumnName("BB_SorVest_N");
+                entity.Property(e => e.MaxX).HasColumnName("BB_NordOst_E");
+                entity.Property(e => e.MaxY).HasColumnName("BB_NordOst_N");
+                entity.Property(e => e.MinX).HasColumnName("BB_SorVest_E");
+                entity.Property(e => e.MinY).HasColumnName("BB_SorVest_N");
                 entity.Property(e => e.Name).HasColumnName("Fylkesnavn").HasMaxLength(255);
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
@@ -131,10 +131,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
                     .HasMaxLength(4)
                     .ValueGeneratedNever();
                 entity.Property(e => e.Name).HasColumnName("Kommunenavn").HasMaxLength(255);
-                entity.Property(e => e.BBoxNorthEastE).HasColumnName("BB_NordOst_E");
-                entity.Property(e => e.BBoxNorthEastN).HasColumnName("BB_NordOst_N");
-                entity.Property(e => e.BBoxSouthVestNE).HasColumnName("BB_SorVest_E");
-                entity.Property(e => e.BBoxSouthVestN).HasColumnName("BB_SorVest_N");
+                entity.Property(e => e.MaxX).HasColumnName("BB_NordOst_E");
+                entity.Property(e => e.MaxY).HasColumnName("BB_NordOst_N");
+                entity.Property(e => e.MinX).HasColumnName("BB_SorVest_E");
+                entity.Property(e => e.MinY).HasColumnName("BB_SorVest_N");
                 entity.Property(e => e.CountyId)
                     .HasColumnName("Fylke_Fylkesnr")
                     .HasMaxLength(2);

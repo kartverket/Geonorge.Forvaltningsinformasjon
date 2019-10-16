@@ -23,20 +23,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Classifications)
+            @foreach (var item in Model.Classifications.Where(c => c.Area >= 1000000.0))
             {
                 <tr>
                     <td>FKB-@item.Class</td>
-                    <td>
-                        @if (item.Area > 10000.0)
-                        {
-                            <text>@((item.Area / 1000000.0).ToString("### ##0.00"))</text>;
-                        }
-                        else
-                        {
-                            <text>@item.Area.ToString("# ##0.00") <i>m<sup>2</sup></i></text>;
-                        }
-                    </td>
+                    <td>@((item.Area / 1000000.0).ToString("### ##0.00"))</td>;
                 </tr>
             }
         </tbody>

@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
     internal class Municipality : BoundingBox, IMunicipality
     {

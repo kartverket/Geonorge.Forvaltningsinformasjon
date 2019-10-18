@@ -1,13 +1,13 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.KOS
 {
-    class Municipalities : Entities<IMunicipality, Municipality>, IMunicipalities
+    internal class Municipalities : Entities<IMunicipality, Municipality>, IMunicipalities
     {
         public Municipalities(KosContext dbContext) : base(dbContext)
         {

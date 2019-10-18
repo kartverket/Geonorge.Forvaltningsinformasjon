@@ -4,21 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.Georef
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.KOS
 {
-    class DataQualityDistributions : IDataQualityDistributions
+    class DataAgeDistributions : IDataAgeDistributions
     {
         public bool Exists(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<IDataQualityDistribution> Get()
+        public List<IDataAgeDistribution> Get()
         {
             throw new NotImplementedException();
         }
 
-        public IDataQualityDistribution Get(int id)
+        public IDataAgeDistribution Get(int id)
         {
             throw new NotImplementedException();
         }

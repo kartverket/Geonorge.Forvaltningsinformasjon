@@ -1,4 +1,4 @@
-﻿namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+﻿namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
     internal class CentralFkb
     {

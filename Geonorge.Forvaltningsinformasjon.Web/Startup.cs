@@ -1,13 +1,10 @@
-﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Georef;
-using Geonorge.Forvaltningsinformasjon.Models;
+﻿using Geonorge.Forvaltningsinformasjon.Models;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

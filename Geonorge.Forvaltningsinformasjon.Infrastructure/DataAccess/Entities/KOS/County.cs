@@ -3,7 +3,7 @@ using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
     internal class County : BoundingBox, ICounty
     {

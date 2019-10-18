@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
 {
-    public interface IDataQualityClassifications : IEntities<IDataQualityClassification>
+    public interface IDataQualityClassifications
     {
+        List<IDataQualityClassification> Get();
         List<IDataQualityClassification> GetByCounty(int id);
         List<IDataQualityClassification> GetByMunicipality(int id);
     }

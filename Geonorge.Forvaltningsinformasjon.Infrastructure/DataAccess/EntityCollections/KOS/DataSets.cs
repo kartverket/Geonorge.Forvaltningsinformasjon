@@ -1,13 +1,13 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.KOS
 {
-    class DataSets : Entities<IDataSet, FdvDataSet>, IDataSets
+    internal class DataSets : Entities<IDataSet, FdvDataSet>, IDataSets
     {
         public DataSets(KosContext dbContext) : base(dbContext)
         {

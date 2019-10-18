@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
     internal partial class KosContext : DbContext
     {
@@ -198,6 +198,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
                     .HasForeignKey(d => d.DataSetId)
                     .HasConstraintName("FK_SentralFkbStatistikk_Datasett");
 
+            });
+
+            modelBuilder.Entity<DataQualityClassification>(entity =>
+            {
+                entity.ToTable("FKBKommuneKvalitet");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.MunicipalityNumber).HasColumnName("Kommune_Kommunenr");
+                entity.Property(e => e.AreaA).HasColumnName("ArealA");
+                entity.Property(e => e.AreaB).HasColumnName("ArealB");
+                entity.Property(e => e.AreaC).HasColumnName("ArealC");
+                entity.Property(e => e.AreaD).HasColumnName("ArealD");
             });
         }
     }

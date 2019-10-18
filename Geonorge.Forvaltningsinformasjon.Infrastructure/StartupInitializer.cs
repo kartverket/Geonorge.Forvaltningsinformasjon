@@ -1,9 +1,6 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Georef;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
-//using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.Georef;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.KOS;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,8 +16,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
         {
             services.AddDbContext<KosContext>(options =>
                 options.UseSqlServer(connStrKOS));
-            services.AddDbContext<GeorefContext>(options =>
-                options.UseNpgsql(connStrGeoref));
 
         }
         public static void InitializeDependencies(IServiceCollection services)

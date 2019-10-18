@@ -32,8 +32,7 @@ namespace Geonorge.Forvaltningsinformasjon
             // register databases
             Infrastructure.StartupInitializer.InitializeDatabases(
                 services,
-                applicationSettings.ConnectionStrings.KOS,
-                applicationSettings.ConnectionStrings.Georef);
+                applicationSettings.ConnectionStrings.KOS);
 
             // register dependencies
             Infrastructure.StartupInitializer.InitializeDependencies(services);

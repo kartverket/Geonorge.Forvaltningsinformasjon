@@ -17,6 +17,5 @@
     public class ConnectionStrings
     {
         public string KOS { get; set; }
-        public string Georef { get; set; }
     }
 }

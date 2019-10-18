@@ -11,8 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
     {
         public static void InitializeDatabases(
             IServiceCollection services,
-            string connStrKOS,
-            string connStrGeoref)
+            string connStrKOS)
         {
             services.AddDbContext<KosContext>(options =>
                 options.UseSqlServer(connStrKOS));

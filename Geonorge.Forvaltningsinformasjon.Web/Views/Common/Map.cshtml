@@ -13,8 +13,8 @@
             {
                 'Title': 'Abas',
                 'DistributionProtocol': 'OGC:WMS',
-                'GetCapabilitiesUrl': 'https://openwms.statkart.no/skwms1/wms.adm_enheter?request=GetCapabilities&service=WMS',
-                'addLayers': ['Administrative_enheter_2018']
+                'GetCapabilitiesUrl': '@Model.Url',
+                'addLayers': ['@Model.Layer']
             }
         ];
         params.zoom = @Model.Zoom;

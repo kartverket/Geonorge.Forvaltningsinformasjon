@@ -18,6 +18,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
         public string Zoom { get; } = "2";
         public string CoordinateSystem { get; } = "EPSG:25833";
 
+        public string Url { get; set; } = "https://openwms.statkart.no/skwms1/wms.adm_enheter?request=GetCapabilities&service=WMS";
+        public string Layer { get; set; } = "Administrative_enheter_2018";
+
         public MapViewModel(IBoundingBox boundingBox = null)
         {
             if (boundingBox != null)

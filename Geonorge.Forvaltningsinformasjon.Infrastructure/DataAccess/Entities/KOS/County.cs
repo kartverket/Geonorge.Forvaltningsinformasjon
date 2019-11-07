@@ -42,6 +42,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public County()
         {
             Municipalities = new HashSet<Municipality>();
+            CoordinateSystem = "EPSG:25833";
         }
     }
 }

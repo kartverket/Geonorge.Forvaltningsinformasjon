@@ -4,9 +4,10 @@
 
 @section fkbSection
 {
-    <partial name="~/Views/Common/Context.cshtml"/>
-    
-    <div class="col-md-7">
+    <div class="col-md-3">
+        <partial name="~/Views/Common/Context.cshtml" />
+    </div>
+    <div class="col-md-9">
         @RenderSection("aspectsSection")
     </div>
 }

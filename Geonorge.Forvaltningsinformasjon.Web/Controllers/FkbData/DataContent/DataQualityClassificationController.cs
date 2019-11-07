@@ -1,6 +1,7 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,7 +48,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
-                AdministrativeUnitBBox = county as IBoundingBox
+                MapViewModel = new MapViewModel(county)
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
         }
@@ -62,7 +63,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,
-                AdministrativeUnitBBox = municipality as IBoundingBox
+                MapViewModel = new MapViewModel(municipality)
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
         }

@@ -10,5 +10,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
         int MinY { get; }
         int MaxX { get; }
         int MaxY { get; }
+        string CoordinateSystem { get; }
     }
 }

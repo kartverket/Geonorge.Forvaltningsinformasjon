@@ -1,0 +1,29 @@
+﻿@using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Common.MapViewModel
+
+<div style="display:flex;height:@MapViewModel.ViewHeight" id="root"></div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
+
+<script>
+    $.getScript("/dist/js/map/main.1f19ae8e.js", function () {
+        var params = [];
+        params.mapItems = [
+            {
+                'Title': 'Abas',
+                'DistributionProtocol': 'OGC:WMS',
+                'GetCapabilitiesUrl': 'https://openwms.statkart.no/skwms1/wms.adm_enheter?request=GetCapabilities&service=WMS',
+                'addLayers': ['Administrative_enheter_2018']
+            }
+        ];
+        params.zoom = @Model.Zoom;
+        params.lat = @Model.Latitude;
+        params.lon = @Model.Longitude;
+        params.crs = '@Model.CoordinateSystem';
+
+        main.map(params, document.getElementById('root'));
+    });
+</script>
+
+

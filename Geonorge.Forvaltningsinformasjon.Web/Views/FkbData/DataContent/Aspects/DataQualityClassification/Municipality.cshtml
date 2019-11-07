@@ -15,21 +15,26 @@
         <h4>@Localizer["Kommuneoversikt for "] @Model.AdministrativeUnitName</h4>
     </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Localizer["Klasse"]</th>
-                <th>@Localizer["Areal"] (km<sup>2</sup>)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
-            {
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>FKB-@item.Class</td>
-                    <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
+                    <th>@Localizer["Klasse"]</th>
+                    <th>@Localizer["Areal"] (km<sup>2</sup>)</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
+                {
+                    <tr>
+                        <td>FKB-@item.Class</td>
+                        <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
 }

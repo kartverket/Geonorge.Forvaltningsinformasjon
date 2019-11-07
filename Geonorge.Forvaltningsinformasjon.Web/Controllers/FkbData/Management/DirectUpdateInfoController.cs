@@ -5,6 +5,7 @@ using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.DirectUpdateInfo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,17 +41,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             model.DirectUpdateCount = model.Counties.Sum(c => c.DirectUpdateCount);
 
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
-
+            
             return View("Views/FkbData/Management/Aspects/DirectUpdateInfo/Country.cshtml", model);
         }
 
         [HttpGet("county")]
         public IActionResult County([FromQuery]int id)
         {
+            ICounty county = _countyService.Get(id);
+
             MunicipalitiesViewModel model = new MunicipalitiesViewModel()
             {
                 Municipalities = _municipalityService.GetByCounty(id),
-                CountyName = _countyService.Get(id).Name,
+                CountyName = county.Name,
+                MapViewModel = new MapViewModel(county)
             };
             model.DirectUpdateCount = model.Municipalities.Where(m => m.IntroductionState == IntroductionState.Introduced).Count();
 

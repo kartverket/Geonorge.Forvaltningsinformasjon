@@ -13,6 +13,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
     {
         private int _id = 0;
 
+        public override string CoordinateSystem 
+        {
+            get 
+            {
+                return $"EPSG:{CoordinateSystemObject.EpsgName}";
+            }
+        }
+
         #region IMunicipality
         public int Id
         {
@@ -73,7 +81,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
         public string CountyId { get; set; }
         public County County { get; set; }
-        public short? CoordSys { get; set; }
+        public short CoordinateSystemId { get; set; }
+        public CoordintateSystem CoordinateSystemObject { get; set; }
         public string VerticalDatum { get; set; }
         public int? Active { get; set; }
         public ICollection<Project> Project { get; set; }

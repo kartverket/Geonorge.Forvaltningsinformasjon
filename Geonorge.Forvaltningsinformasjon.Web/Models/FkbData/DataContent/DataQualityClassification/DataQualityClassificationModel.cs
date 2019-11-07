@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification
@@ -7,6 +8,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQu
     {
         public List<IDataQualityClassification> Classifications { get; set; }
         public string AdministrativeUnitName { get; set; }
-        public IBoundingBox AdministrativeUnitBBox { get; set; }
+
+        public MapViewModel MapViewModel { get; set; } = new MapViewModel();
     }
 }

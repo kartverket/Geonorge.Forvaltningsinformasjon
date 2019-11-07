@@ -1,6 +1,8 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,11 +44,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult County([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
+            ICounty county = _countyService.Get(id);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
                 TransactionData = _transactionDataService.GetByCounty(id),
-                AdministrativeUnitName = _countyService.Get(id).Name
+                AdministrativeUnitName = county.Name,
+                MapViewModel = new MapViewModel(county)
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
         }
@@ -55,11 +59,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult Municipality([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
+            IMunicipality municipality = _municipalityService.Get(id);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
                 TransactionData = _transactionDataService.GetByMunicipality(id),
-                AdministrativeUnitName = _municipalityService.Get(id).Name
+                AdministrativeUnitName = municipality.Name,
+                MapViewModel = new MapViewModel(municipality)
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
         }

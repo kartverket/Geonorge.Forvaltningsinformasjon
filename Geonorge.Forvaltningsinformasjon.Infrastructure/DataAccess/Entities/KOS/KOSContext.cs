@@ -138,7 +138,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.CountyId)
                     .HasColumnName("Fylke_Fylkesnr")
                     .HasMaxLength(2);
-                entity.Property(e => e.CoordSys).HasColumnName("Koordsys_Koordsys");
+                entity.Property(e => e.CoordinateSystemId).HasColumnName("Koordsys_Koordsys")
+                    .HasConversion(v => (short)v, v => v); ;
                 entity.Property(e => e.VerticalDatum).HasColumnName("VertDatum").HasMaxLength(20);
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
@@ -148,6 +149,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                         .HasConstraintName("FK_Kommune_Fylke");
                 
                 entity.HasQueryFilter(e => e.Active == 1);
+
+                entity.HasOne(d => d.CoordinateSystemObject)
+                    .WithMany(p => p.Municipalities)
+                    .HasForeignKey(d => d.CoordinateSystemId)
+                    .HasConstraintName("FK_Kommune_Koordsys");
             });
 
             modelBuilder.Entity<CentralFkb>(entity =>
@@ -211,6 +217,16 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.AreaB).HasColumnName("ArealB");
                 entity.Property(e => e.AreaC).HasColumnName("ArealC");
                 entity.Property(e => e.AreaD).HasColumnName("ArealD");
+            });
+
+            modelBuilder.Entity<CoordintateSystem>(entity =>
+            {
+                entity.ToTable("Koordsys");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("Koordsys");
+                entity.Property(e => e.EpsgName).HasColumnName("EPSG");
             });
         }
     }

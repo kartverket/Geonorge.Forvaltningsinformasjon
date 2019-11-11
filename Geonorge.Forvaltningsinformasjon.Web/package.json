@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "popper.js": "^1.14.4",
-    "bootstrap": "3.3.5",
+    "bootstrap": "3.3.6",
     "font-awesome": "^4.6.3",
     "geonorge-base": "^9.0.4",
     "geonorge-shared-partials": "0.0.67",
-	"map": "https://github.com/kartverket/map.git"
+    "map": "https://github.com/kartverket/map.git"
   },
   "devDependencies": {
     "aspnet-webpack": "^2.0.1",
@@ -24,7 +24,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.18.0",
-    "bootstrap": "^3.3.6",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^3.1.3",

@@ -10,7 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
 {
     internal class GeoJsonProvider : IGeoJsonProvider
     {
-        private const string _GeoJsonPathWeb = "dist/geosjon";
+        private const string _GeoJsonPathWeb = "dist/geojson";
         private static string _GeoJsonPathLocal = $"./wwwroot/{_GeoJsonPathWeb}";
 
         static GeoJsonProvider()

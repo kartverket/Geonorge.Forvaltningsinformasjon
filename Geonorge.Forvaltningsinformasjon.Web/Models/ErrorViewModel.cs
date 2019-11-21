@@ -1,6 +1,6 @@
 using System;
 
-namespace Geonorge.Forvaltningsinformasjon.Models
+namespace Geonorge.Forvaltningsinformasjon.Web.Models
 {
     public class ErrorViewModel
     {

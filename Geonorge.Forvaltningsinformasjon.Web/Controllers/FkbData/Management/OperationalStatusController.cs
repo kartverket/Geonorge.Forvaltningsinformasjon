@@ -2,7 +2,6 @@
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using Geonorge.Forvaltningsinformasjon.Models;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.OperationalStatus;
 using Microsoft.AspNetCore.Mvc;

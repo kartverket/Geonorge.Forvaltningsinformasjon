@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson;
 using Geonorge.Forvaltningsinformasjon.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,6 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core
     {
         public static void InitializeDependencies(IServiceCollection services)
         {
+            // services
             services.AddTransient<ICountyService, CountyService>();
             services.AddTransient<IMunicipalityService, MunicipalityService>();
             services.AddTransient<IDataSetService, DataSetService>();
@@ -15,6 +17,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core
             services.AddTransient<IDataQualityClassificationService, DataQualityClassificationService>();
             services.AddTransient<IDataAgeDistributionService, DataAgeDistributionService>();
             services.AddTransient<IDataQualityDistributionService, DataQualityDistributionService>();
+            services.AddTransient<IDirectUpdateInfoGeoJsonService, DirectUpdateInfoGeoJsonService>();
+
+            // internals
+            services.AddTransient<IGeoJsonProvider, GeoJsonProvider>();
         }
     }
 }

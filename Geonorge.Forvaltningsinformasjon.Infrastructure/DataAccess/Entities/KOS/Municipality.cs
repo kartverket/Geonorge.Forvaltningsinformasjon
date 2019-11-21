@@ -35,7 +35,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         {
             get
             {
-                if (CentralFkb.First().PlannedIntroduction == null)
+                if (CentralFkb.Count == 0 || CentralFkb.First().PlannedIntroduction == null)
                 {
                     return null;
                 }
@@ -50,12 +50,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         {
             get
             {
-                if (CentralFkb.First().DirectUpdateInroduced == null)
+                if (CentralFkb.Count == 0 || CentralFkb.First().DirectUpdateIntroduced == null)
                 {
                     return null;
                 }
                 return DateTime.ParseExact(
-                    CentralFkb.First().DirectUpdateInroduced,
+                    CentralFkb.First().DirectUpdateIntroduced,
                     "yyyyMMdd",
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);

@@ -23,5 +23,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         {
             return _dbContext.Set<Municipality>().Where(k => k.Id == id).Include(k => k.CentralFkb).Include(k => k.CoordinateSystemObject).First();
         }
+
+        public override List<IMunicipality> Get()
+        {
+            return _dbContext.Set<Municipality>().Include(k => k.CentralFkb).AsEnumerable<IMunicipality>().ToList();
+        }
     }
 }

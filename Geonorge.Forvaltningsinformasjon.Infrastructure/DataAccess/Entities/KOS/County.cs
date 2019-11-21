@@ -30,7 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         {
             get
             {
-                return Municipalities.Where(k => k.CentralFkb.First().DirectUpdateInroduced != null).Count();
+                return Municipalities.Where(k => k.CentralFkb.First().DirectUpdateIntroduced != null).Count();
             }
         }
 

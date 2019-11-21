@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
-namespace Geonorge.Forvaltningsinformasjon
+namespace Geonorge.Forvaltningsinformasjon.Web
 {
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace Geonorge.Forvaltningsinformasjon.Models
+﻿namespace Geonorge.Forvaltningsinformasjon.Web
 {
     public class ApplicationSettings
     {
@@ -6,6 +6,7 @@
         public string EnvironmentName { get; set; }
         public string UrlGeonorgeRoot { get; set; }
         public string UrlOperationalStatus { get; set; }
+        public string UrlMunicipalitiesGeoJson { get; set; }
         public string UrlProxy { get; set; }
         public string UserNameProxy { get; set; }
         public string PasswordProxy { get; set; }

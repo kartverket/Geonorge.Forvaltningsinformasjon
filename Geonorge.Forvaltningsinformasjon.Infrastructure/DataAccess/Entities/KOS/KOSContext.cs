@@ -160,7 +160,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
             {
                 entity.ToTable("SentralFKB");
 
-                entity.Property(e => e.DirectUpdateInroduced)
+                entity.Property(e => e.DirectUpdateIntroduced)
                     .HasColumnName("Direkteoppdateringinfort")
                     .HasMaxLength(8);
                 entity.Property(e => e.MunicipalitzNumber)

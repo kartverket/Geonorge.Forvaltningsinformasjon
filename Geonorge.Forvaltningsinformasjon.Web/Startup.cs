@@ -1,5 +1,4 @@
-﻿using Geonorge.Forvaltningsinformasjon.Models;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+﻿using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 
-namespace Geonorge.Forvaltningsinformasjon
+namespace Geonorge.Forvaltningsinformasjon.Web
 {
     public class Startup
     {
@@ -28,6 +27,9 @@ namespace Geonorge.Forvaltningsinformasjon
             var applicationSettings = new ApplicationSettings();
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
+
+            // register urls
+            Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.UrlMunicipalitiesGeoJson;
 
             // register databases
             Infrastructure.StartupInitializer.InitializeDatabases(

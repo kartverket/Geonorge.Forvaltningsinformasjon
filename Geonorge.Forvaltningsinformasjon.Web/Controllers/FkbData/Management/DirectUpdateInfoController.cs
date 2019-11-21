@@ -18,25 +18,32 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         private ICountyService _countyService;
         private IDataSetService _dataSetService;
         private IContextViewModelHelper _contextViewModelHelper;
-
+        private IDirectUpdateInfoGeoJsonService _geoJsonService;
+        
         public DirectUpdateInfoController(
             IMunicipalityService municipalityService,
             ICountyService countyService,
             IDataSetService dataSetService,
-            IContextViewModelHelper contextViewModelHelper)
+            IContextViewModelHelper contextViewModelHelper,
+            IDirectUpdateInfoGeoJsonService geoJsonService)
         {
             _municipalityService = municipalityService;
             _countyService = countyService;
             _dataSetService = dataSetService;
             _contextViewModelHelper = contextViewModelHelper;
+            _geoJsonService = geoJsonService;
         }
 
         [HttpGet("")]
         public IActionResult Country()
         {
+            string geoJson = _geoJsonService.GetPath();
+            string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
+            // @tmp end
             CountiesViewModel model = new CountiesViewModel()
             {
                 Counties = _countyService.Get(),
+                MapViewModel = new MapViewModel()
             };
             model.DirectUpdateCount = model.Counties.Sum(c => c.DirectUpdateCount);
 
@@ -48,6 +55,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         [HttpGet("county")]
         public IActionResult County([FromQuery]int id)
         {
+            string geoJson = _geoJsonService.GetPathByCounty(id);
+            string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
+
             ICounty county = _countyService.Get(id);
 
             MunicipalitiesViewModel model = new MunicipalitiesViewModel()

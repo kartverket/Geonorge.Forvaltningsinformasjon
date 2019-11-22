@@ -3,11 +3,17 @@
 }
 
 @section fkbSection
-{
-    <div class="col-md-3">
-        <partial name="~/Views/Common/Context.cshtml" />
+    {
+    <div class="row">
+        <div class="col-md-4">
+            <partial name="~/Views/Common/Context.cshtml" />
+        </div>
+        <div class="col-md-8">
+            @RenderSection("titleSection")
+        </div>
     </div>
-    <div class="col-md-9">
+
+    <div class="row">
         @RenderSection("aspectsSection")
     </div>
 }

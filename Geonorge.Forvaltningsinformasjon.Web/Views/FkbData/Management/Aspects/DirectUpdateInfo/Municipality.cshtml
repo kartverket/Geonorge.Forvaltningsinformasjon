@@ -9,13 +9,19 @@
     ViewData["currentTab"] = "DirectUpdateInfo";
 }
 
-@section aspectsSection
-    {
+@section titleSection
+{
     <div style="text-align:center">
         <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
         <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
     </div>
-    <div class="col-md-12">
+}
+
+@section aspectsSection
+    {
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
         <table class="table">
             <thead>
                 <tr>

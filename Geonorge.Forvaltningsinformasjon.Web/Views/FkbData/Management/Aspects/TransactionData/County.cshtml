@@ -9,13 +9,19 @@
     ViewData["currentTab"] = "TransactionData";
 }
 
-@section aspectsSection
+@section titleSection
 {
     <div style="text-align:center">
         <h4>@Localizer["Fylkesoversikt for "] @Model.AdministrativeUnitName</h4>
         <p>Tabellen viser antall ganger det har blitt gjort endringer på datasettet (minst ett objekt er nytt, endret eller slettet).</p>
     </div>
+}
 
+@section aspectsSection
+{
+    <div class="col-md-4">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -44,8 +50,5 @@
                 </tr>
             </tbody>
         </table>
-     </div>
-    <div class="col-md-4">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
     </div>
-    }
+}

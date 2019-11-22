@@ -9,12 +9,18 @@
     ViewData["currentTab"] = "DataQualityClassification";
 }
 
-@section aspectsSection
-    {
+@section titleSection
+{
     <div style="text-align:center">
         <h4>@Localizer["Landsoversikt"]</h4>
     </div>
+}
 
+@section aspectsSection
+    {
+    <div class="col-md-4">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -34,7 +40,4 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
-    </div>
-    }
+}

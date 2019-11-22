@@ -9,13 +9,20 @@
     ViewData["currentTab"] = "DirectUpdateInfo";
 }
 
-@section aspectsSection
-    {
+@section titleSection
+{
     <div style="text-align:center">
         <h4>@Localizer["Fylkesoversikt for "] @Model.CountyName</h4>
         <p>@string.Format(Localizer["Antall kommuner som oppdaterer FKB-data direkte i Sentral felles kartdatabase: {0}/{1}"].Value, Model.DirectUpdateCount, Model.Municipalities.Count)</p>
     </div>
+}
 
+
+@section aspectsSection
+    {
+    <div class="col-md-4">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
     <div class="col-md-8">
         <table class="table">
             <thead>
@@ -36,9 +43,6 @@
                 }
             </tbody>
         </table>
-    </div>
-    <div class="col-md-4">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel"/>
     </div>
 }
 

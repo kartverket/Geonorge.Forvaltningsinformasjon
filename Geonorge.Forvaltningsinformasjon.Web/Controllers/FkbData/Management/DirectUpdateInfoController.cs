@@ -41,7 +41,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult Country()
         {
             string geoJson = _geoJsonService.GetPath();
-            string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
+            string url = GetGeoJsonUrl(geoJson);
             MapViewModel mapViewModel = new MapViewModel();
 
             mapViewModel.AddService(_serviceType, url, _layer);
@@ -62,7 +62,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult County([FromQuery]int id)
         {
             string geoJson = _geoJsonService.GetPathByCounty(id);
-            string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
+            string url = GetGeoJsonUrl(geoJson);
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
 
@@ -112,6 +112,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
 
             return View("Views/FkbData/Management/Aspects/DirectUpdateInfo/Municipality.cshtml", model);
+        }
+
+        private string GetGeoJsonUrl(string geoJson)
+        {
+            string s = Request.IsHttps ? "s" : "";
+            return $"http{s}://{Request.Host}/{geoJson}";
         }
     }
 }

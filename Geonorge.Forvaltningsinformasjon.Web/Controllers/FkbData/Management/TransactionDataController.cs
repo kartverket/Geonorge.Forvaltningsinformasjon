@@ -11,6 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
     [Route("fkb-data/management/transaction-data")]
     public class TransactionDataController : Controller, IAdministrativeUnitController
     {
+        private const string _serviceType = "OGC:WMS";
         private const string _url = "http://wms.geonorge.no/skwms1/wms.sfkb-transaksjoner?request=GetCapabilities&service=WMS";
         private const string _layer = "bygning";
 
@@ -34,16 +35,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
+            MapViewModel mapViewModel = new MapViewModel();
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
                 TransactionData = _transactionDataService.Get(),
                 AdministrativeUnitName = "Norge",
-                MapViewModel = new MapViewModel
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
         }
@@ -53,16 +53,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
             ICounty county = _countyService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(county);
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
                 TransactionData = _transactionDataService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
-                MapViewModel = new MapViewModel(county)
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
         }
@@ -72,16 +71,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
             IMunicipality municipality = _municipalityService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(municipality);
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
                 TransactionData = _transactionDataService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,
-                MapViewModel = new MapViewModel(municipality)
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
         }

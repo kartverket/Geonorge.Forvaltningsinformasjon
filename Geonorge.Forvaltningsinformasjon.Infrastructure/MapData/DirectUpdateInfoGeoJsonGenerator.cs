@@ -40,7 +40,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 
             JObject mergedModel = new JObject(
                     new JProperty("features", features),
-                    new JProperty("type", "FeatureCollection"));
+                    new JProperty("type", "FeatureCollection"),
+                    new JProperty("name", "sFkbStatus"));
 
             return JsonConvert.SerializeObject(mergedModel);
         }

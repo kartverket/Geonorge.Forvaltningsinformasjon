@@ -10,11 +10,29 @@
     $.getScript("/dist/js/map/main.1f19ae8e.js", function () {
         var params = [];
         params.mapItems = [
+            @foreach (MapViewModel.Service service in Model.Services)
             {
-                'Title': 'Abas',
-                'DistributionProtocol': 'OGC:WMS',
-                'GetCapabilitiesUrl': '@Model.Url',
-                'addLayers': ['@Model.Layer']
+                <text>
+                {
+                        'Title': '@service.Title',
+                        'DistributionProtocol': '@service.ServiceType',
+                    @if (service.ServiceType == "OGC:WMS")
+                    {
+                        @:'GetCapabilitiesUrl': '@service.Url',
+                    }
+                    else if (service.ServiceType == "GEOJSON")
+                    {
+                        @:'url': '@service.Url',
+                    }
+                    'addLayers': 
+                    [
+                    @foreach (string layer in service.Layers)
+                    {
+                        @:'@layer',
+                    }
+                    ]
+                }
+                </text>
             }
         ];
         params.zoom = @Model.Zoom;

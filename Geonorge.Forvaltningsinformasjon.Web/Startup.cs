@@ -79,7 +79,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 RequestCultureProviders = new List<IRequestCultureProvider>()   // @TMP single-language solution
             });
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true
+            });
 
             app.UseMvc(routes =>
             {

@@ -14,6 +14,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
     [Route("fkb-data/management/direct-update-info")]
     public class DirectUpdateInfoController : Controller, IAdministrativeUnitController
     {
+        private const string _serviceType = "GEOJSON";
+        private const string _layer = "sFkbStatus";
+
         private IMunicipalityService _municipalityService;
         private ICountyService _countyService;
         private IDataSetService _dataSetService;
@@ -39,11 +42,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         {
             string geoJson = _geoJsonService.GetPath();
             string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
-            // @tmp end
+            MapViewModel mapViewModel = new MapViewModel();
+
+            mapViewModel.AddService(_serviceType, url, _layer);
+
             CountiesViewModel model = new CountiesViewModel()
             {
                 Counties = _countyService.Get(),
-                MapViewModel = new MapViewModel()
+                MapViewModel = mapViewModel
             };
             model.DirectUpdateCount = model.Counties.Sum(c => c.DirectUpdateCount);
 
@@ -57,14 +63,16 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         {
             string geoJson = _geoJsonService.GetPathByCounty(id);
             string url = $"{Request.Scheme}://{Request.Host}/{geoJson}";
-
             ICounty county = _countyService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(county);
+
+            mapViewModel.AddService(_serviceType, url, _layer);
 
             MunicipalitiesViewModel model = new MunicipalitiesViewModel()
             {
                 Municipalities = _municipalityService.GetByCounty(id),
                 CountyName = county.Name,
-                MapViewModel = new MapViewModel(county)
+                MapViewModel = mapViewModel
             };
             model.DirectUpdateCount = model.Municipalities.Where(m => m.IntroductionState == IntroductionState.Introduced).Count();
 

@@ -10,6 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
    [Route("fkb-data/data-content/data-quality-classification")]
     public class DataQualityClassificationController : Controller
     {
+        private const string _serviceType = "OGC:WMS";
         private const string _url = "https://wms.geonorge.no/skwms1/wms.georef2?request=GetCapabilities&service=WMS";
         private const string _layer = "Georef-ABCD";
 
@@ -33,14 +34,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
+            MapViewModel mapViewModel = new MapViewModel();
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
+
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
                 Classifications = _dataQualityClassificationService.Get(),
-                MapViewModel = new MapViewModel()
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
 
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml", model);
@@ -51,16 +52,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
             ICounty county = _countyService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(county);
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
 
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
-                MapViewModel = new MapViewModel(county)
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
         }
@@ -70,16 +70,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
             IMunicipality municipality = _municipalityService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(municipality);
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
 
             DataQualityClassificationModel model = new DataQualityClassificationModel
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,
-                MapViewModel = new MapViewModel(municipality)
-                {
-                    Url = _url,
-                    Layer = _layer
-                }
+                MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
         }

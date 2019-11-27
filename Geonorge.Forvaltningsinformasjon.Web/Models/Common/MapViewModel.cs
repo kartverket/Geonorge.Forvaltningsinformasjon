@@ -1,6 +1,7 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,23 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
     {
         private double _k1 = 550000.0;
         private double _k2 = 1.304347826086957e-5;
+
+        public class Service
+        {
+            public string Title { get; }
+            public string ServiceType { get; }
+            public string Url { get; }
+            public List<string> Layers { get; }
+
+            public Service(string title, string serviceType, string url, List<string> layers)
+            {
+                Title = title;
+                ServiceType = serviceType;
+                Url = url;
+                Layers = layers;
+            }
+        }
+
         public const string ViewHeight = "500px";
 
         public string Latitude { get; } = "7248546.391464977";
@@ -18,8 +36,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
         public string Zoom { get; } = "2";
         public string CoordinateSystem { get; } = "EPSG:25833";
 
-        public string Url { get; set; } = "https://openwms.statkart.no/skwms1/wms.adm_enheter?request=GetCapabilities&service=WMS";
-        public string Layer { get; set; } = "Administrative_enheter_2018";
+        public List<Service> Services { get; } = new List<Service>();
 
         public MapViewModel(IBoundingBox boundingBox = null)
         {
@@ -39,6 +56,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
                 Zoom = zoom.ToString(nfi);
                 CoordinateSystem = boundingBox.CoordinateSystem;
             }
+        }
+
+        public void AddService(string serviceType, string url, string layer)
+        {
+            Services.Add(new Service("", serviceType, url, new List<string> { layer } ));
         }
     }
 }

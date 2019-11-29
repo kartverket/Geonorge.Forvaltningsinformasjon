@@ -30,6 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
 
             // register urls
             Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.UrlMunicipalitiesGeoJson;
+            Core.StartupInitializer.LocalPathThematicGeoJson = applicationSettings.LocalPathThematicGeoJson;
 
             // register databases
             Infrastructure.StartupInitializer.InitializeDatabases(

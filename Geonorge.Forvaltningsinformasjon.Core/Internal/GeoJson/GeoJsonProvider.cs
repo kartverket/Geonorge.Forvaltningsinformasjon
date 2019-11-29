@@ -10,15 +10,14 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
 {
     internal class GeoJsonProvider : IGeoJsonProvider
     {
-        private const string _GeoJsonPathWeb = "dist/geojson";
-        private static string _GeoJsonPathLocal = $"./wwwroot/{_GeoJsonPathWeb}";
+        private static string _GeoJsonPathLocal = StartupInitializer.LocalPathThematicGeoJson;
 
         static GeoJsonProvider()
         {
             Directory.CreateDirectory(_GeoJsonPathLocal);
         }
         
-        public string GetPath(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalities, int id = 0)
+        public string GetFileName(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalities, int id = 0)
         {
             string path = BuildPathLocal(geoJsonGenerator, id);
 
@@ -31,7 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
                     writer.Write(geoJson);
                 }
             }
-            return BuildPathWeb(geoJsonGenerator, id); ;
+            return GetFileName(geoJsonGenerator, id); ;
         }
 
         private bool MustGenerate(string path)
@@ -44,10 +43,9 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
             return $"{_GeoJsonPathLocal}/{geoJsonGenerator.Name}_{id}.geojson";
         }
 
-        private string BuildPathWeb(IGeoJsonGenerator geoJsonGenerator, int id)
+        private string GetFileName(IGeoJsonGenerator geoJsonGenerator, int id)
         {
-            return $"{_GeoJsonPathWeb}/{geoJsonGenerator.Name}_{id}.geojson";
+            return $"{geoJsonGenerator.Name}_{id}.geojson";
         }
-
     }
 }

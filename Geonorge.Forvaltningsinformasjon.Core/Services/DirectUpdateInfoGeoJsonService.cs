@@ -23,17 +23,17 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             _municipalityService = municipalityService;
         }
 
-        public string GetPath()
+        public string GetFileName()
         {
-            return _provider.GetPath(_geonerator, _municipalityService.Get());
+            return _provider.GetFileName(_geonerator, _municipalityService.Get());
         }
 
-        public string GetPathByCounty(int id)
+        public string GetFileNameCounty(int id)
         {
-            return _provider.GetPath(_geonerator, _municipalityService.GetByCounty(id), id);
+            return _provider.GetFileName(_geonerator, _municipalityService.GetByCounty(id), id);
         }
 
-        public string GetPathByMunicipality(int id)
+        public string GetFileNameByMunicipality(int id)
         {
             // we don't need this
             throw new NotImplementedException();

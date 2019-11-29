@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
@@ -22,26 +23,28 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         private IDataSetService _dataSetService;
         private IContextViewModelHelper _contextViewModelHelper;
         private IDirectUpdateInfoGeoJsonService _geoJsonService;
+        private ApplicationSettings _applicationSettings;
         
         public DirectUpdateInfoController(
             IMunicipalityService municipalityService,
             ICountyService countyService,
             IDataSetService dataSetService,
             IContextViewModelHelper contextViewModelHelper,
-            IDirectUpdateInfoGeoJsonService geoJsonService)
+            IDirectUpdateInfoGeoJsonService geoJsonService,
+            ApplicationSettings applicationSettings)
         {
             _municipalityService = municipalityService;
             _countyService = countyService;
             _dataSetService = dataSetService;
             _contextViewModelHelper = contextViewModelHelper;
             _geoJsonService = geoJsonService;
+            _applicationSettings = applicationSettings;
         }
 
         [HttpGet("")]
         public IActionResult Country()
         {
-            string geoJson = _geoJsonService.GetPath();
-            string url = GetGeoJsonUrl(geoJson);
+            string url = $"{_applicationSettings.UrlThematicGeoJson}/{_geoJsonService.GetFileName()}";
             MapViewModel mapViewModel = new MapViewModel();
 
             mapViewModel.AddService(_serviceType, url, _layer);
@@ -61,8 +64,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         [HttpGet("county")]
         public IActionResult County([FromQuery]int id)
         {
-            string geoJson = _geoJsonService.GetPathByCounty(id);
-            string url = GetGeoJsonUrl(geoJson);
+            string url = $"{_applicationSettings.UrlThematicGeoJson}/{_geoJsonService.GetFileNameCounty(id)}";
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
 
@@ -114,10 +116,16 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             return View("Views/FkbData/Management/Aspects/DirectUpdateInfo/Municipality.cshtml", model);
         }
 
-        private string GetGeoJsonUrl(string geoJson)
+        [HttpGet("geojson/{geoJsonFileName}")]
+        public IActionResult GetGeoJson(string geoJsonFileName)
         {
-            string s = Request.IsHttps ? "s" : "";
-            return $"http{s}://{Request.Host}/{geoJson}";
+            string geoJson;
+
+            using (StreamReader reader = new StreamReader($"{_applicationSettings.LocalPathThematicGeoJson}\\{geoJsonFileName}"))
+            {
+                geoJson = reader.ReadToEnd();
+            }
+            return Content(geoJson);
         }
     }
 }

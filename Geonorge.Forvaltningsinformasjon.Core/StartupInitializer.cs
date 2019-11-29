@@ -7,6 +7,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core
 {
     public class StartupInitializer
     {
+        public static string LocalPathThematicGeoJson { get; set; }
         public static void InitializeDependencies(IServiceCollection services)
         {
             // services

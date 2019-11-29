@@ -8,6 +8,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
 {
     internal interface IGeoJsonProvider
     {
-        string GetPath(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalites, int id = 0);
+        string GetFileName(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalites, int id = 0);
     }
 }

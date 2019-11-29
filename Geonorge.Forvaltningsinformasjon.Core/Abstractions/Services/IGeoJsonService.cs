@@ -6,8 +6,8 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 {
     public interface IGeoJsonService
     {
-        string GetPath();
-        string GetPathByCounty(int id);
-        string GetPathByMunicipality(int id);
+        string GetFileName();
+        string GetFileNameCounty(int id);
+        string GetFileNameByMunicipality(int id);
     }
 }

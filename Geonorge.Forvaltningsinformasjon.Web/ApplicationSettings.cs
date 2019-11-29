@@ -7,6 +7,8 @@
         public string UrlGeonorgeRoot { get; set; }
         public string UrlOperationalStatus { get; set; }
         public string UrlMunicipalitiesGeoJson { get; set; }
+        public string UrlThematicGeoJson { get; set; }
+        public string LocalPathThematicGeoJson { get; set; }
         public string UrlProxy { get; set; }
         public string UserNameProxy { get; set; }
         public string PasswordProxy { get; set; }

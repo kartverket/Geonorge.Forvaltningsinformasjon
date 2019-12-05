@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData
 {
+    public enum Period
+    {
+        Week,
+        Month,
+        Year
+    }
+
     public class TransactionDataViewModel
     {
         public string AdministrativeUnitName { get; set;}

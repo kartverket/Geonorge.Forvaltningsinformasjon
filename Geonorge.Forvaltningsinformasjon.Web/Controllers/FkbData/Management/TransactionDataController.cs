@@ -5,6 +5,9 @@ using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
 {
@@ -19,17 +22,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         private ITransactionDataService _transactionDataService;
         private ICountyService _countyService;
         private IMunicipalityService _municipalityService;
+        private Dictionary<string, string> _dataSetToLayerMap;
 
         public TransactionDataController(
             IContextViewModelHelper contextViewModelHelper, 
             ITransactionDataService transactionDataService,
             ICountyService countyService,
-            IMunicipalityService municipalityService)
+            IMunicipalityService municipalityService,
+            ApplicationSettings applicationSettings)
         {
             _contextViewModelHelper = contextViewModelHelper;
             _transactionDataService = transactionDataService;
             _countyService = countyService;
             _municipalityService = municipalityService;
+            _dataSetToLayerMap = applicationSettings.DataSetToLayerMap;
         }
 
         public IActionResult Country()
@@ -82,6 +88,42 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
+        }
+
+        [HttpGet("update-map")]
+        public IActionResult UpdateMap(
+            [FromQuery]string dataSetName,
+            [FromQuery]Period period,
+            [FromQuery]MapViewModel mapViewModel)
+        {
+            DateTime to = DateTime.UtcNow;
+            DateTime from;
+
+            switch (period)
+            {
+                case Period.Week:
+                    from = to.AddDays(-7).Date;
+                    break;
+                case Period.Month:
+                    from = to.AddMonths(-1).Date;
+                    break;
+                case Period.Year:
+                default:
+                    from = to.AddYears(-1).Date;
+                    break;
+            }
+
+            string time = $"{from.ToString("yyyy-MM-dd")}/{to.ToString("yyyy-MM-dd")}";
+
+            Dictionary<string, string> customParameters = new Dictionary<string, string>
+            {
+                { "TIME", time }
+            };
+
+            mapViewModel.Services.Clear();
+            mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[dataSetName], customParameters);
+
+            return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }
     }
 }

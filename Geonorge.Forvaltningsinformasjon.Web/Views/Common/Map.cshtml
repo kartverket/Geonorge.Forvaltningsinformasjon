@@ -6,16 +6,17 @@
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
 
-<script>
+<script type="text/javascript">
     $.getScript("/dist/js/map/main.1f19ae8e.js", function () {
         var params = [];
+
         params.mapItems = [
             @foreach (MapViewModel.Service service in Model.Services)
             {
                 <text>
                 {
-                        'Title': '@service.Title',
-                        'DistributionProtocol': '@service.ServiceType',
+                    'Title': '@service.Title',
+                    'DistributionProtocol': '@service.ServiceType',
                     @if (service.ServiceType == "OGC:WMS")
                     {
                         @:'GetCapabilitiesUrl': '@service.Url',
@@ -24,14 +25,26 @@
                     {
                         @:'url': '@service.Url',
                     }
-                    'addLayers': 
-                    [
-                    @foreach (string layer in service.Layers)
+                    @if (service.CustomParameters != null)
                     {
-                        @:'@layer',
+                        <text>
+                        'customParams':
+                        {
+                            @foreach (KeyValuePair<string,string> customParam in service.CustomParameters)
+                            {
+                            @:'@customParam.Key': '@customParam.Value',
+                            }
+                        },
+                        </text>
                     }
-                    ]
-                }
+                        'addLayers':
+                        [
+                            @foreach (string layer in service.Layers)
+                            {
+                                @:'@layer',
+                            }
+                        ]
+                },
                 </text>
             }
         ];

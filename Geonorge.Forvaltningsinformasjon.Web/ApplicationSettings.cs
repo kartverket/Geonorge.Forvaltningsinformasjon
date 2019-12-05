@@ -1,4 +1,6 @@
-﻿namespace Geonorge.Forvaltningsinformasjon.Web
+﻿using System.Collections.Generic;
+
+namespace Geonorge.Forvaltningsinformasjon.Web
 {
     public class ApplicationSettings
     {
@@ -15,6 +17,7 @@
         public string CredentialVerificationDomain { get; set; }
 
         public ConnectionStrings ConnectionStrings { get; set; }
+        public Dictionary<string,string> DataSetToLayerMap { get; set; }
     }
 
     public class ConnectionStrings

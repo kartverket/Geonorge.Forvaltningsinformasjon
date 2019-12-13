@@ -46,16 +46,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            services.AddMvc()
+            services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-
             ConfigureProxy(applicationSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -85,11 +84,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 ServeUnknownFileTypes = true
             });
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseEndpoints(e =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                e.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

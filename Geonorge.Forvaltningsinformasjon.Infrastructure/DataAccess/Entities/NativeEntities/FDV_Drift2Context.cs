@@ -506,7 +506,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities
 
                 entity.Property(e => e.Aktiv).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Aktiv == 1);
+                entity.HasQueryFilter(e => e.Aktiv > 0); ;
             });
 
             modelBuilder.Entity<Kartkontor>(entity =>

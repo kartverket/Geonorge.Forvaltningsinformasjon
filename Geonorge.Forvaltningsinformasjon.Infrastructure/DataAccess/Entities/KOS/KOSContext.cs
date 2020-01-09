@@ -30,7 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Type).HasMaxLength(255);
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Active == 1);
+                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<FdvDataSet>(entity =>
@@ -87,7 +87,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Active == 1);
+                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<Round>(entity =>
@@ -119,7 +119,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Name).HasColumnName("Fylkesnavn").HasMaxLength(255);
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Active == 1);
+                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<Municipality>(entity =>

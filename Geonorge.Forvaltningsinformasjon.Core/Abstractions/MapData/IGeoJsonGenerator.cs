@@ -8,6 +8,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData
     public interface IGeoJsonGenerator
     {
         string Name { get; }
-        string Generate(List<IMunicipality> municipalities);
+        string Generate(List<IMunicipality> municipalities, string coordinateSystem);
     }
 }

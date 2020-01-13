@@ -2,7 +2,7 @@
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent

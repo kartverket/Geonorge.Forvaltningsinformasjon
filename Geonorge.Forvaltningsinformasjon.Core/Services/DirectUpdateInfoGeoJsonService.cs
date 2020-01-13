@@ -25,12 +25,12 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
         public string GetFileName()
         {
-            return _provider.GetFileName(_geonerator, _municipalityService.Get());
+            return _provider.GetFileName(_geonerator, _municipalityService.Get(), "25833");
         }
 
         public string GetFileNameCounty(int id)
         {
-            return _provider.GetFileName(_geonerator, _municipalityService.GetByCounty(id), id);
+            return _provider.GetFileName(_geonerator, _municipalityService.GetByCounty(id), "25833", id);
         }
 
         public string GetFileNameByMunicipality(int id)

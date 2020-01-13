@@ -26,5 +26,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public int? ObjectCount { get; set; }
         internal DateTime? GeonorgeFileDate { get; set; }
         public DataSet DataSet { get; set; }
+
+        public long Year0 { get; set; }
+        public long Year1 { get; set; }
+        public long Year2 { get; set; }
+        public long Year3 { get; set; }
+        public long Year4 { get; set; }
+        public long Years5To9 { get; set; }
+        public long Years10To19 { get; set; }
+        public long Older { get; set; }
     }
 }

@@ -17,13 +17,13 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Internal.GeoJson
             Directory.CreateDirectory(_GeoJsonPathLocal);
         }
         
-        public string GetFileName(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalities, int id = 0)
+        public string GetFileName(IGeoJsonGenerator geoJsonGenerator, List<IMunicipality> municipalities, string coordinateSystem, int id = 0)
         {
             string path = BuildPathLocal(geoJsonGenerator, id);
 
             if (MustGenerate(path))
             {
-                string geoJson = geoJsonGenerator.Generate(municipalities);
+                string geoJson = geoJsonGenerator.Generate(municipalities, coordinateSystem);
 
                 using (StreamWriter writer = File.CreateText(path))
                 {

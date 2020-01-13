@@ -2,7 +2,7 @@
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using System.Collections.Generic;
 
-namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification
+namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 {
     public class DataQualityClassificationModel
     {

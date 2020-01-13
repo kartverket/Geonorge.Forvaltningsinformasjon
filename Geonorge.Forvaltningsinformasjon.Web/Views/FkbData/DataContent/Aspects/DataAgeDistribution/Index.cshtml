@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionModel
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "DataAgeDistribution";
+}
+
+@section titleSection
+{
+    <div style="text-align:center">
+        @if (Model.Type == DataAgeDistributionModel.AdministrativeUnitType.Country)
+        {
+            <h4>@Localizer["Landsoversikt"]</h4>
+        }
+        else if (Model.Type == DataAgeDistributionModel.AdministrativeUnitType.County)
+        {
+            <h4>@Localizer["Fylkesoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
+        else
+        {
+            <h4>@Localizer["Kommuneoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
+    </div>
+}
+
+@section aspectsSection
+    {
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+    </div>
+}

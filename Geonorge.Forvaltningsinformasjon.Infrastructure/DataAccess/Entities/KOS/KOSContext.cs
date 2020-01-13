@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
@@ -189,6 +190,15 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.SumLastWeek).HasColumnName("Ant_trans_uke");
 
                 entity.Property(e => e.DataSetId).HasColumnName("Datasett_Id");
+                
+                entity.Property(e => e.Year0).HasColumnName("Alder_1").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Year1).HasColumnName("Alder_2").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Year2).HasColumnName("Alder_3").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Year3).HasColumnName("Alder_4").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Year4).HasColumnName("Alder_5").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Years5To9).HasColumnName("Alder_6_10").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Years10To19).HasColumnName("Alder_11_20").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Older).HasColumnName("Alder_21_Over").HasConversion(v => (double)v, v => (long)v);
 
                 entity.Property(e => e.GeonorgeFileDate)
                     .HasColumnName("Geonorge_fildato")

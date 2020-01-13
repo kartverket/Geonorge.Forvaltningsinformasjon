@@ -14,9 +14,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
         {
         }
             
-        public string Generate(List<IMunicipality> municipalities)
+        public string Generate(List<IMunicipality> municipalities, string coordinateSystem)
         {
-            string geoJson = GetMunicipalitiesGeoJson();
+            string geoJson = GetMunicipalitiesGeoJson(coordinateSystem);
 
             return MergeThematicData(geoJson, municipalities);
         }
@@ -26,7 +26,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             return geoJson;
         }
 
-        private string GetMunicipalitiesGeoJson()
+        private string GetMunicipalitiesGeoJson(string coordinateSystem)
         {
             string geoJson;
 
@@ -34,7 +34,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    geoJson = httpClient.GetStringAsync(StartupInitializer.MunicipalitiesGeoJsonUrl).Result;
+                    geoJson = httpClient.GetStringAsync(string.Format(StartupInitializer.MunicipalitiesGeoJsonUrl, coordinateSystem)).Result;
                 }
             }
             else

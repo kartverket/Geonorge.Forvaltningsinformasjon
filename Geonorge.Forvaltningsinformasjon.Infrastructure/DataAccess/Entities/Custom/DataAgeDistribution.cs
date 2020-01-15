@@ -10,14 +10,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
         public int Id { get; set; }
 
         public string DataSetName { get; set; }
-
-        public long Year0 { get; set; }
-        public long Year1 { get; set; }
-        public long Year2 { get; set; }
-        public long Year3 { get; set; }
-        public long Year4 { get; set; }
-        public long Years5To9 { get; set; }
-        public long Years10To19 { get; set; }
-        public long Older { get; set; }
+        public Dictionary<AgeCategory, long> TransactionCounts { get; } = new Dictionary<AgeCategory, long>();
     }
 }

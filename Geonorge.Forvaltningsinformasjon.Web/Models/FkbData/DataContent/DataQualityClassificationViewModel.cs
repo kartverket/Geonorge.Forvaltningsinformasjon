@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 {
-    public class DataQualityClassificationModel
+    public class DataQualityClassificationViewModel
     {
         public List<IDataQualityClassification> Classifications { get; set; }
         public string AdministrativeUnitName { get; set; }

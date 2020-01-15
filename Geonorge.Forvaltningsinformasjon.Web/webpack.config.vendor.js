@@ -51,7 +51,8 @@ module.exports = (env) => {
                 { from: 'node_modules/geonorge-base/src/js', to: 'js/geonorge-base'},
                 { from: 'node_modules/geonorge-base/src/images', to: 'images/'},
                 { from: 'node_modules/geonorge-base/src/fonts', to: 'fonts/' },
-                { from: 'node_modules/map/dist', to: 'js/map'}
+                { from: 'node_modules/map/dist', to: 'js/map' },
+                { from: 'node_modules/chart.js/dist', to: 'js/chart' }
             ]),
             new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DllPlugin({

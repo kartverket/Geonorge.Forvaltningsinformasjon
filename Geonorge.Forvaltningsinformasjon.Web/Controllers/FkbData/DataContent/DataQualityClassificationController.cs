@@ -38,7 +38,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             mapViewModel.AddService(_serviceType, _url, _layer);
 
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.Get(),
                 MapViewModel = mapViewModel
@@ -56,7 +56,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             mapViewModel.AddService(_serviceType, _url, _layer);
 
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
@@ -74,7 +74,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             mapViewModel.AddService(_serviceType, _url, _layer);
 
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,

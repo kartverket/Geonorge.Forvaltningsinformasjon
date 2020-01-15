@@ -41,21 +41,29 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         private List<IDataAgeDistribution> GetDataAgeDistributions(IQueryable<TransactionData> transactionData)
         {
             return transactionData
-                .GroupBy(s => s.DataSetId)
-                .Select(g => new DataAgeDistribution
-                {
-                    DataSetName = g.First().DataSet.Name,
-                    Year0 = g.Sum(s => s.Year0),
-                    Year1 = g.Sum(s => s.Year1),
-                    Year2 = g.Sum(s => s.Year2),
-                    Year3 = g.Sum(s => s.Year3),
-                    Year4 = g.Sum(s => s.Year4),
-                    Years5To9 = g.Sum(s => s.Years5To9),
-                    Years10To19 = g.Sum(s => s.Years10To19),
-                    Older = g.Sum(s => s.Older)
-                })
-                .OrderBy(s => s.DataSetName)
+                .GroupBy(d => d.DataSetId)
+                .Select(g => Create(g.First().DataSet.Name, g))
+                .OrderBy(d => d.DataSetName)
                 .ToList<IDataAgeDistribution>();
+        }
+
+        private DataAgeDistribution Create(string name, IGrouping<int,TransactionData> grouping)
+        {
+            DataAgeDistribution distribution = new DataAgeDistribution
+            {
+                DataSetName = name
+            };
+
+            distribution.TransactionCounts.Add(AgeCategory.Year0, grouping.Sum(s => s.Year0));
+            distribution.TransactionCounts.Add(AgeCategory.Year1, grouping.Sum(s => s.Year1));
+            distribution.TransactionCounts.Add(AgeCategory.Year2, grouping.Sum(s => s.Year2));
+            distribution.TransactionCounts.Add(AgeCategory.Year3, grouping.Sum(s => s.Year3));
+            distribution.TransactionCounts.Add(AgeCategory.Year4, grouping.Sum(s => s.Year4));
+            distribution.TransactionCounts.Add(AgeCategory.Years5To9, grouping.Sum(s => s.Years5To9));
+            distribution.TransactionCounts.Add(AgeCategory.Years10To19, grouping.Sum(s => s.Years10To19));
+            distribution.TransactionCounts.Add(AgeCategory.Older, grouping.Sum(s => s.Older));
+
+            return distribution;
         }
     }
 }

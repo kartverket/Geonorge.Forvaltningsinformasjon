@@ -1,23 +1,24 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
+@using System.Globalization
 
-@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionModel
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionViewModel
 
 @inject IViewLocalizer Localizer
 
 @{
     Layout = "../_Layout.cshtml";
-    ViewData["currentTab"] = "DataAgeDistribution";
+ ViewData["currentTab"] = "DataAgeDistribution";
 }
 
 @section titleSection
 {
     <div style="text-align:center">
-        @if (Model.Type == DataAgeDistributionModel.AdministrativeUnitType.Country)
+        @if (Model.Type == DataAgeDistributionViewModel.AdministrativeUnitType.Country)
         {
             <h4>@Localizer["Landsoversikt"]</h4>
         }
-        else if (Model.Type == DataAgeDistributionModel.AdministrativeUnitType.County)
+        else if (Model.Type == DataAgeDistributionViewModel.AdministrativeUnitType.County)
         {
             <h4>@Localizer["Fylkesoversikt for {0}", Model.AdministrativeUnitName]</h4>
         }
@@ -33,5 +34,52 @@
     <div class="col-md-4">
     </div>
     <div class="col-md-8">
+        <canvas id="myChart" width="400" height="400"></canvas>
     </div>
+
+    <script src="/dist/js/chart/chart.js"></script>
+    <script type="text/javascript">
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: [@Html.Raw(Model.DataSetNames)],
+                datasets: [
+                    @foreach (DataAgeDistributionViewModel.Category category in Model.Categories)
+                    {
+                        <text>{
+                        label: '@category.Name',
+                        data: [@string.Join(',', category.Percents.Select(p => p.ToString(CultureInfo.InvariantCulture)))],
+                        backgroundColor: 'rgb(@category.RgbColor)'
+                        },</text>
+                    }
+                ]
+            },
+            options: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 10
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        position: 'bottom',
+                        ticks: {
+                            max: 100,
+                            min: 0,
+                            setpSize: 10
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5
+                    }]
+                }
+            }
+});    </script>
 }

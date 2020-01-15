@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,9 +39,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.Get(), _applicationSettings.AgeCategoryColors)
             {
-                Type = DataAgeDistributionViewModel.AdministrativeUnitType.Country
+                Type = AdministrativeUnitType.Country
             };
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/Index.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
 
         [HttpGet("county")]
@@ -51,9 +52,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByCounty(id), _applicationSettings.AgeCategoryColors)
             {
                 AdministrativeUnitName = _countyService.Get(id).Name,
-                Type = DataAgeDistributionViewModel.AdministrativeUnitType.County
+                Type = AdministrativeUnitType.County
             };
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/Index.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
 
         [HttpGet("municipality")]
@@ -64,9 +65,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByMunicipality(id), _applicationSettings.AgeCategoryColors)
             {
                 AdministrativeUnitName = _municipalityService.Get(id).Name,
-                Type = DataAgeDistributionViewModel.AdministrativeUnitType.Municipality
+                Type = AdministrativeUnitType.Municipality
             };
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/Index.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
     }
 }

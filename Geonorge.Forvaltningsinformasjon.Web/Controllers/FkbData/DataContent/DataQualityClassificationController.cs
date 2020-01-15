@@ -2,6 +2,7 @@
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,10 +42,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.Get(),
+                Type = AdministrativeUnitType.Country,
                 MapViewModel = mapViewModel
             };
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
 
         [HttpGet("county")]
@@ -60,9 +62,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
+                Type = AdministrativeUnitType.County,
                 MapViewModel = mapViewModel
             };
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
 
         [HttpGet("municipality")]
@@ -78,9 +81,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,
+                Type = AdministrativeUnitType.Municipality,
                 MapViewModel = mapViewModel
             };
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
     }
 }

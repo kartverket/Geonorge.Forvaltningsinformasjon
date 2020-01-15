@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 {
     public class DataAgeDistributionViewModel
     {
-        public enum AdministrativeUnitType
-        {
-            Country,
-            County,
-            Municipality
-        }
-
         public class Category
         {
             public string Name { get; set; }
@@ -30,8 +24,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
-
-
+ 
         public DataAgeDistributionViewModel(List<IDataAgeDistribution> distributions, Dictionary<string,string> ageCategoryColors)
         {
             InitColors(ageCategoryColors);

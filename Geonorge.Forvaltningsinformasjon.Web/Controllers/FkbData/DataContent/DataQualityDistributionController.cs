@@ -22,7 +22,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution/Country.cshtml");
+            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml");
         }
 
 
@@ -31,7 +31,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution/County.cshtml");
+            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml");
         }
 
         [HttpGet("municipality")]
@@ -39,7 +39,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution/Municipality.cshtml");
+            return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml");
         }
     }
 }

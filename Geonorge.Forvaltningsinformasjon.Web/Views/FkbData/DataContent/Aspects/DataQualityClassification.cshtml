@@ -1,18 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassificationViewModel
 
 @inject IViewLocalizer Localizer
 
 @{
-    Layout = "../_Layout.cshtml";
+    Layout = "_Layout.cshtml";
     ViewData["currentTab"] = "DataQualityClassification";
 }
 
 @section titleSection
 {
     <div style="text-align:center">
-        <h4>@Localizer["Fylkesoversikt for "] @Model.AdministrativeUnitName</h4>
+        @if (Model.Type == AdministrativeUnitType.Country)
+        {
+            <h4>@Localizer["Landsoversikt"]</h4>
+        }
+        else if (Model.Type == AdministrativeUnitType.County)
+        {
+            <h4>@Localizer["Fylkesoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
+        else
+        {
+            <h4>@Localizer["Kommuneoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
     </div>
 }
 

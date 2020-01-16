@@ -1,4 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
+@using System.Globalization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityDistributionViewModel
 
 @inject IViewLocalizer Localizer
 
@@ -10,19 +15,73 @@
 @section titleSection
 {
     <div style="text-align:center">
-        <h4>@Localizer["Landsoversikt"]</h4>
+        @if (Model.Type == AdministrativeUnitType.Country)
+        {
+            <h4>@Localizer["Landsoversikt"]</h4>
+        }
+        else if (Model.Type == AdministrativeUnitType.County)
+        {
+            <h4>@Localizer["Fylkesoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
+        else
+        {
+            <h4>@Localizer["Kommuneoversikt for {0}", Model.AdministrativeUnitName]</h4>
+        }
     </div>
 }
 
 @section aspectsSection
     {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Localizer["Klasse"]</th>
-                <th>@Localizer["Areal"]</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+
+    <script src="/dist/js/chart/chart.js"></script>
+    <script type="text/javascript">
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: [@Html.Raw(Model.DataSetNames)],
+                datasets: [
+                    @foreach (DataQualityDistributionViewModel.Category category in Model.Categories)
+                    {
+                        <text>{
+                        label: '@Localizer[category.Name]',
+                        data: [@string.Join(',', category.Percents.Select(p => p.ToString(CultureInfo.InvariantCulture)))],
+                        backgroundColor: 'rgb(@category.RgbColor)'
+                        },</text>
+                    }
+                ]
+            },
+            options: {
+                legend: {
+                    position: 'bottom',
+                    align: 'end',
+                    labels: {
+                        boxWidth: 10
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        position: 'bottom',
+                        ticks: {
+                            max: 100,
+                            min: 0,
+                            setpSize: 10
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5
+                    }]
+                }
+            }
+});    </script>
 }

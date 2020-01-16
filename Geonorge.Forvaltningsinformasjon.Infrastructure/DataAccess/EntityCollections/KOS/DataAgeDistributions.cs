@@ -1,5 +1,6 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
 using System;

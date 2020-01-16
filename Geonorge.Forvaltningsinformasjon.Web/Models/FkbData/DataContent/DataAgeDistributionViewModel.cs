@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -52,12 +53,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
             for (int i = 0; i < distributions.Count; ++i)
             {
-                long db = distributions[i].TransactionCounts[ageCategory];
-                long db2 = _sums[i];
-                double db3 = db2 != 0.0 ? (double)db / db2 : 0;
-                double db4 = db3 * 100;
-                category.Percents.Add(db4);
-                //category.Percents.Add(((double)distributions[i].TransactionCounts[ageCategory] / _sums[i]) * 100);
+                category.Percents.Add(((double)distributions[i].TransactionCounts[ageCategory] / _sums[i]) * 100);
             }
             return category;
         }

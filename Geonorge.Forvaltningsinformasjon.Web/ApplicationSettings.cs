@@ -19,6 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public ConnectionStrings ConnectionStrings { get; set; }
         public Dictionary<string,string> DataSetToLayerMap { get; set; }
         public Dictionary<string,string> AgeCategoryColors { get; set; }
+        public Dictionary<string, string> QualityCategoryColors { get; set; }
     }
 
     public class ConnectionStrings

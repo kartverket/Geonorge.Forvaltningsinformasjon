@@ -200,6 +200,13 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Years10To19).HasColumnName("Alder_11_20").HasConversion(v => (double)v, v => (long)v);
                 entity.Property(e => e.Older).HasColumnName("Alder_21_Over").HasConversion(v => (double)v, v => (long)v);
 
+                entity.Property(e => e.Measured).HasColumnName("Kvalitet_Landmalt").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.PhotogrammetricB).HasColumnName("Kvalitet_B").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.PhotogrammetricC).HasColumnName("Kvalitet_C").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.DigitalizedM200).HasColumnName("Kvalitet_Dig_M200").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.DigitalizedS200).HasColumnName("Kvalitet_Dig_S200").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.NotMeasured).HasColumnName("Kvalitet_IkkeMalt").HasConversion(v => (double)v, v => (long)v);
+
                 entity.Property(e => e.GeonorgeFileDate)
                     .HasColumnName("Geonorge_fildato")
                     .HasColumnType("date");

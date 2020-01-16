@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom
 {
-    internal class DataAgeDistribution : IDataAgeDistribution
+    public class DataQualityDistribution : IDataQualityDistribution
     {
         public int Id { get; set; }
-
         public string DataSetName { get; set; }
-        public Dictionary<AgeCategory, long> TransactionCounts { get; } = new Dictionary<AgeCategory, long>();
+
+        public Dictionary<QualityCategory, long> TransactionCounts { get; set; } = new Dictionary<QualityCategory, long>();
     }
 }

@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
 {
-    public interface IDataQualityDistributions : IEntities<IDataQualityDistribution>
+    public interface IDataQualityDistributions
     {
+        List<IDataQualityDistribution> Get();
+        List<IDataQualityDistribution> GetByCounty(int id);
+        List<IDataQualityDistribution> GetByMunicipality(int id);
     }
 }

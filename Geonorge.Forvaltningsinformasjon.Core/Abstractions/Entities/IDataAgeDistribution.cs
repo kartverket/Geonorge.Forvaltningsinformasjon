@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

@@ -221,6 +221,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                     .HasForeignKey(d => d.DataSetId)
                     .HasConstraintName("FK_SentralFkbStatistikk_Datasett");
 
+                entity.HasOne(e => e.Municipality)
+                    .WithMany(m => m.TransactionData)
+                    .HasForeignKey(e => e.MunicipalityNumber);
+
+                entity.HasQueryFilter(e => e.Municipality.Active > 0);
             });
 
             modelBuilder.Entity<DataQualityClassification>(entity =>

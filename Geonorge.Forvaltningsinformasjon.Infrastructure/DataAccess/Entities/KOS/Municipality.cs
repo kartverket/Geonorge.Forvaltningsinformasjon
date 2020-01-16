@@ -87,11 +87,13 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public int? Active { get; set; }
         public ICollection<Project> Project { get; set; }
         public ICollection<CentralFkb> CentralFkb { get; set; }
+        public ICollection<TransactionData> TransactionData { get; set; }
 
         public Municipality()
         {
             Project = new HashSet<Project>();
             CentralFkb = new HashSet<CentralFkb>();
+            TransactionData = new HashSet<TransactionData>();
         }
     }
 }

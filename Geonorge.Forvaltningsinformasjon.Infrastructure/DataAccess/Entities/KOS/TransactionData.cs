@@ -26,6 +26,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public int? ObjectCount { get; set; }
         internal DateTime? GeonorgeFileDate { get; set; }
         public DataSet DataSet { get; set; }
+        public Municipality Municipality { get; set; }
 
         // age categories
         public long Year0 { get; set; }

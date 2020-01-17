@@ -11,81 +11,101 @@
 
 @section titleSection
 {
-@RenderSection("titleSection");
+    @RenderSection("titleSection");
 }
 
 @section aspectsSection
 {
-        <div class="col-md-4" id="r_map">
-            <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
-        </div>
-        <div class="col-md-8">
-            <table class="table" onload="onLoad()">
-                <thead>
-                    <tr>
-                        <th>@Localizer["Datasett/Transaksjoner"]</th>
-                        <th>@Localizer["Siste 7 dager"]</th>
-                        <th>@Localizer["Siste 30 dager"]</th>
-                        <th>@Localizer["Siste 365 dager"]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var transactionData in Model.TransactionData)
-                    {
-                        <tr>
-                            <td>@transactionData.DataSetName</td>
-                            <td>
-                                @if (transactionData.SumLastWeek > 0)
-                                {
-                                    <text>
-                                        <a onclick="updateMap('@transactionData.DataSetName', 0)">@transactionData.SumLastWeek</a>
-                                    </text>
-                                }
-                                else
-                                {
-                                    @transactionData.SumLastWeek;
-                                }
-                            </td>
-                            <td>
-                                @if (transactionData.SumLastMonth > 0)
-                                {
-                                    <text>
-                                        <a onclick="updateMap('@transactionData.DataSetName', 1)">@transactionData.SumLastMonth</a>
-                                    </text>
-                                }
-                                else
-                                {
-                                    @transactionData.SumLastMonth;
-                                }
-                            </td>
-                            <td>
-                                @if (transactionData.SumLastYear > 0)
-                                {
-                                    <text>
-                                        <a onclick="updateMap('@transactionData.DataSetName', 2)">@transactionData.SumLastYear</a>
-                                    </text>
-                                }
-                                else
-                                {
-                                    @transactionData.SumLastYear;
-                                }
-                            </td>
-                        </tr>
-                    }
-                    <tr>
-                        <td>@Localizer["Totalt"]</td>
-                        <td>@Model.SumLastWeek</td>
-                        <td>@Model.SumLastMonth</td>
-                        <td>@Model.SumLastYear</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <style>
+        input { 
+            visibility:hidden;
+            width:0px;
+        }
 
-        <script type="text/javascript">
-            function updateMap(dataSetName, period) {
-                $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetName=' + dataSetName + '&period=' + period + '&mapViewModel=@Json.Serialize(Model.MapViewModel)');
-                refreshSelection();
+        input:checked+span { 
+            font-weight: bold; 
+        }
+
+        input+span { 
+            font-weight: normal; 
+        }
+    </style>
+
+    <div class="col-md-4" id="r_map">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
+    <div class="col-md-8">
+        <table class="table" onload="onLoad()">
+            <thead>
+                <tr id="PeriodHeader">
+                    <th></th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(0)" checked="checked" />
+                            <span>@Localizer["Siste 7 dager"]</span>
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(1)"/>
+                            <span>@Localizer["Siste 30 dager"]</span>
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(2)"/>
+                            <span>@Localizer["Siste 365 dager"]</span>
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transactionData in Model.TransactionData)
+                {
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)"/>
+                                <span>@transactionData.DataSetName</span>
+                            </label>
+                        </td>
+                        <td>@transactionData.SumLastWeek</td>
+                        <td>@transactionData.SumLastMonth</td>
+                        <td>@transactionData.SumLastYear</td>
+                    </tr>
+                }
+                <tr>
+                    <td>@Localizer["Totalt"]</td>
+                    <td>@Model.SumLastWeek</td>
+                    <td>@Model.SumLastMonth</td>
+                    <td>@Model.SumLastYear</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var period;
+        var dataSetNames = [];
+
+        function toggleDataSet(dataSetName, dataSetNameElement) {
+            const idx = dataSetNames.findIndex(e => e === dataSetName);
+
+            if (idx > -1) {
+                dataSetNames.splice(idx, 1);
+            } else {
+                dataSetNames.splice(idx, 0, dataSetName);
             }
-        </script>
-    }
+            updateMap();
+        }
+
+        function setPeriod(p) {
+            period = p;
+            updateMap();
+        }
+
+        function updateMap() {
+            $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&mapViewModel=@Json.Serialize(Model.MapViewModel)');
+        }
+    </script>
+}

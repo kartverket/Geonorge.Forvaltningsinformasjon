@@ -92,7 +92,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
 
         [HttpGet("update-map")]
         public IActionResult UpdateMap(
-            [FromQuery]string dataSetName,
+            [FromQuery]string dataSetNames,
             [FromQuery]Period period,
             [FromQuery]MapViewModel mapViewModel)
         {
@@ -121,7 +121,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             };
 
             mapViewModel.Services.Clear();
-            mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[dataSetName], customParameters);
+
+            if (dataSetNames != null)
+            {
+                foreach (string name in dataSetNames.Split(','))
+                {
+                    mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[name], customParameters);
+                }
+            }
 
             return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }

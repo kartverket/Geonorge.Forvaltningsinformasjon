@@ -55,12 +55,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 DataSetName = name
             };
 
-            distribution.TransactionCounts.Add(QualityCategory.Measured, grouping.Sum(s => s.Measured));
-            distribution.TransactionCounts.Add(QualityCategory.PhotogrammetricB, grouping.Sum(s => s.PhotogrammetricB));
-            distribution.TransactionCounts.Add(QualityCategory.PhotogrammetricC, grouping.Sum(s => s.PhotogrammetricC));
-            distribution.TransactionCounts.Add(QualityCategory.DigitalizedM200, grouping.Sum(s => s.DigitalizedM200));
-            distribution.TransactionCounts.Add(QualityCategory.DigitalizedS200, grouping.Sum(s => s.DigitalizedS200));
-            distribution.TransactionCounts.Add(QualityCategory.NotMeasured, grouping.Sum(s => s.NotMeasured));
+            distribution.TransactionCounts.Add(QualityCategory.Measured, grouping.Sum(s => s.Measured ?? 0));
+            distribution.TransactionCounts.Add(QualityCategory.PhotogrammetricB, grouping.Sum(s => s.PhotogrammetricB ?? 0));
+            distribution.TransactionCounts.Add(QualityCategory.PhotogrammetricC, grouping.Sum(s => s.PhotogrammetricC ?? 0));
+            distribution.TransactionCounts.Add(QualityCategory.DigitalizedM200, grouping.Sum(s => s.DigitalizedM200 ?? 0));
+            distribution.TransactionCounts.Add(QualityCategory.DigitalizedS200, grouping.Sum(s => s.DigitalizedS200 ?? 0));
+            distribution.TransactionCounts.Add(QualityCategory.NotMeasured, grouping.Sum(s => s.NotMeasured ?? 0));
 
             return distribution;
         }

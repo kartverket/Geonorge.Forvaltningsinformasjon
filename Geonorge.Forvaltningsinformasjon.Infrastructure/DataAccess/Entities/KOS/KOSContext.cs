@@ -181,7 +181,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
             {
                 entity.ToTable("SentralFKB_Statistikk");
 
-                entity.Property(e => e.ObjectCount).HasColumnName("Ant_objekter");
+                entity.Property(e => e.ObjectCount).HasColumnName("Ant_objekter").HasConversion(v => (int?)v, v => (int?)v ?? 0);
 
                 entity.Property(e => e.SumLastYear).HasColumnName("Ant_trans_ar");
 
@@ -190,22 +190,22 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.SumLastWeek).HasColumnName("Ant_trans_uke");
 
                 entity.Property(e => e.DataSetId).HasColumnName("Datasett_Id");
-                
-                entity.Property(e => e.Year0).HasColumnName("Alder_1").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Year1).HasColumnName("Alder_2").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Year2).HasColumnName("Alder_3").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Year3).HasColumnName("Alder_4").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Year4).HasColumnName("Alder_5").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Years5To9).HasColumnName("Alder_6_10").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Years10To19).HasColumnName("Alder_11_20").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.Older).HasColumnName("Alder_21_Over").HasConversion(v => (double)v, v => (long)v);
 
-                entity.Property(e => e.Measured).HasColumnName("Kvalitet_Landmalt").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.PhotogrammetricB).HasColumnName("Kvalitet_B").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.PhotogrammetricC).HasColumnName("Kvalitet_C").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.DigitalizedM200).HasColumnName("Kvalitet_Dig_M200").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.DigitalizedS200).HasColumnName("Kvalitet_Dig_S200").HasConversion(v => (double)v, v => (long)v);
-                entity.Property(e => e.NotMeasured).HasColumnName("Kvalitet_IkkeMalt").HasConversion(v => (double)v, v => (long)v);
+                entity.Property(e => e.Year0).HasColumnName("Alder_1").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Year1).HasColumnName("Alder_2").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Year2).HasColumnName("Alder_3").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Year3).HasColumnName("Alder_4").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Year4).HasColumnName("Alder_5").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Years5To9).HasColumnName("Alder_6_10").HasConversion(v => (double?)v, v => (long?)v ?? 0); ;
+                entity.Property(e => e.Years10To19).HasColumnName("Alder_11_20").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.Older).HasColumnName("Alder_21_Over").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+
+                entity.Property(e => e.Measured).HasColumnName("Kvalitet_Landmalt").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.PhotogrammetricB).HasColumnName("Kvalitet_B").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.PhotogrammetricC).HasColumnName("Kvalitet_C").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.DigitalizedM200).HasColumnName("Kvalitet_Dig_M200").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.DigitalizedS200).HasColumnName("Kvalitet_Dig_S200").HasConversion(v => (double?)v, v => (long?)v ?? 0);
+                entity.Property(e => e.NotMeasured).HasColumnName("Kvalitet_IkkeMalt").HasConversion(v => (double?)v, v => (long?)v ?? 0);
 
                 entity.Property(e => e.GeonorgeFileDate)
                     .HasColumnName("Geonorge_fildato")
@@ -225,7 +225,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                     .WithMany(m => m.TransactionData)
                     .HasForeignKey(e => e.MunicipalityNumber);
 
-                entity.HasQueryFilter(e => e.Municipality.Active > 0);
+                entity.HasQueryFilter(e => e.Municipality.Active > 0 && e.DataSet.Active > 0);
             });
 
             modelBuilder.Entity<DataQualityClassification>(entity =>

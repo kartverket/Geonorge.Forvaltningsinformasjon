@@ -55,14 +55,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 DataSetName = name
             };
 
-            distribution.TransactionCounts.Add(AgeCategory.Year0, grouping.Sum(s => s.Year0));
-            distribution.TransactionCounts.Add(AgeCategory.Year1, grouping.Sum(s => s.Year1));
-            distribution.TransactionCounts.Add(AgeCategory.Year2, grouping.Sum(s => s.Year2));
-            distribution.TransactionCounts.Add(AgeCategory.Year3, grouping.Sum(s => s.Year3));
-            distribution.TransactionCounts.Add(AgeCategory.Year4, grouping.Sum(s => s.Year4));
-            distribution.TransactionCounts.Add(AgeCategory.Years5To9, grouping.Sum(s => s.Years5To9));
-            distribution.TransactionCounts.Add(AgeCategory.Years10To19, grouping.Sum(s => s.Years10To19));
-            distribution.TransactionCounts.Add(AgeCategory.Older, grouping.Sum(s => s.Older));
+            distribution.TransactionCounts.Add(AgeCategory.Year0, grouping.Sum(s => s.Year0 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Year1, grouping.Sum(s => s.Year1 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Year2, grouping.Sum(s => s.Year2 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Year3, grouping.Sum(s => s.Year3 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Year4, grouping.Sum(s => s.Year4 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Years5To9, grouping.Sum(s => s.Years5To9 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Years10To19, grouping.Sum(s => s.Years10To19 ?? 0));
+            distribution.TransactionCounts.Add(AgeCategory.Older, grouping.Sum(s => s.Older ?? 0));
 
             return distribution;
         }

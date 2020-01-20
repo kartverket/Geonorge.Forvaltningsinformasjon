@@ -29,21 +29,21 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public Municipality Municipality { get; set; }
 
         // age categories
-        public long Year0 { get; set; }
-        public long Year1 { get; set; }
-        public long Year2 { get; set; }
-        public long Year3 { get; set; }
-        public long Year4 { get; set; }
-        public long Years5To9 { get; set; }
-        public long Years10To19 { get; set; }
-        public long Older { get; set; }
+        public long? Year0 { get; set; }
+        public long? Year1 { get; set; }
+        public long? Year2 { get; set; }
+        public long? Year3 { get; set; }
+        public long? Year4 { get; set; }
+        public long? Years5To9 { get; set; }
+        public long? Years10To19 { get; set; }
+        public long? Older { get; set; }
 
         // quality categories
-        public long Measured { get; set; }
-        public long PhotogrammetricB { get; set; }
-        public long PhotogrammetricC { get; set; }
-        public long DigitalizedM200 { get; set; }
-        public long DigitalizedS200 { get; set; }
-        public long NotMeasured { get; set; }
+        public long? Measured { get; set; }
+        public long? PhotogrammetricB { get; set; }
+        public long? PhotogrammetricC { get; set; }
+        public long? DigitalizedM200 { get; set; }
+        public long? DigitalizedS200 { get; set; }
+        public long? NotMeasured { get; set; }
     }
 }

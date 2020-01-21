@@ -64,6 +64,19 @@
                         boxWidth: 10
                     }
                 },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += Math.round(tooltipItem.xLabel * 10) / 10;
+                            return label;
+                        }
+                    }
+                },
                 scales: {
                     xAxes: [{
                         stacked: true,

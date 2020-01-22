@@ -2,7 +2,7 @@
 
 @inject IViewLocalizer Localizer
 
-<div class="col-md-3" style="display:inline-block;padding:0">
+<div style="display:inline-block;padding:0">
     @Localizer["Velg en kommune eller et fylke"]
     <form action=@Url.Action("Select", "Context") method="get" class="custom-select">
         <input type="hidden" name="Aspect" value="@ViewContext.RouteData.Values["controller"].ToString()" />

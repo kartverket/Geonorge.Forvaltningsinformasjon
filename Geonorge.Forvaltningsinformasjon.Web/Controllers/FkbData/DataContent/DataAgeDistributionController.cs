@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
@@ -11,18 +14,34 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
     public class DataAgeDistributionController : Controller
     {
         private IContextViewModelHelper _contextViewModelHelper;
+        private IDataAgeDistributionService _dataAgeDistributionService;
+        private ICountyService _countyService;
+        private IMunicipalityService _municipalityService;
+        private ApplicationSettings _applicationSettings;
 
         public DataAgeDistributionController(
-            IContextViewModelHelper contextViewModelHelper)
+            IContextViewModelHelper contextViewModelHelper,
+            IDataAgeDistributionService dataAgeDistributionService,
+            ICountyService countyService,
+            IMunicipalityService municipalityService,
+            ApplicationSettings applicationSettings)
         {
             _contextViewModelHelper = contextViewModelHelper;
+            _dataAgeDistributionService = dataAgeDistributionService;
+            _countyService = countyService;
+            _municipalityService = municipalityService;
+            _applicationSettings = applicationSettings;
         }
 
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
 
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/Country.cshtml");
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.Get(), _applicationSettings.AgeCategoryColors)
+            {
+                Type = AdministrativeUnitType.Country
+            };
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
 
         [HttpGet("county")]
@@ -30,7 +49,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
 
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/County.cshtml");
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByCounty(id), _applicationSettings.AgeCategoryColors)
+            {
+                AdministrativeUnitName = _countyService.Get(id).Name,
+                Type = AdministrativeUnitType.County
+            };
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
 
         [HttpGet("municipality")]
@@ -38,7 +62,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
 
-            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution/Municipality.cshtml");
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByMunicipality(id), _applicationSettings.AgeCategoryColors)
+            {
+                AdministrativeUnitName = _municipalityService.Get(id).Name,
+                Type = AdministrativeUnitType.Municipality
+            };
+            return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
     }
 }

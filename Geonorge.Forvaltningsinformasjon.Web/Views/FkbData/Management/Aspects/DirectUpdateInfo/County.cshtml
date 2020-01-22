@@ -9,31 +9,40 @@
     ViewData["currentTab"] = "DirectUpdateInfo";
 }
 
-@section aspectsSection
-    {
+@section titleSection
+{
     <div style="text-align:center">
         <h4>@Localizer["Fylkesoversikt for "] @Model.CountyName</h4>
         <p>@string.Format(Localizer["Antall kommuner som oppdaterer FKB-data direkte i Sentral felles kartdatabase: {0}/{1}"].Value, Model.DirectUpdateCount, Model.Municipalities.Count)</p>
     </div>
+}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Kommunenr.</th>
-                <th>Kommune</th>
-                <th>Planlagt innføring SFKB</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Municipalities)
-            {
+
+@section aspectsSection
+    {
+    <div class="col-md-4">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Number</td>
-                    <td><a href="~/fkb-data/management/direct-update-info/municipality?id=@item.Id">@item.Name</a></td>
-                    <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                    <th>Kommunenr.</th>
+                    <th>Kommune</th>
+                    <th>Planlagt innføring SFKB</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Municipalities)
+                {
+                    <tr>
+                        <td>@item.Number</td>
+                        <td><a href="~/fkb-data/management/direct-update-info/municipality?id=@item.Id">@item.Name</a></td>
+                        <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 

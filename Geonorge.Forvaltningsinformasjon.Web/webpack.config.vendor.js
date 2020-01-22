@@ -17,7 +17,7 @@ module.exports = (env) => {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' },
                 { test: /\.css(\?|$)/, use: extractCSS.extract(['css-loader']) },
-                { test: /\.scss$/, use: ExtractTextPlugin.extract({ use: 'css-loader?minimize!sass-loader' }) },
+                { test: /\.scss$/, use: ExtractTextPlugin.extract({ use: 'css-loader?minimize!sass-loader' }) }
             ]
         },
         entry: {
@@ -27,14 +27,14 @@ module.exports = (env) => {
                 'event-source-polyfill', 
                 'jquery',
                 'geonorge-base/src/sass/base.scss',
-                'geonorge-shared-partials/src/css/pageTop.css'                
-            ],
+                'geonorge-shared-partials/src/css/pageTop.css'
+            ]
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),
             publicPath: '/dist/',
             filename: '[name].js',
-            library: '[name]_[hash]',
+            library: '[name]_[hash]'
         },
         plugins: [
           //  new CleanWebpackPlugin('wwwroot/dist'),
@@ -50,7 +50,9 @@ module.exports = (env) => {
                 { from: 'node_modules/geonorge-shared-partials/dist', to: 'js/geonorge-shared'},
                 { from: 'node_modules/geonorge-base/src/js', to: 'js/geonorge-base'},
                 { from: 'node_modules/geonorge-base/src/images', to: 'images/'},
-                { from: 'node_modules/geonorge-base/src/fonts', to: 'fonts/'},
+                { from: 'node_modules/geonorge-base/src/fonts', to: 'fonts/' },
+                { from: 'node_modules/map/dist', to: 'js/map' },
+                { from: 'node_modules/chart.js/dist', to: 'js/chart' }
             ]),
             new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DllPlugin({

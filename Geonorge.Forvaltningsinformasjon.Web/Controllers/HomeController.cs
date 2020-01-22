@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Geonorge.Forvaltningsinformasjon.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Geonorge.Forvaltningsinformasjon.Models;
 
 namespace Geonorge.Forvaltningsinformasjon.Controllers
 {

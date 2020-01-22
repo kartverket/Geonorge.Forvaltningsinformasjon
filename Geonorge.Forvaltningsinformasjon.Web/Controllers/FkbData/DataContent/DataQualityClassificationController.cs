@@ -1,13 +1,20 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
-using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassification;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 {
-    [Route("fkb-data/data-content/data-quality-classification")]
+   [Route("fkb-data/data-content/data-quality-classification")]
     public class DataQualityClassificationController : Controller
     {
+        private const string _serviceType = "OGC:WMS";
+        private const string _url = "https://wms.geonorge.no/skwms1/wms.georef2?request=GetCapabilities&service=WMS";
+        private const string _layer = "Georef-ABCD";
+
         private IContextViewModelHelper _contextViewModelHelper;
         private IDataQualityClassificationService _dataQualityClassificationService;
         private ICountyService _countyService;
@@ -28,38 +35,56 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            MapViewModel mapViewModel = new MapViewModel();
+
+            mapViewModel.AddService(_serviceType, _url, _layer);
+
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
-                Classifications = _dataQualityClassificationService.Get()
+                Classifications = _dataQualityClassificationService.Get(),
+                Type = AdministrativeUnitType.Country,
+                MapViewModel = mapViewModel
             };
 
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Country.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
 
         [HttpGet("county")]
         public IActionResult County([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
+            ICounty county = _countyService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(county);
 
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            mapViewModel.AddService(_serviceType, _url, _layer);
+
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
-                AdministrativeUnitName = _countyService.Get(id).Name
+                AdministrativeUnitName = county.Name,
+                Type = AdministrativeUnitType.County,
+                MapViewModel = mapViewModel
             };
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/County.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
 
         [HttpGet("municipality")]
         public IActionResult Municipality([FromQuery]int id)
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
+            IMunicipality municipality = _municipalityService.Get(id);
+            MapViewModel mapViewModel = new MapViewModel(municipality);
 
-            DataQualityClassificationModel model = new DataQualityClassificationModel
+            mapViewModel.AddService(_serviceType, _url, _layer);
+
+            DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
-                AdministrativeUnitName = _municipalityService.Get(id).Name
+                AdministrativeUnitName = municipality.Name,
+                Type = AdministrativeUnitType.Municipality,
+                MapViewModel = mapViewModel
             };
-            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification/Municipality.cshtml", model);
+            return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
         }
     }
 }

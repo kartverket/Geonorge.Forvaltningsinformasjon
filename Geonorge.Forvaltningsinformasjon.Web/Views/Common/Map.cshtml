@@ -1,0 +1,60 @@
+﻿@using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Common.MapViewModel
+
+<div style="display:flex;height:@MapViewModel.ViewHeight" id="root"></div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
+
+<script type="text/javascript">
+    $.getScript("/dist/js/map/main.1f19ae8e.js", function () {
+        var params = [];
+
+        params.mapItems = [
+            @foreach (MapViewModel.Service service in Model.Services)
+            {
+                <text>
+                {
+                    'Title': '@service.Title',
+                    'DistributionProtocol': '@service.ServiceType',
+                    @if (service.ServiceType == "OGC:WMS")
+                    {
+                        @:'GetCapabilitiesUrl': '@service.Url',
+                    }
+                    else if (service.ServiceType == "GEOJSON")
+                    {
+                        @:'url': '@service.Url',
+                    }
+                    @if (service.CustomParameters != null)
+                    {
+                        <text>
+                        'customParams':
+                        {
+                            @foreach (KeyValuePair<string,string> customParam in service.CustomParameters)
+                            {
+                            @:'@customParam.Key': '@customParam.Value',
+                            }
+                        },
+                        </text>
+                    }
+                        'addLayers':
+                        [
+                            @foreach (string layer in service.Layers)
+                            {
+                                @:'@layer',
+                            }
+                        ]
+                },
+                </text>
+            }
+        ];
+        params.zoom = @Model.Zoom;
+        params.lat = @Model.Latitude;
+        params.lon = @Model.Longitude;
+        params.crs = '@Model.CoordinateSystem';
+
+        main.map(params, document.getElementById('root'));
+    });
+</script>
+
+

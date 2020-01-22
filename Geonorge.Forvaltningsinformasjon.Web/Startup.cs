@@ -1,20 +1,16 @@
-﻿using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Georef;
-using Geonorge.Forvaltningsinformasjon.Models;
-using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+﻿using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 
-namespace Geonorge.Forvaltningsinformasjon
+namespace Geonorge.Forvaltningsinformasjon.Web
 {
     public class Startup
     {
@@ -32,11 +28,14 @@ namespace Geonorge.Forvaltningsinformasjon
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
 
+            // register urls
+            Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.UrlMunicipalitiesGeoJson;
+            Core.StartupInitializer.LocalPathThematicGeoJson = applicationSettings.LocalPathThematicGeoJson;
+
             // register databases
             Infrastructure.StartupInitializer.InitializeDatabases(
                 services,
-                applicationSettings.ConnectionStrings.KOS,
-                applicationSettings.ConnectionStrings.Georef);
+                applicationSettings.ConnectionStrings.KOS);
 
             // register dependencies
             Infrastructure.StartupInitializer.InitializeDependencies(services);
@@ -47,16 +46,15 @@ namespace Geonorge.Forvaltningsinformasjon
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            services.AddMvc()
+            services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-
             ConfigureProxy(applicationSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -81,13 +79,15 @@ namespace Geonorge.Forvaltningsinformasjon
                 RequestCultureProviders = new List<IRequestCultureProvider>()   // @TMP single-language solution
             });
 
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
+            app.UseStaticFiles(new StaticFileOptions
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                ServeUnknownFileTypes = true
+            });
+
+            app.UseRouting();
+            app.UseEndpoints(e =>
+            {
+                e.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

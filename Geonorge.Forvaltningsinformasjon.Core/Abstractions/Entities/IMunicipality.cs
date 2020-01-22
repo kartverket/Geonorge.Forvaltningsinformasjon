@@ -3,7 +3,7 @@ using System;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
 {
-    public interface IMunicipality : IEntityBase
+    public interface IMunicipality : IEntityBase, IBoundingBox
     {
         string Number { get; }
         string Name { get; }

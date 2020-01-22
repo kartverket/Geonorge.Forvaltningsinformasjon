@@ -7,5 +7,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
 {
     public interface IDataAgeDistributionService : IEntityServiceBase<IDataAgeDistribution>
     {
+        List<IDataAgeDistribution> GetByCounty(int id);
+        List<IDataAgeDistribution> GetByMunicipality(int id);
     }
 }

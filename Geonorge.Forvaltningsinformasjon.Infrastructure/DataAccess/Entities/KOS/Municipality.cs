@@ -1,16 +1,25 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
-    internal class Municipality : IMunicipality
+    internal class Municipality : BoundingBox, IMunicipality
     {
         private int _id = 0;
+
+        public override string CoordinateSystem 
+        {
+            get 
+            {
+                return $"EPSG:{CoordinateSystemObject.EpsgName}";
+            }
+        }
 
         #region IMunicipality
         public int Id
@@ -26,7 +35,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
         {
             get
             {
-                if (CentralFkb.First().PlannedIntroduction == null)
+                if (CentralFkb.Count == 0 || CentralFkb.First().PlannedIntroduction == null)
                 {
                     return null;
                 }
@@ -41,12 +50,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
         {
             get
             {
-                if (CentralFkb.First().DirectUpdateInroduced == null)
+                if (CentralFkb.Count == 0 || CentralFkb.First().DirectUpdateIntroduced == null)
                 {
                     return null;
                 }
                 return DateTime.ParseExact(
-                    CentralFkb.First().DirectUpdateInroduced,
+                    CentralFkb.First().DirectUpdateIntroduced,
                     "yyyyMMdd",
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);
@@ -72,20 +81,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
 
         public string CountyId { get; set; }
         public County County { get; set; }
-        public short? CoordSys { get; set; }
+        public short CoordinateSystemId { get; set; }
+        public CoordintateSystem CoordinateSystemObject { get; set; }
         public string VerticalDatum { get; set; }
-        public int? BBoxSouthVestN { get; set; }
-        public int? BBoxSouthVestNE { get; set; }
-        public int? BBoxNorthEastN { get; set; }
-        public int? BBoxNorthEastE { get; set; }
         public int? Active { get; set; }
         public ICollection<Project> Project { get; set; }
         public ICollection<CentralFkb> CentralFkb { get; set; }
+        public ICollection<TransactionData> TransactionData { get; set; }
 
         public Municipality()
         {
             Project = new HashSet<Project>();
             CentralFkb = new HashSet<CentralFkb>();
+            TransactionData = new HashSet<TransactionData>();
         }
     }
 }

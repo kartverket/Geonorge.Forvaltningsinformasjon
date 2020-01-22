@@ -23,7 +23,17 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
         public IDataAgeDistribution Get(int id)
         {
-            return _repository.DataAgeDistributions.Get(id);
+            throw new NotImplementedException();
+        }
+
+        public List<IDataAgeDistribution> GetByCounty(int id)
+        {
+            return _repository.DataAgeDistributions.GetByCounty(id);
+        }
+
+        public List<IDataAgeDistribution> GetByMunicipality(int id)
+        {
+            return _repository.DataAgeDistributions.GetByMunicipality(id);
         }
     }
 }

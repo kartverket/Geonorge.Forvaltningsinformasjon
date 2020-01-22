@@ -1,10 +1,11 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Kos
+namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
-    internal class County : ICounty
+    internal class County : BoundingBox, ICounty
     {
         private int _id = 0;
 
@@ -29,21 +30,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Ko
         {
             get
             {
-                return Municipalities.Where(k => k.CentralFkb.First().DirectUpdateInroduced != null).Count();
+                return Municipalities.Where(k => k.CentralFkb.First().DirectUpdateIntroduced != null).Count();
             }
         }
+
         #endregion
 
-        public int? BBoxSouthWestN { get; set; }
-        public int? BBoxSouthWestE { get; set; }
-        public int? BBoxNorthEastN { get; set; }
-        public int? BBoxNorthEastE { get; set; }
         public ICollection<Municipality> Municipalities { get; set; }
         public int? Active { get; set; }
 
         public County()
         {
             Municipalities = new HashSet<Municipality>();
+            CoordinateSystem = "EPSG:25833";
         }
     }
 }

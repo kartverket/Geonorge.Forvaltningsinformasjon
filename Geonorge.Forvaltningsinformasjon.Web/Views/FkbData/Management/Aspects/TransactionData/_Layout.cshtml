@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData.TransactionDataViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "TransactionData";
+}
+
+@section titleSection
+{
+    @RenderSection("titleSection");
+}
+
+@section aspectsSection
+{
+    <style>
+        input { 
+            visibility:hidden;
+            width:0px;
+        }
+
+        input:checked+span { 
+            font-weight: bold; 
+        }
+
+        input+span { 
+            font-weight: normal; 
+        }
+    </style>
+
+    <div class="col-md-4" id="r_map">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+    </div>
+    <div class="col-md-8">
+        <table class="table" onload="onLoad()">
+            <thead>
+                <tr id="PeriodHeader">
+                    <th></th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(0)" checked="checked" />
+                            <span>@Localizer["Siste 7 dager"]</span>
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(1)"/>
+                            <span>@Localizer["Siste 30 dager"]</span>
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <input type="radio" name="period" onclick="setPeriod(2)"/>
+                            <span>@Localizer["Siste 365 dager"]</span>
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transactionData in Model.TransactionData)
+                {
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)"/>
+                                <span>@transactionData.DataSetName</span>
+                            </label>
+                        </td>
+                        <td>@transactionData.SumLastWeek</td>
+                        <td>@transactionData.SumLastMonth</td>
+                        <td>@transactionData.SumLastYear</td>
+                    </tr>
+                }
+                <tr>
+                    <td>@Localizer["Totalt"]</td>
+                    <td>@Model.SumLastWeek</td>
+                    <td>@Model.SumLastMonth</td>
+                    <td>@Model.SumLastYear</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var period;
+        var dataSetNames = [];
+
+        function toggleDataSet(dataSetName, dataSetNameElement) {
+            const idx = dataSetNames.findIndex(e => e === dataSetName);
+
+            if (idx > -1) {
+                dataSetNames.splice(idx, 1);
+            } else {
+                dataSetNames.splice(idx, 0, dataSetName);
+            }
+            updateMap();
+        }
+
+        function setPeriod(p) {
+            period = p;
+            updateMap();
+        }
+
+        function updateMap() {
+            $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&mapViewModel=@Json.Serialize(Model.MapViewModel)');
+        }
+    </script>
+}

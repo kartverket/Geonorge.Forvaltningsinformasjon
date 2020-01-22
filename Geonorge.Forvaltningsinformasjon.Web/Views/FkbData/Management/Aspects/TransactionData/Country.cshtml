@@ -5,41 +5,14 @@
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData.TransactionDataViewModel
 
 @{
-    Layout = "../_Layout.cshtml";
+    Layout = "./_Layout.cshtml";
     ViewData["currentTab"] = "TransactionData";
 }
 
-@section aspectsSection
+@section titleSection
 {
     <div style="text-align:center">
         <h4>@Localizer["Landsoversikt"]</h4>
         <p>Tabellen viser antall ganger det har blitt gjort endringer på datasettet (minst ett objekt er nytt, endret eller slettet).</p>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Localizer["Datasett/Transaksjoner"]</th>
-                <th>@Localizer["Siste 7 dager"]</th>
-                <th>@Localizer["Siste 30 dager"]</th>
-                <th>@Localizer["Siste 365 dager"]</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var transactionData in Model.TransactionData)
-            {
-                <tr>
-                    <td>@transactionData.DataSetName</td>
-                    <td>@transactionData.SumLastWeek</td>
-                    <td>@transactionData.SumLastMonth</td>
-                    <td>@transactionData.SumLastYear</td>
-                </tr>
-            }
-            <tr>
-                <td>@Localizer["Totalt"]</td>
-                <td>@Model.SumLastWeek</td>
-                <td>@Model.SumLastMonth</td>
-                <td>@Model.SumLastYear</td>
-            </tr>
-        </tbody>
-    </table>
 }

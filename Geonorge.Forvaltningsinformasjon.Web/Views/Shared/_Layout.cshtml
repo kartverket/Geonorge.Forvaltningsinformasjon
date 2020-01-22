@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.IO
 
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
@@ -25,7 +26,7 @@
     var cultureData = { supportsMultiCulture: "true", currentCulture: 'no' };
     </script>
 
-    @await Html.PartialAsync("~/wwwroot/dist/partials/Header.html")
+    @Html.Raw(File.ReadAllText("wwwroot/dist/partials/Header.html"))
 
     <div class="body-content">
         <div class="container container-breadcrumbs" id="navTabCont">
@@ -49,7 +50,8 @@
             @RenderBody()
         </div>
     </div>
-    @await Html.PartialAsync("~/wwwroot/dist/partials/Footer_v2.html")
+    
+    @Html.Raw(File.ReadAllText("wwwroot/dist/partials/Footer_v2.html"))
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
@@ -60,7 +62,6 @@
     </script>
 
     <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
-    <script src="~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData
 {
+    public enum Period
+    {
+        Week,
+        Month,
+        Year
+    }
+
     public class TransactionDataViewModel
     {
         public string AdministrativeUnitName { get; set;}
@@ -34,5 +42,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
             }
         }
 
+        public MapViewModel MapViewModel { get; set; } = new MapViewModel();
     }
 }

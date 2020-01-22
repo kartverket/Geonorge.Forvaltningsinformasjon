@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "popper.js": "^1.14.4",
-    "bootstrap": "3.3.6",
+    "bootstrap": "3.4.1",
     "font-awesome": "^4.6.3",
     "geonorge-base": "^9.0.4",
     "geonorge-shared-partials": "0.0.67",

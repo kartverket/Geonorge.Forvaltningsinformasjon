@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Newtonsoft.Json
 
 @inject IViewLocalizer Localizer
 
@@ -11,49 +12,47 @@
 
 @section titleSection
 {
-    @RenderSection("titleSection");
+    @RenderSection("titleSection")
 }
 
 @section aspectsSection
 {
     <style>
-        input { 
-            visibility:hidden;
-            width:0px;
+        input {
+            visibility: hidden;
+            width: 0px;
         }
 
-        input:checked+span { 
-            font-weight: bold; 
-        }
+            input:checked + span {
+                font-weight: bold;
+            }
 
-        input+span { 
-            font-weight: normal; 
-        }
+            input + span {
+                font-weight: normal;
+            }
     </style>
 
-    <div class="col-md-4" id="r_map">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
-    </div>
+    <div class="col-md-4" id="r_map"></div>
     <div class="col-md-8">
-        <table class="table" onload="onLoad()">
+        <table class="table">
             <thead>
                 <tr id="PeriodHeader">
                     <th></th>
                     <th>
                         <label>
-                            <input type="radio" name="period" onclick="setPeriod(0)" checked="checked" />
+                            <input type="radio" name="period" onclick="setPeriod(0)" />
                             <span>@Localizer["Siste 7 dager"]</span>
                         </label>
                     </th>
                     <th>
                         <label>
-                            <input type="radio" name="period" onclick="setPeriod(1)"/>
+                            <input type="radio" name="period" onclick="setPeriod(1)" checked="checked" />
                             <span>@Localizer["Siste 30 dager"]</span>
                         </label>
                     </th>
                     <th>
                         <label>
-                            <input type="radio" name="period" onclick="setPeriod(2)"/>
+                            <input type="radio" name="period" onclick="setPeriod(2)" />
                             <span>@Localizer["Siste 365 dager"]</span>
                         </label>
                     </th>
@@ -65,7 +64,14 @@
                     <tr>
                         <td>
                             <label>
-                                <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)"/>
+                                @if (transactionData.DataSetName != "FKB-Bygning")
+                                {
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" checked="checked" />
+                                }
                                 <span>@transactionData.DataSetName</span>
                             </label>
                         </td>
@@ -84,11 +90,13 @@
         </table>
     </div>
 
+    <script src="~/dist/js/jquery/jquery.min.js"></script>
     <script type="text/javascript">
-        var period;
-        var dataSetNames = [];
+        var period = 1;
+        var dataSetNames = ["FKB-Bygning"];
+        window.onload = updateMap();
 
-        function toggleDataSet(dataSetName, dataSetNameElement) {
+        function toggleDataSet(dataSetName) {
             const idx = dataSetNames.findIndex(e => e === dataSetName);
 
             if (idx > -1) {
@@ -105,7 +113,9 @@
         }
 
         function updateMap() {
-            $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&mapViewModel=@Json.Serialize(Model.MapViewModel)');
+            const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');
+            console.log(mapModel);
+            $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&jsonMapViewModel=' + mapModel);
         }
     </script>
 }

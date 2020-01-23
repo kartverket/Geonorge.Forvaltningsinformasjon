@@ -94,8 +94,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult UpdateMap(
             [FromQuery]string dataSetNames,
             [FromQuery]Period period,
-            [FromQuery]MapViewModel mapViewModel)
+            [FromQuery]string jsonMapViewModel)
         {
+            MapViewModel mapViewModel = JsonConvert.DeserializeObject<MapViewModel>(jsonMapViewModel);
             DateTime to = DateTime.UtcNow;
             DateTime from;
 

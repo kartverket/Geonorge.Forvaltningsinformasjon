@@ -16,12 +16,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public override List<ICounty> Get()
         {
-            return _dbContext.Set<County>().Include(f => f.Municipalities).ThenInclude(k => k.CentralFkb).ToList<ICounty>();
+            return _dbContext.Set<County>().Where(c => c.Active > 0).Include(c => c.Municipalities).ThenInclude(m => m.CentralFkb).ToList<ICounty>();
+        }
+
+        public override ICounty Get(int id)
+        {
+            string strId = string.Format("{0:D2}", id);
+            return _dbContext.Set<County>().Where(e => e.Active > 0 && e.Number == strId).First();
         }
 
         public ICounty GetByMunicipalityId(int municipalityId)
         {
-            Municipality municipality = _dbContext.Set<Municipality>().Where(k => k.Id == municipalityId).FirstOrDefault();
+            string strId = string.Format("{0:D4}", municipalityId);
+            Municipality municipality = _dbContext.Set<Municipality>().Where(m => m.Active > 0 && m.Number == strId).FirstOrDefault();
 
             return municipality.County;
         }

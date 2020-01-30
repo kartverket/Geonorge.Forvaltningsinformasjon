@@ -9,6 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
     public class DataQualityDistribution : IDataQualityDistribution
     {
         public int Id { get; set; }
+        public int? Active { get; set; } = 1;
         public string DataSetName { get; set; }
 
         public Dictionary<QualityCategory, long> TransactionCounts { get; set; } = new Dictionary<QualityCategory, long>();

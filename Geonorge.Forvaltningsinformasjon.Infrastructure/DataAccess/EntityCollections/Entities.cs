@@ -20,17 +20,17 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public virtual List<T> Get()
         {
-            return _dbContext.Set<TImpl>().AsEnumerable<T>().ToList();
+            return _dbContext.Set<TImpl>().Where(e => e.Active > 0).ToList<T>();
         }
 
         public virtual T Get(int id)
         {
-            return _dbContext.Set<TImpl>().Where(e => e.Id == id).First();
+            return _dbContext.Set<TImpl>().Where(e => e.Id == id && e.Active > 0).First();
         }
 
         public bool Exists(int id)
         {
-            return _dbContext.Set<TImpl>().Where(e => e.Id == id).FirstOrDefault() != default(TImpl);
+            return _dbContext.Set<TImpl>().Where(e => e.Id == id && e.Active > 0).FirstOrDefault() != default(TImpl);
         }
     }
 }

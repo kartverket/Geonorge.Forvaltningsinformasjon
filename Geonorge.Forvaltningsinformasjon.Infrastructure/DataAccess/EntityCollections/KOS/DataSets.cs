@@ -16,13 +16,13 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public List<IDataSet> GetByMunicipality(int id)
         {
-            Project project = _dbContext.Set<Project>().Where(p => p.Municipality.Id == id).OrderBy(p => p.Year).LastOrDefault();
+            string strId = string.Format("{0:D4}", id);
+            Project project = _dbContext.Set<Project>().Where(p => p.Municipality.Number == strId).OrderBy(p => p.Year).LastOrDefault();
 
             if (project != null)
             {
                 IOrderedEnumerable<FdvDataSet> dataSets = _dbContext.Set<FdvDataSet>().Where(d => d.ProjectId == project.Id && d.DataSet.Type == "FKB").Include(d => d.DataSet).Include(d => d.UpdateType).AsEnumerable<FdvDataSet>().OrderBy(d => d.Name);
 
-                string strId = string.Format("{0:D4}", id);
                 IQueryable<TransactionData> statistics = _dbContext.Set<TransactionData>().Where(s => s.MunicipalityNumber == strId);
 
                 IEnumerable<FdvDataSet> result = dataSets.GroupJoin(

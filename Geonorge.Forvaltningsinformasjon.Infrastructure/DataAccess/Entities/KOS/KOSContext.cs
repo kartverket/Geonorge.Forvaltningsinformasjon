@@ -45,18 +45,15 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasOne(d => d.DataSet)
                     .WithMany(p => p.FdvDataSet)
-                    .HasForeignKey(d => d.DataSetId)
-                    .HasConstraintName("FK_FDVDatasett_Datasett");
+                    .HasForeignKey(d => d.DataSetId);
 
                 entity.HasOne(d => d.UpdateType)
                     .WithMany(p => p.FdvDataSet)
-                    .HasForeignKey(d => d.UpdateTypeId)
-                    .HasConstraintName("FK_FDVDatasett_FDVDatasettForvaltningstype");
+                    .HasForeignKey(d => d.UpdateTypeId);
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.FdvDataSet)
-                    .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK_FDVDatasett_FDVProsjekt");
+                    .HasForeignKey(d => d.ProjectId);
             });
 
             modelBuilder.Entity<DataSetUpdateType>(entity =>
@@ -83,8 +80,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasOne(d => d.Municipality)
                     .WithMany(p => p.Project)
-                    .HasForeignKey(d => d.MunicipalityNumber)
-                    .HasConstraintName("FK_FDVProsjekt_Kommune");
+                    .HasForeignKey(d => d.MunicipalityNumber);
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
@@ -99,8 +95,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Round)
-                    .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK_FDVRunde_FDVProsjekt");
+                    .HasForeignKey(d => d.ProjectId);
             });
 
             modelBuilder.Entity<County>(entity =>
@@ -119,8 +114,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.MinY).HasColumnName("BB_SorVest_N");
                 entity.Property(e => e.Name).HasColumnName("Fylkesnavn").HasMaxLength(255);
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
-
-                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<Municipality>(entity =>
@@ -146,15 +139,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasOne(d => d.County)
                         .WithMany(p => p.Municipalities)
-                        .HasForeignKey(d => d.CountyId)
-                        .HasConstraintName("FK_Kommune_Fylke");
-                
-                entity.HasQueryFilter(e => e.Active == 1);
+                        .HasForeignKey(d => d.CountyId);
 
                 entity.HasOne(d => d.CoordinateSystemObject)
                     .WithMany(p => p.Municipalities)
-                    .HasForeignKey(d => d.CoordinateSystemId)
-                    .HasConstraintName("FK_Kommune_Koordsys");
+                    .HasForeignKey(d => d.CoordinateSystemId);
             });
 
             modelBuilder.Entity<CentralFkb>(entity =>
@@ -173,8 +162,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasOne(d => d.Municipality)
                     .WithMany(p => p.CentralFkb)
-                    .HasForeignKey(d => d.MunicipalitzNumber)
-                    .HasConstraintName("FK_SentralFKB_Kommune");
+                    .HasForeignKey(d => d.MunicipalitzNumber);
             });
 
             modelBuilder.Entity<TransactionData>(entity =>
@@ -218,8 +206,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasOne(d => d.DataSet)
                     .WithMany(p => p.TransactionData)
-                    .HasForeignKey(d => d.DataSetId)
-                    .HasConstraintName("FK_SentralFkbStatistikk_Datasett");
+                    .HasForeignKey(d => d.DataSetId);
 
                 entity.HasOne(e => e.Municipality)
                     .WithMany(m => m.TransactionData)

@@ -6,6 +6,7 @@
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionViewModel
 
 @inject IViewLocalizer Localizer
+@inject ApplicationSettings AppSettings
 
 @{
     Layout = "_Layout.cshtml";
@@ -65,6 +66,11 @@
                     }
                 },
                 tooltips: {
+                    backgroundColor: 'rgba(@AppSettings.ChartLegendSettings.BackgroundColor)',
+                    titleFontColor: 'rgba(@AppSettings.ChartLegendSettings.TitleTextColor)',
+                    bodyFontColor: 'rgba(@AppSettings.ChartLegendSettings.BodyTextColor)',
+                    borderColor: 'rgba(@AppSettings.ChartLegendSettings.BorderColor)',
+                    borderWidth: '@AppSettings.ChartLegendSettings.BorderWidth',
                     callbacks: {
                         label: function (tooltipItem, data) {
                             var label = data.datasets[tooltipItem.datasetIndex].label || '';
@@ -72,7 +78,7 @@
                             if (label) {
                                 label += ': '
                             }
-                            label += Math.round(tooltipItem.xLabel * 10) / 10;
+                            label += Math.round(tooltipItem.xLabel * 10) / 10 + '%';
 
                             return label;
                         }
@@ -85,7 +91,10 @@
                         ticks: {
                             max: 100,
                             min: 0,
-                            setpSize: 10
+                            setpSize: 10,
+                            callback: function (tick) {
+                                return tick.toString() + '%';
+                            }
                         }
                     }],
                     yAxes: [{
@@ -96,6 +105,28 @@
                         barPercentage: 0.5
                     }]
                 }
-            }
-});    </script>
+            },
+            plugins: [{
+                beforeDraw: function () {
+                    myChart.ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    myChart.ctx.textAlign = 'left';
+                    myChart.ctx.textBaseline = 'center';
+
+                    myChart.data.datasets.forEach(function (dataset, i) {
+                        var meta = myChart.getDatasetMeta(i);
+
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+
+                            if (i == 0 && isNaN(data)) {
+                                const text = '@Localizer["Ingen objekter med egenskap dataalder"]';
+                                const x = (myChart.chartArea.right - myChart.chartArea.left) / 2;
+                                myChart.ctx.fillText(text, x, bar._model.y);
+                            }
+                        });
+                    });
+                }
+            }]
+        });
+    </script>
 }

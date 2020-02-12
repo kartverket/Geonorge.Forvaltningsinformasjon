@@ -17,13 +17,24 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public string CredentialVerificationDomain { get; set; }
 
         public ConnectionStrings ConnectionStrings { get; set; }
+        
         public Dictionary<string,string> DataSetToLayerMap { get; set; }
+        
         public Dictionary<string,string> AgeCategoryColors { get; set; }
         public Dictionary<string, string> QualityCategoryColors { get; set; }
+        public ChartLegendSettings ChartLegendSettings { get; set; }
     }
 
     public class ConnectionStrings
     {
         public string KOS { get; set; }
+    }
+
+    public class ChartLegendSettings {
+        public string TitleTextColor { get; set; }
+        public string BodyTextColor { get; set; }
+        public string BackgroundColor { get; set; }
+        public string BorderColor { get; set; }
+        public string BorderWidth { get; set; }
     }
 }

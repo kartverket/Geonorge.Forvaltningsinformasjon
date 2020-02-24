@@ -17,6 +17,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         private const string _serviceType = "OGC:WMS";
         private const string _url = "http://wms.geonorge.no/skwms1/wms.sfkb-transaksjoner?request=GetCapabilities&service=WMS";
         private const string _layer = "bygning";
+        private const string _urlAdminUnits = " http://wms.geonorge.no/skwms1/wms.adm_enheter2?request=GetCapabilities&service=WMS";
+        private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
 
         private IContextViewModelHelper _contextViewModelHelper;
         private ITransactionDataService _transactionDataService;
@@ -130,6 +132,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                     mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[name], customParameters);
                 }
             }
+
+            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
 
             return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }

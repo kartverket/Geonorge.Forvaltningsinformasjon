@@ -65,9 +65,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
             }
         }
 
-         public void AddService(string serviceType, string url, string layer, Dictionary<string, string> customParameters = null)
+        public void AddService(string serviceType, string url, string layer, Dictionary<string, string> customParameters = null)
         {
             Services.Add(new Service("", serviceType, url, new List<string> { layer }, customParameters));
+        }
+        public void AddService(string serviceType, string url, List<string> layers, Dictionary<string, string> customParameters = null)
+        {
+            Services.Add(new Service("", serviceType, url, layers, customParameters));
         }
     }
 }

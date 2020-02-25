@@ -12,7 +12,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
     public class DataQualityClassificationController : Controller
     {
         private const string _serviceType = "OGC:WMS";
-        private const string _url = "https://wms.geonorge.no/skwms1/wms.georef2?request=GetCapabilities&service=WMS";
+        private const string _url = "https://wms.geonorge.no/skwms1/wms.georef3?request=GetCapabilities&service=WMS";
         private const string _layer = "Georef-ABCD";
 
         private IContextViewModelHelper _contextViewModelHelper;

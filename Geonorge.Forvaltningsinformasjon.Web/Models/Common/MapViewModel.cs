@@ -40,6 +40,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
 
         public List<Service> Services { get; set; } = new List<Service>();
 
+        public string LegendUrl { get; set; }
+
         public MapViewModel()
         {
 

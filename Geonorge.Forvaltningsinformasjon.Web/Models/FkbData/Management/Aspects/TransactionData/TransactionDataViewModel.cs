@@ -43,5 +43,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
         }
 
         public MapViewModel MapViewModel { get; set; } = new MapViewModel();
+        public Dictionary<string, LayerStyle> LayerStyles { get; set; }
+    }
+
+    public class LayerStyle
+    {
+        public string FillColor { get; set; }
+        public string FillOpacity { get; set; }
+        public string StrokeColor { get; set; }
+        public string StrokeWidth { get; set; }
     }
 }

@@ -3,6 +3,7 @@
 @model Geonorge.Forvaltningsinformasjon.Web.Models.Common.MapViewModel
 
 <div style="display:flex;height:@MapViewModel.ViewHeight" id="root"></div>
+<div style="align-self:center;text-align:center" id="legend"></div>
 
 <script src="~/dist/js/jquery/jquery.js"></script>
 <script type="text/javascript">
@@ -53,6 +54,13 @@
         params.crs = '@Model.CoordinateSystem';
 
         main.map(params, document.getElementById('root'));
+
+        @if (!string.IsNullOrWhiteSpace(Model.LegendUrl))
+        {
+            <text>
+                main.legend('@Html.Raw(Model.LegendUrl)', legend);
+            </text>
+        }
     });
 </script>
 

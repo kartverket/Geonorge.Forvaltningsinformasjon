@@ -2,6 +2,7 @@
 @using Newtonsoft.Json
 
 @inject IViewLocalizer Localizer
+@inject ApplicationSettings AppSettings
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData.TransactionDataViewModel
 
@@ -39,19 +40,19 @@
                 <tr id="PeriodHeader">
                     <th></th>
                     <th>
-                        <label>
+                        <label style="cursor:pointer">
                             <input type="radio" name="period" onclick="setPeriod(0)" />
                             <span>@Localizer["Siste 7 dager"]</span>
                         </label>
                     </th>
                     <th>
-                        <label>
+                        <label style="cursor:pointer">
                             <input type="radio" name="period" onclick="setPeriod(1)" checked="checked" />
                             <span>@Localizer["Siste 30 dager"]</span>
                         </label>
                     </th>
                     <th>
-                        <label>
+                        <label style="cursor:pointer">
                             <input type="radio" name="period" onclick="setPeriod(2)" />
                             <span>@Localizer["Siste 365 dager"]</span>
                         </label>
@@ -63,16 +64,19 @@
                 {
                     <tr>
                         <td>
-                            <label>
+                            <label style="cursor:pointer">
+                                <svg width="20" height="20">
+                                    <rect width="20" height="20" style="fill:@Model.LayerStyles[transactionData.DataSetName].FillColor;fill-opacity:@Model.LayerStyles[transactionData.DataSetName].FillOpacity;stroke-width:@Model.LayerStyles[transactionData.DataSetName].StrokeWidth;stroke:@Model.LayerStyles[transactionData.DataSetName].StrokeColor" />
+                                </svg>
                                 @if (transactionData.DataSetName != "FKB-Bygning")
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" />
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" style="margin:0px"/>
                                 }
                                 else
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" checked="checked" />
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" checked="checked" style="margin:0px"/>
                                 }
-                                <span>@transactionData.DataSetName</span>
+                                <span style="vertical-align:top">@transactionData.DataSetName</span>
                             </label>
                         </td>
                         <td>@transactionData.SumLastWeek</td>

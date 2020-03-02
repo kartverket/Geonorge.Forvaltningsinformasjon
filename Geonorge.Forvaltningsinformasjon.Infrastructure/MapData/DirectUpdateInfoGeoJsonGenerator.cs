@@ -33,8 +33,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             {
                 JToken feature = (JToken)(originalModel["features"].Where(f => f["properties"]["kommunenummer"].ToString() == municipality.Number).First());
 
+           //     ((JObject)feature["geometry"]["properties"]).Add("fill", "#ff0000");
+             //   ((JObject)feature["properties"]).Add("fill-opacity", 0.6);
                 ((JObject)feature["properties"]).Add("IntroductionState", (int)municipality.IntroductionState);
-
+                
+                //JProperty color = new JProperty("fill", "red");
+                //JObject style = new JObject();
+                //style.Add(color);
+                //((JObject)feature).Add("style", style);
                 features.Add(feature);
             }
 

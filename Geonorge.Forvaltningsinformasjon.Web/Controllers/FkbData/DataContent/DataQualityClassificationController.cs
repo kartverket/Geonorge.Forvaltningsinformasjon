@@ -5,6 +5,7 @@ using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 {
@@ -15,6 +16,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         private const string _url = "https://wms.geonorge.no/skwms1/wms.georef3?request=GetCapabilities&service=WMS";
         private const string _layer = "Georef-ABCD";
         private const string _legendUrl = "https://wms.geonorge.no/skwms1/wms.georef3?Service=wms&Request=GetLegendGraphic&Version=1.0.0&Format=image/png&Width=60&Height=60&Layer=Georef-ABCD";
+        private const string _urlAdminUnits = " http://wms.geonorge.no/skwms1/wms.adm_enheter2?request=GetCapabilities&service=WMS";
+        private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
+
 
         private IContextViewModelHelper _contextViewModelHelper;
         private IDataQualityClassificationService _dataQualityClassificationService;
@@ -39,6 +43,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             MapViewModel mapViewModel = new MapViewModel();
 
             mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
             mapViewModel.LegendUrl = _legendUrl;
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
@@ -59,6 +64,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             MapViewModel mapViewModel = new MapViewModel(county);
 
             mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
             mapViewModel.LegendUrl = _legendUrl;
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
@@ -79,6 +85,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             MapViewModel mapViewModel = new MapViewModel(municipality);
 
             mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
             mapViewModel.LegendUrl = _legendUrl;
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel

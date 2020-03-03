@@ -13,12 +13,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
     public class DataQualityClassificationController : Controller
     {
         private const string _serviceType = "OGC:WMS";
-        private const string _url = "https://wms.geonorge.no/skwms1/wms.georef3?request=GetCapabilities&service=WMS";
         private const string _layer = "Georef-ABCD";
-        private const string _legendUrl = "https://wms.geonorge.no/skwms1/wms.georef3?Service=wms&Request=GetLegendGraphic&Version=1.0.0&Format=image/png&Width=60&Height=60&Layer=Georef-ABCD";
-        private const string _urlAdminUnits = " http://wms.geonorge.no/skwms1/wms.adm_enheter2?request=GetCapabilities&service=WMS";
+        private string _url;
+        private string _legendUrl;
+        private string _urlAdminUnits;
         private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
-
 
         private IContextViewModelHelper _contextViewModelHelper;
         private IDataQualityClassificationService _dataQualityClassificationService;
@@ -29,12 +28,16 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             IContextViewModelHelper contextViewModelHelper,
             IDataQualityClassificationService dataQualityClassificationService,
             ICountyService countyService,
-            IMunicipalityService municipalityService)
+            IMunicipalityService municipalityService,
+            ApplicationSettings applicationSettings)
         {
             _contextViewModelHelper = contextViewModelHelper;
             _dataQualityClassificationService = dataQualityClassificationService;
             _countyService = countyService;
             _municipalityService = municipalityService;
+            _url = applicationSettings.ExternalUrls.Georef;
+            _legendUrl = applicationSettings.ExternalUrls.GeorefLegend;
+            _urlAdminUnits = applicationSettings.ExternalUrls.AdministrativeUnits;
         }
 
         public IActionResult Country()

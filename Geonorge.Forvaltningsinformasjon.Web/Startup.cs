@@ -29,7 +29,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             services.AddSingleton<ApplicationSettings>(applicationSettings);
 
             // register urls
-            Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.UrlMunicipalitiesGeoJson;
+            Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.ExternalUrls.MunicipalitiesGeoJson;
             Core.StartupInitializer.LocalPathThematicGeoJson = applicationSettings.LocalPathThematicGeoJson;
 
             // register databases

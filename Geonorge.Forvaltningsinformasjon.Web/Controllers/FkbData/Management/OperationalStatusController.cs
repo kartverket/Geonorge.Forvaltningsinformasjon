@@ -17,7 +17,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public OperationalStatusController(IContextViewModelHelper contextViewModelHelper, ApplicationSettings applicationSettings)
         {
             _contextViewModelHelper = contextViewModelHelper;
-            _operationalStatus = applicationSettings.UrlOperationalStatus;
+            _operationalStatus = applicationSettings.ExternalUrls.OperationalStatus;
         }
 
 

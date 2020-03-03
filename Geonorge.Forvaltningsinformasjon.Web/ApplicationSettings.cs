@@ -7,14 +7,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public string BuildVersionNumber { get; set; }
         public string EnvironmentName { get; set; }
         public string UrlGeonorgeRoot { get; set; }
-        public string UrlOperationalStatus { get; set; }
-        public string UrlMunicipalitiesGeoJson { get; set; }
         public string UrlThematicGeoJson { get; set; }
         public string LocalPathThematicGeoJson { get; set; }
         public string UrlProxy { get; set; }
         public string UserNameProxy { get; set; }
         public string PasswordProxy { get; set; }
         public string CredentialVerificationDomain { get; set; }
+
+        public ExternalUrls ExternalUrls { get; set; }
 
         public ConnectionStrings ConnectionStrings { get; set; }
         
@@ -30,11 +30,23 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public string KOS { get; set; }
     }
 
-    public class ChartLegendSettings {
+    public class ChartLegendSettings 
+    {
         public string TitleTextColor { get; set; }
         public string BodyTextColor { get; set; }
         public string BackgroundColor { get; set; }
         public string BorderColor { get; set; }
         public string BorderWidth { get; set; }
+    }
+
+    public class ExternalUrls
+    {
+        public string OperationalStatus { get; set; }
+        public string MunicipalitiesGeoJson { get; set; }
+        public string TransactionData { get; set; }
+        public string TransactionDataStyle { get; set; }
+        public string AdministrativeUnits { get; set; }
+        public string Georef { get; set; }
+        public string GeorefLegend { get; set; }
     }
 }

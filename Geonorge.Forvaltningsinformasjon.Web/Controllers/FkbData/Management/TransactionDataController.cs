@@ -17,10 +17,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
     public class TransactionDataController : Controller, IAdministrativeUnitController
     {
         private const string _serviceType = "OGC:WMS";
-        private const string _url = "http://wms.geonorge.no/skwms1/wms.sfkb-transaksjoner?request=GetCapabilities&service=WMS";
-        private const string _styleUrl = "https://wms.geonorge.no/skwms1/wms.sfkb-transaksjoner?Service=wms&Request=GetStyles&Version=1.0.0&Layers=";
         private const string _layer = "bygning";
-        private const string _urlAdminUnits = " http://wms.geonorge.no/skwms1/wms.adm_enheter2?request=GetCapabilities&service=WMS";
+        private string _url;
+        private string _styleUrl;
+        private string _urlAdminUnits;
         private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
 
         private IContextViewModelHelper _contextViewModelHelper;
@@ -41,6 +41,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             _countyService = countyService;
             _municipalityService = municipalityService;
             _dataSetToLayerMap = applicationSettings.DataSetToLayerMap;
+            _url = applicationSettings.ExternalUrls.TransactionData;
+            _styleUrl = applicationSettings.ExternalUrls.TransactionDataStyle;
+            _urlAdminUnits = applicationSettings.ExternalUrls.AdministrativeUnits;
         }
 
         public IActionResult Country()

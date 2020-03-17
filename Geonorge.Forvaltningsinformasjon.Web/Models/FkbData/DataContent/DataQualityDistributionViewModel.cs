@@ -66,19 +66,19 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
             switch (qualityCategory)
             {
                 case QualityCategory.Measured:
-                    name = "Landmålt";
+                    name = "Terrengmålt";
                     break;
                 case QualityCategory.PhotogrammetricB:
-                    name = "Fotogrammetrisk FKB-B";
+                    name = "Fotogrammetrisk <=40cm";
                     break;
                 case QualityCategory.PhotogrammetricC:
-                    name = "Fotogrammetrisk FKB-C";
+                    name = "Fotogrammetrisk >40cm";
                     break;
                 case QualityCategory.DigitalizedM200:
-                    name = "Digitalisert bedre enn 200cm";
+                    name = "Digitalisert <=200cm";
                     break;
                 case QualityCategory.DigitalizedS200:
-                    name = "Digitalisert dårligere enn 200cm";
+                    name = "Digitalisert >200cm";
                     break;
                 default:
                     name = "Ikke målt";

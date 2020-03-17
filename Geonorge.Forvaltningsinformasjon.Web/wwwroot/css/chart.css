@@ -1,0 +1,12 @@
+﻿div.myChartLegend {
+    text-align:left;
+    padding:10px;
+}
+
+span.myChartLegend {
+    border-radius: 1px;
+    display:inline-block;
+    height: 10px;
+    margin-right: 10px;
+    width: 10px;
+}

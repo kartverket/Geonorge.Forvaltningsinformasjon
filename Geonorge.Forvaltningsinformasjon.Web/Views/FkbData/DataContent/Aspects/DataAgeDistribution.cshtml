@@ -37,6 +37,8 @@
     </div>
     <div class="col-md-8">
         <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="col-md-2"></div>
+        <div class="col-md-10" id="myChartLegend"></div>
     </div>
 
     <script src="/dist/js/chart/chart.js"></script>
@@ -59,11 +61,7 @@
             },
             options: {
                 legend: {
-                    position: 'bottom',
-                    align: 'end',
-                    labels: {
-                        boxWidth: 10
-                    }
+                    display: false
                 },
                 tooltips: {
                     backgroundColor: 'rgba(@AppSettings.ChartLegendSettings.BackgroundColor)',
@@ -104,6 +102,23 @@
                         },
                         barPercentage: 0.5
                     }]
+                },
+                legendCallback: function (chart) {
+                    var text = []; 
+
+                    text.push('<div class="row">');
+
+                    for (var i = 0; i < chart.data.datasets.length; i++) {
+                        text.push('<div class="col-md-3 myChartLegend">');
+ 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>'); 
+
+                        if (chart.data.datasets[i].label) { 
+                            text.push(chart.data.datasets[i].label); 
+                        } 
+                        text.push('</div>');
+                    }
+                    text.push('</div>');
+ 		            return text.join(''); 
                 }
             },
             plugins: [{
@@ -128,5 +143,7 @@
                 }
             }]
         });
+        var legendContainer = document.getElementById("myChartLegend");
+        legendContainer.innerHTML = myChart.generateLegend();
     </script>
 }

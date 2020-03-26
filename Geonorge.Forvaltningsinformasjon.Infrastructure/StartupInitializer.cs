@@ -11,17 +11,15 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
 {
     public class StartupInitializer
     {
-        public static string MunicipalitiesGeoJsonUrl {get;set;}
-        public static void InitializeDatabases(
+        public static void Initialize(
             IServiceCollection services,
-            string connStrKOS)
+            InfrastructureSettings infrastructureSettings)
         {
             services.AddDbContext<KosContext>(options =>
-                options.UseSqlServer(connStrKOS));
+            options.UseSqlServer(infrastructureSettings.KosConnectionString));
 
-        }
-        public static void InitializeDependencies(IServiceCollection services)
-        {
+            services.AddSingleton<InfrastructureSettings>(infrastructureSettings);
+
             // data access
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<ICounties, Counties>();
@@ -34,6 +32,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
 
             // map data
             services.AddTransient<IDirectUpdateInfoGeoJsonGenerator, DirectUpdateInfoGeoJsonGenerator>();
+            services.AddTransient<ITransactionDataSldProvider, TransactionDataSldProvider>();
+            services.AddTransient<IDataQualityClassificationSldProvider, DataQualityClassificationSldProvider>();
         }
     }
 }

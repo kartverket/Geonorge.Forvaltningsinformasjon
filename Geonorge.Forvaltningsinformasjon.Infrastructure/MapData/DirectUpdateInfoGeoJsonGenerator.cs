@@ -19,7 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
                 return "DirectUpdateInfo";
             }
         }
-        public DirectUpdateInfoGeoJsonGenerator()
+        public DirectUpdateInfoGeoJsonGenerator(InfrastructureSettings settings) : base(settings.MunicipalitiesGeoJsonUrl)
         {
             
         }

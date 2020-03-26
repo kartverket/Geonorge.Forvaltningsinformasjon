@@ -48,5 +48,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public string AdministrativeUnits { get; set; }
         public string Georef { get; set; }
         public string GeorefLegend { get; set; }
+        public string GeorefStyle { get; set; }
     }
 }

@@ -6,6 +6,8 @@ using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Text;
+using System.Web;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 {
@@ -44,10 +46,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             MapViewModel mapViewModel = new MapViewModel();
+            string sld = _dataQualityClassificationService.GetSld();
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            Dictionary<string, string> customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+
+            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
             mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
-            mapViewModel.LegendUrl = _legendUrl;
+            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
@@ -65,10 +75,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
+            string sld = _dataQualityClassificationService.GetSld();
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            Dictionary<string, string> customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+
+            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
             mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
-            mapViewModel.LegendUrl = _legendUrl;
+            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
@@ -86,10 +104,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
             IMunicipality municipality = _municipalityService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(municipality);
+            string sld = _dataQualityClassificationService.GetSld();
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            Dictionary<string, string> customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+
+            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
             mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
-            mapViewModel.LegendUrl = _legendUrl;
+            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {

@@ -58,7 +58,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = "Norge",
-                LayerStyles = GetLayerStyles(transactionData),
+                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
@@ -78,7 +78,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = county.Name,
-                LayerStyles = GetLayerStyles(transactionData),
+                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
@@ -98,7 +98,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = municipality.Name,
-                LayerStyles = GetLayerStyles(transactionData),
+                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
@@ -148,46 +148,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
 
             return PartialView("Views/Common/Map.cshtml", mapViewModel);
-        }
-
-        private Dictionary<string, LayerStyle> GetLayerStyles(List<ITransactionData> transactionData)
-        {
-            Dictionary<string, LayerStyle> layerStyles = new Dictionary<string, LayerStyle>();
-            List<string> layerNames = new List<string>();
-
-            transactionData.ForEach(td => layerNames.Add($"{_dataSetToLayerMap[td.DataSetName]}_N1"));
-
-            XmlDocument xmlDocument = GetStyleXml(layerNames);
-            XmlNodeList fillStyles = xmlDocument.GetElementsByTagName("Fill");
-            XmlNodeList strokeStyles = xmlDocument.GetElementsByTagName("Stroke");
-
-            for (int i = 0; i < transactionData.Count; ++i)
-            {
-                LayerStyle layerStyle = new LayerStyle();
-
-                layerStyle.FillColor = fillStyles[i].SelectSingleNode("*[@name='fill']").InnerText;
-                layerStyle.FillOpacity = fillStyles[i].SelectSingleNode("*[@name='fill-opacity']").InnerText;
-                layerStyle.StrokeColor = strokeStyles[i].SelectSingleNode("*[@name='stroke']").InnerText;
-                layerStyle.StrokeWidth = strokeStyles[i].SelectSingleNode("*[@name='stroke-width']").InnerText;
-
-                layerStyles.Add(transactionData[i].DataSetName, layerStyle);
-            }
-            return layerStyles;
-        }
-
-        private XmlDocument GetStyleXml(List<string> layers)
-        {
-            XmlDocument xmlDocument = new XmlDocument();
-
-            string styles;
-            string url = _styleUrl + string.Join(',', layers);
-
-            using (HttpClient client = new HttpClient())
-            {
-                styles = client.GetStringAsync(url).Result;
-            }
-            xmlDocument.LoadXml(styles);
-            return xmlDocument;
         }
     }
 }

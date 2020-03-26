@@ -9,5 +9,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
     {
         List<IDataQualityClassification> GetByCounty(int id);
         List<IDataQualityClassification> GetByMunicipality(int id);
+        string GetSld();
     }
 }

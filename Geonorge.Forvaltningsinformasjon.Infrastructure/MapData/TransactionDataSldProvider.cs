@@ -9,9 +9,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 {
     internal class TransactionDataSldProvider : SldProvider, ITransactionDataSldProvider
     {
+        private const string _ServiceName = "sfkb-transaksjoner";
         Dictionary<string, string> _dataSetToLayerMap;
 
-        public TransactionDataSldProvider(InfrastructureSettings settings) : base(settings.TransactionDataStyle)
+        public TransactionDataSldProvider(InfrastructureSettings settings, IWmsUrlProvider wmsUrlProvider) : base(_ServiceName, wmsUrlProvider)
         {
             _dataSetToLayerMap = settings.DataSetToLayerMap;
         }

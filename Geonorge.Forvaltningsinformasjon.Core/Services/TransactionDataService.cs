@@ -10,13 +10,24 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 {
     class TransactionDataService : ITransactionDataService
     {
+        private const string _WmsServiceName = "sfkb-transaksjoner";
+        private const string _AdminUnitsWmsServiceName = "adm_enheter2";
+
         private IRepository _repository;
         private ITransactionDataSldProvider _sldProvider;
+        private IWmsUrlProvider _wmsUrlProvider;
+        private IAdministrativeUnitSldProvider _administrativeUnitSldProvider;
 
-        public TransactionDataService(IRepository repository, ITransactionDataSldProvider sldProvider)
+        public TransactionDataService(
+            IRepository repository, 
+            ITransactionDataSldProvider sldProvider,
+            IWmsUrlProvider wmsUrlProvider,
+            IAdministrativeUnitSldProvider administrativeUnitSldProvider)
         {
             _repository = repository;
             _sldProvider = sldProvider;
+            _wmsUrlProvider = wmsUrlProvider;
+            _administrativeUnitSldProvider = administrativeUnitSldProvider;
         }
 
         public List<ITransactionData> Get()
@@ -42,6 +53,21 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
         public Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData)
         {
             return _sldProvider.GetLayerStyles(transactionData);
+        }
+
+        public string GetWmsUrl()
+        {
+            return _wmsUrlProvider.GetCapabilitiesUrl(_WmsServiceName);
+        }
+
+        public string GetAdministrativeUnitSld()
+        {
+            return _administrativeUnitSldProvider.GetSld();
+        }
+
+        public string GetAdminstrativeUnitsWmsUrl()
+        {
+            return _wmsUrlProvider.GetCapabilitiesUrl(_AdminUnitsWmsServiceName);
         }
     }
 }

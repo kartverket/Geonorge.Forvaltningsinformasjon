@@ -17,12 +17,18 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public ExternalUrls ExternalUrls { get; set; }
 
         public ConnectionStrings ConnectionStrings { get; set; }
-        
+
+        public Wms Wms { get; set; }       
         public Dictionary<string,string> DataSetToLayerMap { get; set; }
-        
         public Dictionary<string,string> AgeCategoryColors { get; set; }
         public Dictionary<string, string> QualityCategoryColors { get; set; }
         public ChartLegendSettings ChartLegendSettings { get; set; }
+    }
+
+    public class Wms
+    {
+        public string UrlBase { get; set; }
+        public string Version { get; set; }
     }
 
     public class ConnectionStrings
@@ -43,11 +49,5 @@ namespace Geonorge.Forvaltningsinformasjon.Web
     {
         public string OperationalStatus { get; set; }
         public string MunicipalitiesGeoJson { get; set; }
-        public string TransactionData { get; set; }
-        public string TransactionDataStyle { get; set; }
-        public string AdministrativeUnits { get; set; }
-        public string Georef { get; set; }
-        public string GeorefLegend { get; set; }
-        public string GeorefStyle { get; set; }
     }
 }

@@ -11,5 +11,8 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
         List<ITransactionData> GetByCounty(int id);
         List<ITransactionData> GetByMunicipality(int id);
         Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData);
+        string GetWmsUrl();
+        string GetAdminstrativeUnitsWmsUrl();
+        string GetAdministrativeUnitSld();
     }
 }

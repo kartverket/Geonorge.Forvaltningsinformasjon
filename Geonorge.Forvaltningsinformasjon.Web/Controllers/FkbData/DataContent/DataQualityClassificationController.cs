@@ -14,12 +14,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
    [Route("fkb-data/data-content/data-quality-classification")]
     public class DataQualityClassificationController : Controller
     {
-        private const string _serviceType = "OGC:WMS";
-        private const string _layer = "Georef-ABCD";
+        private const string _ServiceType = "OGC:WMS";
+        private const string _Layer = "Georef-ABCD";
+        private const string _CountyAdminUnitLayer = "fylker_gjel";
+        private const string _MunicipalityAdminUnitLayer = "kommuner_gjel";
+
         private string _url;
         private string _legendUrl;
         private string _urlAdminUnits;
-        private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
 
         private IContextViewModelHelper _contextViewModelHelper;
         private IDataQualityClassificationService _dataQualityClassificationService;
@@ -37,9 +39,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             _dataQualityClassificationService = dataQualityClassificationService;
             _countyService = countyService;
             _municipalityService = municipalityService;
-            _url = applicationSettings.ExternalUrls.Georef;
-            _legendUrl = applicationSettings.ExternalUrls.GeorefLegend;
-            _urlAdminUnits = applicationSettings.ExternalUrls.AdministrativeUnits;
+            _url = _dataQualityClassificationService.GetWmsUrl();
+            _legendUrl = _dataQualityClassificationService.GetLegendUrl("image/png", 60, 60);
+            _urlAdminUnits = _dataQualityClassificationService.GetAdminstrativeUnitsWmsUrl();
         }
 
         public IActionResult Country()
@@ -55,8 +57,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 }
             };
 
-            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
-            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
+            mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
+
+            AddAdminUnitsToServices(mapViewModel);
             mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
@@ -84,8 +87,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 }
             };
 
-            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
-            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
+            mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
+
+            AddAdminUnitsToServices(mapViewModel);
             mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
@@ -113,8 +117,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 }
             };
 
-            mapViewModel.AddService(_serviceType, _url, _layer, customParameters);
-            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
+            mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
+
+            AddAdminUnitsToServices(mapViewModel);
             mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
@@ -125,6 +130,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
+        }
+
+        private void AddAdminUnitsToServices(MapViewModel mapViewModel)
+        {
+            string sld = _dataQualityClassificationService.GetAdministrativeUnitSld();
+            Dictionary<string, string> customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _CountyAdminUnitLayer, customParameters);
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _MunicipalityAdminUnitLayer, customParameters);
         }
     }
 }

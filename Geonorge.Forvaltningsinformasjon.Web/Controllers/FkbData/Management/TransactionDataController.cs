@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
@@ -16,12 +17,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
     [Route("fkb-data/management/transaction-data")]
     public class TransactionDataController : Controller, IAdministrativeUnitController
     {
-        private const string _serviceType = "OGC:WMS";
-        private const string _layer = "bygning";
+        private const string _ServiceType = "OGC:WMS";
+        private const string _Layer = "bygning";
+        private const string _CountyAdminUnitLayer = "fylker_gjel";
+        private const string _MunicipalityAdminUnitLayer = "kommuner_gjel";
+        
         private string _url;
-        private string _styleUrl;
         private string _urlAdminUnits;
-        private List<string> _layersAdminUnits = new List<string> { "fylker_gjel", "kommuner_gjel" };
 
         private IContextViewModelHelper _contextViewModelHelper;
         private ITransactionDataService _transactionDataService;
@@ -41,9 +43,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             _countyService = countyService;
             _municipalityService = municipalityService;
             _dataSetToLayerMap = applicationSettings.DataSetToLayerMap;
-            _url = applicationSettings.ExternalUrls.TransactionData;
-            _styleUrl = applicationSettings.ExternalUrls.TransactionDataStyle;
-            _urlAdminUnits = applicationSettings.ExternalUrls.AdministrativeUnits;
+            _url = _transactionDataService.GetWmsUrl();
+            _urlAdminUnits = transactionDataService.GetAdminstrativeUnitsWmsUrl();
         }
 
         public IActionResult Country()
@@ -52,7 +53,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             MapViewModel mapViewModel = new MapViewModel();
             List<ITransactionData> transactionData = _transactionDataService.Get();
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
@@ -72,7 +73,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             MapViewModel mapViewModel = new MapViewModel(county);
             List<ITransactionData> transactionData = _transactionDataService.GetByCounty(id);
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
@@ -92,7 +93,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             MapViewModel mapViewModel = new MapViewModel(municipality);
             List<ITransactionData> transactionData = _transactionDataService.GetByMunicipality(id);
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
@@ -141,11 +142,21 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 foreach (string name in dataSetNames.Split(','))
                 {
-                    mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[name], customParameters);
+                    mapViewModel.AddService(_ServiceType, _url, _dataSetToLayerMap[name], customParameters);
                 }
             }
 
-            mapViewModel.AddService(_serviceType, _urlAdminUnits, _layersAdminUnits);
+            string sld = _transactionDataService.GetAdministrativeUnitSld();
+
+            customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+           
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _CountyAdminUnitLayer, customParameters);
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _MunicipalityAdminUnitLayer, customParameters);
 
             return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }

@@ -34,6 +34,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
             services.AddTransient<IDirectUpdateInfoGeoJsonGenerator, DirectUpdateInfoGeoJsonGenerator>();
             services.AddTransient<ITransactionDataSldProvider, TransactionDataSldProvider>();
             services.AddTransient<IDataQualityClassificationSldProvider, DataQualityClassificationSldProvider>();
+            services.AddTransient<IAdministrativeUnitSldProvider, AdministrativeUnitSldProvider>();
+            services.AddTransient<IWmsUrlProvider, WmsUrlProvider>();
         }
     }
 }

@@ -10,5 +10,9 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
         List<IDataQualityClassification> GetByCounty(int id);
         List<IDataQualityClassification> GetByMunicipality(int id);
         string GetSld();
+        string GetLegendUrl(string format, int width, int height);
+        string GetWmsUrl();
+        string GetAdminstrativeUnitsWmsUrl();
+        string GetAdministrativeUnitSld();
     }
 }

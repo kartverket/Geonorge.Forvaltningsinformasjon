@@ -140,7 +140,7 @@
 
                             if (i == 0 && isNaN(data)) {
                                 const text = '@Localizer["Ingen objekter med egenskap datakvalitet"]';
-                                const x = (myChart.chartArea.right - myChart.chartArea.left) / 2;
+                                const x = myChart.width / 2;
                                 myChart.ctx.fillText(text, x, bar._model.y);
                             }
                         });

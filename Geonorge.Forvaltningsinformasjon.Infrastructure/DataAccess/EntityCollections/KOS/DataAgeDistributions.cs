@@ -53,7 +53,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         {
             DataAgeDistribution distribution = new DataAgeDistribution
             {
-                DataSetName = name
+                DataSetName = name,
+                ObjectCount = grouping.Sum(s => s.ObjectCount ?? 0)
             };
 
             distribution.TransactionCounts.Add(AgeCategory.Year0, grouping.Sum(s => s.Year0 ?? 0));

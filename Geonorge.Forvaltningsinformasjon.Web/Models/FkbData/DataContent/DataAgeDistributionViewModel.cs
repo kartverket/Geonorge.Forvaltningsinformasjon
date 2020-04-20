@@ -31,7 +31,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
             InitColors(ageCategoryColors);
 
             distributions.ForEach(d => {
-                DataSetNames += $"'{d.DataSetName}',";
+                DataSetNames += $"'{d.DataSetName} ({d.ObjectCount} objekter)',";
                 _sums.Add(GetSum(d));
                 });
 

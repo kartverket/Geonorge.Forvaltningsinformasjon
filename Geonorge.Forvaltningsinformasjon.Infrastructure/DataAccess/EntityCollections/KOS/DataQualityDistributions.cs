@@ -53,7 +53,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         {
             DataQualityDistribution distribution = new DataQualityDistribution
             {
-                DataSetName = name
+                DataSetName = name,
+                ObjectCount = grouping.Sum(s => s.ObjectCount ?? 0)
             };
 
             distribution.TransactionCounts.Add(QualityCategory.Measured, grouping.Sum(s => s.Measured ?? 0));

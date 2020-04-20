@@ -8,5 +8,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
     {
         string DataSetName { get; }
         Dictionary<QualityCategory, long> TransactionCounts { get; }
+        int ObjectCount { get; set; }
     }
 }

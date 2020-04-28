@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using System.Net.Http;
 
 namespace Geonorge.Forvaltningsinformasjon.Web
 {
@@ -122,6 +123,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 }
 
                 WebRequest.DefaultWebProxy = proxy;
+                HttpClient.DefaultProxy = proxy;
             }
         }
     }

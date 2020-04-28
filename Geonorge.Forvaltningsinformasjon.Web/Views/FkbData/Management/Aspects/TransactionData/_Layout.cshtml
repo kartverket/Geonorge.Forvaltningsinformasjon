@@ -33,8 +33,7 @@
             }
     </style>
 
-    <div class="col-md-4" id="r_map" style="top:43px"></div>
-    <div class="col-md-8">
+    <div class="col-md-6 col-md-push-6">
         <table class="table">
             <thead>
                 <tr id="PeriodHeader">
@@ -70,11 +69,11 @@
                                 </svg>
                                 @if (transactionData.DataSetName != "FKB-Bygning")
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" style="margin:0px"/>
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" style="margin:0px" />
                                 }
                                 else
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" checked="checked" style="margin:0px"/>
+                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName', this)" checked="checked" style="margin:0px" />
                                 }
                                 <span style="vertical-align:top">@transactionData.DataSetName</span>
                             </label>
@@ -93,6 +92,7 @@
             </tbody>
         </table>
     </div>
+    <div class="col-md-6 col-md-pull-6" id="r_map" style="top:43px"></div>
 
     <script src="~/dist/js/jquery/jquery.min.js"></script>
     <script type="text/javascript">

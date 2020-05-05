@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData
 {
-    public interface ILayerStyle
+    public interface ILegendItemStyle
     {
         string FillColor { get; set; }
         string FillOpacity { get; set; }

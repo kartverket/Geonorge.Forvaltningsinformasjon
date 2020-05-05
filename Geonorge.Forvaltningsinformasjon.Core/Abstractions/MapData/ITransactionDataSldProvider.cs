@@ -7,6 +7,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData
 {
     public interface ITransactionDataSldProvider
     {
-        Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData);
+        Dictionary<string, ILegendItemStyle> GetLegendItemStyles(List<ITransactionData> transactionData);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
         {
 
         }
+
         public string GetSld()
         {
             XmlDocument xmlDocument = GetStyleXml(new List<string>() { "fkb_abcd" });
@@ -31,6 +33,31 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 
             xmlDocument.Save(writer);
             return writer.ToString();             
+        }
+
+        public Dictionary<string, ILegendItemStyle> GetLegendItemStyles()
+        {
+            Dictionary<string, ILegendItemStyle> legendItemStyles = new Dictionary<string, ILegendItemStyle>();
+            List<string> layerNames = new List<string>() { "fkb_ABCD" };
+
+            XmlDocument xmlDocument = GetStyleXml(layerNames);
+            XmlNamespaceManager ns = new XmlNamespaceManager(xmlDocument.NameTable);
+            ns.AddNamespace("ns", "http://www.opengis.net/sld");
+
+            XmlNodeList names = xmlDocument.SelectNodes("//ns:Rule/ns:Name", ns);
+
+            foreach (XmlNode name in names)
+            {
+                LegendItemStyle layerStyle = new LegendItemStyle();
+                layerStyle.FillColor = name.ParentNode.SelectSingleNode("descendant::*[@name='fill']").InnerText;
+                layerStyle.StrokeColor = name.ParentNode.SelectSingleNode("descendant::*[@name='stroke']").InnerText;
+                layerStyle.FillOpacity = _FillOpacity;
+                layerStyle.StrokeWidth = _StrokeWidth;
+
+                legendItemStyles.Add(name.InnerText, layerStyle);
+            }
+
+            return legendItemStyles;
         }
     }
 }

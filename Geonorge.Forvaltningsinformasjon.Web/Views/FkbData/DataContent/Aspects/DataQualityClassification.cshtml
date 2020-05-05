@@ -42,7 +42,12 @@
                 @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
                 {
                     <tr>
-                        <td>FKB-@item.Class</td>
+                        <td>
+                            <svg width="20" height="20">
+                                <rect width="20" height="20" style="fill:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillColor;fill-opacity:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillOpacity;stroke-width:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeWidth;stroke:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeColor" />
+                            </svg>
+                            <span style="vertical-align:top">FKB-@item.Class</span>
+                        </td>
                         <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
                     </tr>
                 }

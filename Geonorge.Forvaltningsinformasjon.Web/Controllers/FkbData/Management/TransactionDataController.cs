@@ -59,7 +59,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = "Norge",
-                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
@@ -79,7 +79,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = county.Name,
-                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
@@ -99,7 +99,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 TransactionData = transactionData,
                 AdministrativeUnitName = municipality.Name,
-                LayerStyles = _transactionDataService.GetLayerStyles(transactionData),
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);

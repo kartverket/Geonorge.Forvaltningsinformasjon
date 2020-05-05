@@ -10,7 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
     {
         List<ITransactionData> GetByCounty(int id);
         List<ITransactionData> GetByMunicipality(int id);
-        Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData);
+        Dictionary<string, ILegendItemStyle> GetLayerStyles(List<ITransactionData> transactionData);
         string GetWmsUrl();
         string GetAdminstrativeUnitsWmsUrl();
         string GetAdministrativeUnitSld();

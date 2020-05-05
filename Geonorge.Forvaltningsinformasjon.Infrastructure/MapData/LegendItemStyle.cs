@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 {
-    internal class LayerStyle : ILayerStyle
+    internal class LegendItemStyle : ILegendItemStyle
     {
         public string FillColor { get; set; }
         public string FillOpacity { get; set; }

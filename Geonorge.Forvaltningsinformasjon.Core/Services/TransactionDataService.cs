@@ -50,9 +50,9 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             return _repository.TransactionData.GetByMunicipality(id);
         }
 
-        public Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData)
+        public Dictionary<string, ILegendItemStyle> GetLayerStyles(List<ITransactionData> transactionData)
         {
-            return _sldProvider.GetLayerStyles(transactionData);
+            return _sldProvider.GetLegendItemStyles(transactionData);
         }
 
         public string GetWmsUrl()

@@ -20,7 +20,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         private const string _MunicipalityAdminUnitLayer = "kommuner_gjel";
 
         private string _url;
-        private string _legendUrl;
         private string _urlAdminUnits;
 
         private IContextViewModelHelper _contextViewModelHelper;
@@ -40,7 +39,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             _countyService = countyService;
             _municipalityService = municipalityService;
             _url = _dataQualityClassificationService.GetWmsUrl();
-            _legendUrl = _dataQualityClassificationService.GetLegendUrl("image/png", 60, 60);
             _urlAdminUnits = _dataQualityClassificationService.GetAdminstrativeUnitsWmsUrl();
         }
 
@@ -60,12 +58,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
 
             AddAdminUnitsToServices(mapViewModel);
-            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.Get(),
                 Type = AdministrativeUnitType.Country,
+                LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
                 MapViewModel = mapViewModel
             };
 
@@ -90,13 +88,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
 
             AddAdminUnitsToServices(mapViewModel);
-            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByCounty(id),
                 AdministrativeUnitName = county.Name,
                 Type = AdministrativeUnitType.County,
+                LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
@@ -120,13 +118,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             mapViewModel.AddService(_ServiceType, _url, _Layer, customParameters);
 
             AddAdminUnitsToServices(mapViewModel);
-            mapViewModel.LegendUrl = $"{_legendUrl}&SLD_BODY={sld}";
 
             DataQualityClassificationViewModel model = new DataQualityClassificationViewModel
             {
                 Classifications = _dataQualityClassificationService.GetByMunicipality(id),
                 AdministrativeUnitName = municipality.Name,
                 Type = AdministrativeUnitType.Municipality,
+                LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);

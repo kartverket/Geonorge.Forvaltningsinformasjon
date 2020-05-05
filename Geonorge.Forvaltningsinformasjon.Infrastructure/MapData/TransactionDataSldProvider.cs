@@ -16,9 +16,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
         {
             _dataSetToLayerMap = settings.DataSetToLayerMap;
         }
-        public Dictionary<string, ILayerStyle> GetLayerStyles(List<ITransactionData> transactionData)
+        public Dictionary<string, ILegendItemStyle> GetLegendItemStyles(List<ITransactionData> transactionData)
         {
-            Dictionary<string, ILayerStyle> layerStyles = new Dictionary<string, ILayerStyle>();
+            Dictionary<string, ILegendItemStyle> legendItemStyles = new Dictionary<string, ILegendItemStyle>();
             List<string> layerNames = new List<string>();
 
             transactionData.ForEach(td => layerNames.Add($"{_dataSetToLayerMap[td.DataSetName]}_N1"));
@@ -29,16 +29,16 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 
             for (int i = 0; i < transactionData.Count; ++i)
             {
-                LayerStyle layerStyle = new LayerStyle();
+                LegendItemStyle layerStyle = new LegendItemStyle();
 
                 layerStyle.FillColor = fillStyles[i].SelectSingleNode("*[@name='fill']").InnerText;
                 layerStyle.FillOpacity = fillStyles[i].SelectSingleNode("*[@name='fill-opacity']").InnerText;
                 layerStyle.StrokeColor = strokeStyles[i].SelectSingleNode("*[@name='stroke']").InnerText;
                 layerStyle.StrokeWidth = strokeStyles[i].SelectSingleNode("*[@name='stroke-width']").InnerText;
 
-                layerStyles.Add(transactionData[i].DataSetName, layerStyle);
+                legendItemStyles.Add(transactionData[i].DataSetName, layerStyle);
             }
-            return layerStyles;
+            return legendItemStyles;
         }
     }
 }

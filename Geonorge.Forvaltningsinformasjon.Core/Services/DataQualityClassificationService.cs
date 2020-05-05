@@ -75,5 +75,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
         {
             return _administrativeUnitSldProvider.GetSld();
         }
+
+        public Dictionary<string, ILegendItemStyle> GetLegendItemStyles()
+        {
+            return _sldProvider.GetLegendItemStyles();
+        }
     }
 }

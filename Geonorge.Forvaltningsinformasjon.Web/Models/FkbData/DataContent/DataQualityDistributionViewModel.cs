@@ -25,6 +25,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
+        public string MetadataUrl { get; set; }
 
         public DataQualityDistributionViewModel(List<IDataQualityDistribution> distributions, Dictionary<string, string> qualityCategoryColors)
         {

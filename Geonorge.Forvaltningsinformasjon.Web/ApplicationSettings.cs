@@ -49,5 +49,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web
     {
         public string OperationalStatus { get; set; }
         public string MunicipalitiesGeoJson { get; set; }
+        public string MetadataTransactionData { get; set; }
+        public string MetadataDataQualityDistribution { get; set; }
+        public string MetadataDataAgeDistribution { get; set; }
     }
 }

@@ -45,5 +45,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
 
         public MapViewModel MapViewModel { get; set; } = new MapViewModel();
         public Dictionary<string, ILegendItemStyle> LegendItemStyles { get; set; }
+        public string MetadataUrl { get; set; }
     }
 }

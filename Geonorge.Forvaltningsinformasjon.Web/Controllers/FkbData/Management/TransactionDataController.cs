@@ -30,6 +30,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         private ICountyService _countyService;
         private IMunicipalityService _municipalityService;
         private Dictionary<string, string> _dataSetToLayerMap;
+        private string _metadataUrl;
 
         public TransactionDataController(
             IContextViewModelHelper contextViewModelHelper, 
@@ -45,6 +46,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             _dataSetToLayerMap = applicationSettings.DataSetToLayerMap;
             _url = _transactionDataService.GetWmsUrl();
             _urlAdminUnits = transactionDataService.GetAdminstrativeUnitsWmsUrl();
+            _metadataUrl = applicationSettings.ExternalUrls.MetadataTransactionData;
         }
 
         public IActionResult Country()
@@ -60,7 +62,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                 TransactionData = transactionData,
                 AdministrativeUnitName = "Norge",
                 LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
-                MapViewModel = mapViewModel
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
         }
@@ -80,7 +83,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                 TransactionData = transactionData,
                 AdministrativeUnitName = county.Name,
                 LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
-                MapViewModel = mapViewModel
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
         }
@@ -100,7 +104,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                 TransactionData = transactionData,
                 AdministrativeUnitName = municipality.Name,
                 LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
-                MapViewModel = mapViewModel
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
         }

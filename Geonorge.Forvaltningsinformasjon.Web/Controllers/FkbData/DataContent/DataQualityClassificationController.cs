@@ -21,12 +21,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
         private string _url;
         private string _urlAdminUnits;
+        private string _metadataUrl;
 
         private IContextViewModelHelper _contextViewModelHelper;
         private IDataQualityClassificationService _dataQualityClassificationService;
         private ICountyService _countyService;
         private IMunicipalityService _municipalityService;
-
+ 
         public DataQualityClassificationController(
             IContextViewModelHelper contextViewModelHelper,
             IDataQualityClassificationService dataQualityClassificationService,
@@ -40,7 +41,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             _municipalityService = municipalityService;
             _url = _dataQualityClassificationService.GetWmsUrl();
             _urlAdminUnits = _dataQualityClassificationService.GetAdminstrativeUnitsWmsUrl();
-        }
+            _metadataUrl = applicationSettings.ExternalUrls.MetadataDataQualityClassification;
+    }
 
         public IActionResult Country()
         {
@@ -64,6 +66,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 Classifications = _dataQualityClassificationService.Get(),
                 Type = AdministrativeUnitType.Country,
                 LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
+                MetadataUrl = _metadataUrl,
                 MapViewModel = mapViewModel
             };
 
@@ -95,6 +98,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 AdministrativeUnitName = county.Name,
                 Type = AdministrativeUnitType.County,
                 LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
+                MetadataUrl = _metadataUrl,
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);
@@ -125,6 +129,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 AdministrativeUnitName = municipality.Name,
                 Type = AdministrativeUnitType.Municipality,
                 LegendItemStyles = _dataQualityClassificationService.GetLegendItemStyles(),
+                MetadataUrl = _metadataUrl,
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityClassification.cshtml", model);

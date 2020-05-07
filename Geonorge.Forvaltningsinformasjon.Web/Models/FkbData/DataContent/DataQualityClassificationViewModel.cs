@@ -11,6 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
         public List<IDataQualityClassification> Classifications { get; set; }
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
+        public string MetadataUrl { get; set; }
 
         public MapViewModel MapViewModel { get; set; } = new MapViewModel();
         public Dictionary<string, ILegendItemStyle> LegendItemStyles { get; set; }

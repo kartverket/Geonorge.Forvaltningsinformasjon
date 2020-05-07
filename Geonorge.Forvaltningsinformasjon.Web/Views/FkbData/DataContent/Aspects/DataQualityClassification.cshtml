@@ -54,7 +54,10 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-6 col-md-pull-6" style="top:35px;border">
+    <div class="col-md-6 col-md-pull-6" style="top:35px">
         <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+        <div style="text-align:center;margin:20px">
+            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+        </div>
     </div>
 }

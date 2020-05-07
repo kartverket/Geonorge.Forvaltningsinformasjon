@@ -52,5 +52,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public string MetadataTransactionData { get; set; }
         public string MetadataDataQualityDistribution { get; set; }
         public string MetadataDataAgeDistribution { get; set; }
+        public string MetadataDataQualityClassification { get; set; }
     }
 }

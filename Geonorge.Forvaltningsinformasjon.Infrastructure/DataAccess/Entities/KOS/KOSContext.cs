@@ -144,6 +144,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.HasOne(d => d.CoordinateSystemObject)
                     .WithMany(p => p.Municipalities)
                     .HasForeignKey(d => d.CoordinateSystemId);
+
+                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<CentralFkb>(entity =>

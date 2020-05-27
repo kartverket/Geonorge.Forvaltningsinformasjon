@@ -1,9 +1,6 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
-using System;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Xml;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
@@ -32,7 +29,13 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             StringWriter writer = new StringWriter();
 
             xmlDocument.Save(writer);
-            return writer.ToString();             
+            
+            string sld = writer.ToString();
+
+            // the string is unicode but the destionation encoding of XML is utf-8
+            sld = sld.Replace("utf-16", "utf-8");
+            sld = sld.Replace("  ", "");
+            return sld;
         }
 
         public Dictionary<string, ILegendItemStyle> GetLegendItemStyles()

@@ -22,12 +22,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 
         public string GetCapabilitiesUrl(string serviceName)
         {
-            QueryStringParams parameters = new QueryStringParams()
-            {
-                { "request", "GetCapabilities" }
-            };
-          
-            return string.Format(_urlFormatString, serviceName, GetQueryString(parameters));
+            return string.Format(_urlFormatString, serviceName, "");
         }
 
         public string GetLegendGraphicsUrl(string serviceName, string layerName, string format, int width, int height)

@@ -6,6 +6,7 @@
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionViewModel
 
 @inject IViewLocalizer Localizer
+@inject ApplicationSettings AppSettings
 
 @{
     Layout = "_Layout.cshtml";
@@ -36,6 +37,11 @@
     </div>
     <div class="col-md-8">
         <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="col-md-2"></div>
+        <div class="col-md-10" id="myChartLegend"></div>
+        <div class="row" style="text-align:center">
+            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+        </div>
     </div>
 
     <script src="/dist/js/chart/chart.js"></script>
@@ -58,13 +64,14 @@
             },
             options: {
                 legend: {
-                    position: 'bottom',
-                    align: 'end',
-                    labels: {
-                        boxWidth: 10
-                    }
+                    display: false
                 },
                 tooltips: {
+                    backgroundColor: 'rgba(@AppSettings.ChartLegendSettings.BackgroundColor)',
+                    titleFontColor: 'rgba(@AppSettings.ChartLegendSettings.TitleTextColor)',
+                    bodyFontColor: 'rgba(@AppSettings.ChartLegendSettings.BodyTextColor)',
+                    borderColor: 'rgba(@AppSettings.ChartLegendSettings.BorderColor)',
+                    borderWidth: '@AppSettings.ChartLegendSettings.BorderWidth',
                     callbacks: {
                         label: function (tooltipItem, data) {
                             var label = data.datasets[tooltipItem.datasetIndex].label || '';
@@ -72,7 +79,7 @@
                             if (label) {
                                 label += ': '
                             }
-                            label += Math.round(tooltipItem.xLabel * 10) / 10;
+                            label += Math.round(tooltipItem.xLabel * 10) / 10 + '%';
 
                             return label;
                         }
@@ -85,7 +92,10 @@
                         ticks: {
                             max: 100,
                             min: 0,
-                            setpSize: 10
+                            setpSize: 10,
+                            callback: function (tick) {
+                                return tick.toString() + '%';
+                            }
                         }
                     }],
                     yAxes: [{
@@ -95,7 +105,48 @@
                         },
                         barPercentage: 0.5
                     }]
+                },
+                legendCallback: function (chart) {
+                    var text = []; 
+
+                    text.push('<div class="row">');
+
+                    for (var i = 0; i < chart.data.datasets.length; i++) {
+                        text.push('<div class="col-md-3 myChartLegend">');
+ 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>'); 
+
+                        if (chart.data.datasets[i].label) { 
+                            text.push(chart.data.datasets[i].label); 
+                        } 
+                        text.push('</div>');
+                    }
+                    text.push('</div>');
+ 		            return text.join(''); 
                 }
-            }
-});    </script>
+            },
+            plugins: [{
+                beforeDraw: function () {
+                    myChart.ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    myChart.ctx.textAlign = 'left';
+                    myChart.ctx.textBaseline = 'center';
+
+                    myChart.data.datasets.forEach(function (dataset, i) {
+                        var meta = myChart.getDatasetMeta(i);
+
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+
+                            if (i == 0 && isNaN(data)) {
+                                const text = '@Localizer["Ingen objekter med egenskap dataalder"]';
+                                const x = myChart.width / 2;
+                                myChart.ctx.fillText(text, x, bar._model.y);
+                            }
+                        });
+                    });
+                }
+            }]
+        });
+        var legendContainer = document.getElementById("myChartLegend");
+        legendContainer.innerHTML = myChart.generateLegend();
+    </script>
 }

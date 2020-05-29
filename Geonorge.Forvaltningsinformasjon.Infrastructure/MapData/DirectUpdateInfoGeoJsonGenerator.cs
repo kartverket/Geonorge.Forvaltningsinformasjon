@@ -19,7 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
                 return "DirectUpdateInfo";
             }
         }
-        public DirectUpdateInfoGeoJsonGenerator()
+        public DirectUpdateInfoGeoJsonGenerator(InfrastructureSettings settings) : base(settings.MunicipalitiesGeoJsonUrl)
         {
             
         }
@@ -32,9 +32,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             foreach (IMunicipality municipality in municipalities)
             {
                 JToken feature = (JToken)(originalModel["features"].Where(f => f["properties"]["kommunenummer"].ToString() == municipality.Number).First());
-
                 ((JObject)feature["properties"]).Add("IntroductionState", (int)municipality.IntroductionState);
-
+                
                 features.Add(feature);
             }
 

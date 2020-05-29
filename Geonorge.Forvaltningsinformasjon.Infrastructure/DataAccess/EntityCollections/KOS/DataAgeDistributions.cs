@@ -3,10 +3,9 @@ using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityCollections.KOS
 {
@@ -42,17 +41,20 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         private List<IDataAgeDistribution> GetDataAgeDistributions(IQueryable<TransactionData> transactionData)
         {
             return transactionData
+                .Include(s => s.DataSet)
+                .AsEnumerable()
                 .GroupBy(d => d.DataSetId)
                 .Select(g => Create(g.First().DataSet.Name, g))
                 .OrderBy(d => d.DataSetName)
-                .ToList<IDataAgeDistribution>();
+                .ToList();
         }
 
-        private DataAgeDistribution Create(string name, IGrouping<int,TransactionData> grouping)
+        private IDataAgeDistribution Create(string name, IGrouping<int,TransactionData> grouping)
         {
             DataAgeDistribution distribution = new DataAgeDistribution
             {
-                DataSetName = name
+                DataSetName = name,
+                ObjectCount = grouping.Sum(s => s.ObjectCount ?? 0)
             };
 
             distribution.TransactionCounts.Add(AgeCategory.Year0, grouping.Sum(s => s.Year0 ?? 0));

@@ -9,8 +9,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
     internal class DataAgeDistribution : IDataAgeDistribution
     {
         public int Id { get; set; }
-
+        public int? Active { get; set; } = 1;
         public string DataSetName { get; set; }
+        public int ObjectCount { get; set; }
         public Dictionary<AgeCategory, long> TransactionCounts { get; } = new Dictionary<AgeCategory, long>();
     }
 }

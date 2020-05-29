@@ -39,7 +39,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.Get(), _applicationSettings.QualityCategoryColors)
             {
-                Type = AdministrativeUnitType.Country
+                Type = AdministrativeUnitType.Country,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataQualityDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml", model);
         }
@@ -52,7 +53,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.GetByCounty(id), _applicationSettings.QualityCategoryColors)
             {
                 AdministrativeUnitName = _countyService.Get(id).Name,
-                Type = AdministrativeUnitType.County
+                Type = AdministrativeUnitType.County,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataQualityDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml", model);
         }
@@ -65,7 +67,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.GetByMunicipality(id), _applicationSettings.QualityCategoryColors)
             {
                 AdministrativeUnitName = _municipalityService.Get(id).Name,
-                Type = AdministrativeUnitType.Municipality
+                Type = AdministrativeUnitType.Municipality,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataQualityDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml", model);
         }

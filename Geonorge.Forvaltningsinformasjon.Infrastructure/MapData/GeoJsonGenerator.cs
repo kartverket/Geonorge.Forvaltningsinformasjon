@@ -6,12 +6,15 @@ using System.Net.Http;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 {
-    internal class GeoJsonGenerator : IGeoJsonGenerator
+    internal class GeoJsonGenerator
     {
         public virtual string Name { get; }
 
-        protected GeoJsonGenerator()
+        private string _municipalitiesGeoJsonUrl;
+
+        protected GeoJsonGenerator(string municipalitiesGeoJsonUrl)
         {
+            _municipalitiesGeoJsonUrl = municipalitiesGeoJsonUrl;
         }
             
         public string Generate(List<IMunicipality> municipalities, string coordinateSystem)
@@ -30,11 +33,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
         {
             string geoJson;
 
-            if (!string.IsNullOrWhiteSpace(StartupInitializer.MunicipalitiesGeoJsonUrl))
+            if (!string.IsNullOrWhiteSpace(_municipalitiesGeoJsonUrl))
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    geoJson = httpClient.GetStringAsync(string.Format(StartupInitializer.MunicipalitiesGeoJsonUrl, coordinateSystem)).Result;
+                    geoJson = httpClient.GetStringAsync(string.Format(_municipalitiesGeoJsonUrl, coordinateSystem)).Result;
                 }
             }
             else

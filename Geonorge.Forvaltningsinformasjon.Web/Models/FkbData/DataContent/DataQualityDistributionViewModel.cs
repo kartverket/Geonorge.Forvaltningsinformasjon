@@ -25,13 +25,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
+        public string MetadataUrl { get; set; }
 
         public DataQualityDistributionViewModel(List<IDataQualityDistribution> distributions, Dictionary<string, string> qualityCategoryColors)
         {
             InitColors(qualityCategoryColors);
 
             distributions.ForEach(d => {
-                DataSetNames += $"'{d.DataSetName}',";
+                DataSetNames += $"'{d.DataSetName} ({d.ObjectCount} objekter)',";
                 _sums.Add(GetSum(d));
             });
 
@@ -66,19 +67,19 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
             switch (qualityCategory)
             {
                 case QualityCategory.Measured:
-                    name = "Landmålt";
+                    name = "Terrengmålt";
                     break;
                 case QualityCategory.PhotogrammetricB:
-                    name = "Fotogrammetrisk FKB-B";
+                    name = "Fotogrammetrisk <=40cm";
                     break;
                 case QualityCategory.PhotogrammetricC:
-                    name = "Fotogrammetrisk FKB-C";
+                    name = "Fotogrammetrisk >40cm";
                     break;
                 case QualityCategory.DigitalizedM200:
-                    name = "Digitalisert bedre enn 200cm";
+                    name = "Digitalisert <=200cm";
                     break;
                 case QualityCategory.DigitalizedS200:
-                    name = "Digitalisert dårligere enn 200cm";
+                    name = "Digitalisert >200cm";
                     break;
                 default:
                     name = "Ikke målt";

@@ -8,6 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
     {
         #region IDataSet
         public int Id { get; set; }
+        [NotMapped]
+        public int? Active { get; set; } = 1;
         public string Name
         {
             get

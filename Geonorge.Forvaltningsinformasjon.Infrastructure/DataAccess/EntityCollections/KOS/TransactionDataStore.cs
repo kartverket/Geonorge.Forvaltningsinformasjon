@@ -38,6 +38,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         private List<ITransactionData> GetTransactionData(IQueryable<TransactionData> transactionData)
         {
             return transactionData
+                .Include(s => s.DataSet)
+                .AsEnumerable()
                 .GroupBy(s => s.DataSetId)
                 .Select(g => new TransactionData
                 {
@@ -46,7 +48,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                     SumLastWeek = g.Sum(s => s.SumLastWeek),
                     DataSet = g.First().DataSet
                 })
-                .Include(s => s.DataSet)
                 .OrderBy(s => s.DataSetName)
                 .ToList<ITransactionData>();
         }

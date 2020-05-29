@@ -10,9 +10,6 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
 {
     public class MapViewModel
     {
-        private double _k1 = 550000.0;
-        private double _k2 = 1.304347826086957e-5;
-
         public class Service
         {
             public string Title { get; set; }
@@ -33,12 +30,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
 
         public const string ViewHeight = "500px";
 
-        public string Latitude { get; set; } = "7248546.391464977";
-        public string Longitude { get; set; } = "444437.4530454726";
-        public string Zoom { get; set; } = "2";
+        public string Latitude { get; set; } = "7202722.0";
+        public string Longitude { get; set; } = "509121.0";
+        public string Zoom { get; set; } = "2.6";
         public string CoordinateSystem { get; set; } = "EPSG:25833";
 
         public List<Service> Services { get; set; } = new List<Service>();
+
+        public string LegendUrl { get; set; }
 
         public MapViewModel()
         {
@@ -51,7 +50,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
             {
                 double lat = (boundingBox.MaxY + boundingBox.MinY) / 2.0;
                 double lon = (boundingBox.MaxX + boundingBox.MinX) / 2.0;
-                double zoom = (_k1 - (boundingBox.MaxX - boundingBox.MinX)) * _k2;
+                double width = boundingBox.MaxX - boundingBox.MinX;
+                double height = boundingBox.MaxY - boundingBox.MinY;
+                double zoom = 3.0 + 45.0 / ((height > width ? height : width)/10000.0 + 6.0);
 
                 NumberFormatInfo nfi = new NumberFormatInfo
                 {
@@ -65,9 +66,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Common
             }
         }
 
-         public void AddService(string serviceType, string url, string layer, Dictionary<string, string> customParameters = null)
+        public void AddService(string serviceType, string url, string layer, Dictionary<string, string> customParameters = null)
         {
             Services.Add(new Service("", serviceType, url, new List<string> { layer }, customParameters));
+        }
+        public void AddService(string serviceType, string url, List<string> layers, Dictionary<string, string> customParameters = null)
+        {
+            Services.Add(new Service("", serviceType, url, layers, customParameters));
         }
     }
 }

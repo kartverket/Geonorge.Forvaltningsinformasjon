@@ -1,6 +1,7 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
@@ -9,6 +10,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
     {
         #region ITransactionData
         public int Id { get; set; }
+        [NotMapped]
+        public int? Active { get; set; } = 1;
         public string DataSetName
         {
             get

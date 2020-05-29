@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
@@ -8,21 +9,28 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Xml;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
 {
     [Route("fkb-data/management/transaction-data")]
     public class TransactionDataController : Controller, IAdministrativeUnitController
     {
-        private const string _serviceType = "OGC:WMS";
-        private const string _url = "http://wms.geonorge.no/skwms1/wms.sfkb-transaksjoner?request=GetCapabilities&service=WMS";
-        private const string _layer = "bygning";
+        private const string _ServiceType = "OGC:WMS";
+        private const string _Layer = "bygning";
+        private const string _CountyAdminUnitLayer = "fylker_gjel";
+        private const string _MunicipalityAdminUnitLayer = "kommuner_gjel";
+        
+        private string _url;
+        private string _urlAdminUnits;
 
         private IContextViewModelHelper _contextViewModelHelper;
         private ITransactionDataService _transactionDataService;
         private ICountyService _countyService;
         private IMunicipalityService _municipalityService;
         private Dictionary<string, string> _dataSetToLayerMap;
+        private string _metadataUrl;
 
         public TransactionDataController(
             IContextViewModelHelper contextViewModelHelper, 
@@ -36,20 +44,26 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             _countyService = countyService;
             _municipalityService = municipalityService;
             _dataSetToLayerMap = applicationSettings.DataSetToLayerMap;
+            _url = _transactionDataService.GetWmsUrl();
+            _urlAdminUnits = transactionDataService.GetAdminstrativeUnitsWmsUrl();
+            _metadataUrl = applicationSettings.ExternalUrls.MetadataTransactionData;
         }
 
         public IActionResult Country()
         {
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             MapViewModel mapViewModel = new MapViewModel();
+            List<ITransactionData> transactionData = _transactionDataService.Get();
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
-                TransactionData = _transactionDataService.Get(),
+                TransactionData = transactionData,
                 AdministrativeUnitName = "Norge",
-                MapViewModel = mapViewModel
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Country.cshtml", model);
         }
@@ -60,14 +74,17 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
+            List<ITransactionData> transactionData = _transactionDataService.GetByCounty(id);
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
-                TransactionData = _transactionDataService.GetByCounty(id),
+                TransactionData = transactionData,
                 AdministrativeUnitName = county.Name,
-                MapViewModel = mapViewModel
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/County.cshtml", model);
         }
@@ -78,14 +95,17 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
             IMunicipality municipality = _municipalityService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(municipality);
+            List<ITransactionData> transactionData = _transactionDataService.GetByMunicipality(id);
 
-            mapViewModel.AddService(_serviceType, _url, _layer);
+            mapViewModel.AddService(_ServiceType, _url, _Layer);
 
             TransactionDataViewModel model = new TransactionDataViewModel
             {
-                TransactionData = _transactionDataService.GetByMunicipality(id),
+                TransactionData = transactionData,
                 AdministrativeUnitName = municipality.Name,
-                MapViewModel = mapViewModel
+                LegendItemStyles = _transactionDataService.GetLayerStyles(transactionData),
+                MapViewModel = mapViewModel,
+                MetadataUrl = _metadataUrl
             };
             return View("Views/FkbData/Management/Aspects/TransactionData/Municipality.cshtml", model);
         }
@@ -94,8 +114,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
         public IActionResult UpdateMap(
             [FromQuery]string dataSetNames,
             [FromQuery]Period period,
-            [FromQuery]MapViewModel mapViewModel)
+            [FromQuery]string jsonMapViewModel)
         {
+            MapViewModel mapViewModel = JsonConvert.DeserializeObject<MapViewModel>(jsonMapViewModel);
             DateTime to = DateTime.UtcNow;
             DateTime from;
 
@@ -126,9 +147,21 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
             {
                 foreach (string name in dataSetNames.Split(','))
                 {
-                    mapViewModel.AddService(_serviceType, _url, _dataSetToLayerMap[name], customParameters);
+                    mapViewModel.AddService(_ServiceType, _url, _dataSetToLayerMap[name], customParameters);
                 }
             }
+
+            string sld = _transactionDataService.GetAdministrativeUnitSld();
+
+            customParameters = new Dictionary<string, string>
+            {
+                {
+                    "SLD_BODY", sld
+                }
+            };
+           
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _CountyAdminUnitLayer, customParameters);
+            mapViewModel.AddService(_ServiceType, _urlAdminUnits, _MunicipalityAdminUnitLayer, customParameters);
 
             return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }

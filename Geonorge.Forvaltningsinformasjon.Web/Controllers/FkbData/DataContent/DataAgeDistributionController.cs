@@ -39,7 +39,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.Get(), _applicationSettings.AgeCategoryColors)
             {
-                Type = AdministrativeUnitType.Country
+                Type = AdministrativeUnitType.Country,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataAgeDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
@@ -52,7 +53,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByCounty(id), _applicationSettings.AgeCategoryColors)
             {
                 AdministrativeUnitName = _countyService.Get(id).Name,
-                Type = AdministrativeUnitType.County
+                Type = AdministrativeUnitType.County,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataAgeDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }
@@ -65,7 +67,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByMunicipality(id), _applicationSettings.AgeCategoryColors)
             {
                 AdministrativeUnitName = _municipalityService.Get(id).Name,
-                Type = AdministrativeUnitType.Municipality
+                Type = AdministrativeUnitType.Municipality,
+                MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataAgeDistribution
             };
             return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
         }

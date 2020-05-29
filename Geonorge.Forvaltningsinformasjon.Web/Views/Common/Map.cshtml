@@ -2,12 +2,12 @@
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.Common.MapViewModel
 
-<div style="display:flex;height:@MapViewModel.ViewHeight" id="root"></div>
+<div style="display:flex;height:@MapViewModel.ViewHeight;border-style:solid;border-width:1px;border-color:#cccccc" id="root"></div>
+<div style="align-self: center; text-align: center" id="legend"></div>
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.js"></script>
-
+<script src="~/dist/js/jquery/jquery.js"></script>
 <script type="text/javascript">
-    $.getScript("/dist/js/map/main.1f19ae8e.js", function () {
+    $.getScript("/dist/js/map/main.js", function () {
         var params = [];
 
         params.mapItems = [
@@ -32,7 +32,7 @@
                         {
                             @foreach (KeyValuePair<string,string> customParam in service.CustomParameters)
                             {
-                            @:'@customParam.Key': '@customParam.Value',
+                            @:'@customParam.Key': `@Html.Raw(customParam.Value)`,
                             }
                         },
                         </text>
@@ -54,6 +54,13 @@
         params.crs = '@Model.CoordinateSystem';
 
         main.map(params, document.getElementById('root'));
+
+        @if (!string.IsNullOrWhiteSpace(Model.LegendUrl))
+        {
+            <text>
+                main.legend(`@Html.Raw(Model.LegendUrl)`, legend);
+            </text>
+        }
     });
 </script>
 

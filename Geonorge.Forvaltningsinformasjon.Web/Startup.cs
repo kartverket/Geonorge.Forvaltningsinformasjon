@@ -1,4 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
+﻿using Geonorge.Forvaltningsinformasjon.Infrastructure;
+using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using System.Net.Http;
 
 namespace Geonorge.Forvaltningsinformasjon.Web
 {
@@ -28,19 +30,23 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             Configuration.Bind(applicationSettings);
             services.AddSingleton<ApplicationSettings>(applicationSettings);
 
-            // register urls
-            Infrastructure.StartupInitializer.MunicipalitiesGeoJsonUrl = applicationSettings.UrlMunicipalitiesGeoJson;
+            // init infrastructure
+            InfrastructureSettings infrastructureSettings = new InfrastructureSettings
+            {
+                KosConnectionString = applicationSettings.ConnectionStrings.KOS,
+                MunicipalitiesGeoJsonUrl = applicationSettings.ExternalUrls.MunicipalitiesGeoJson,
+                DataSetToLayerMap = applicationSettings.DataSetToLayerMap,
+                WmsUrlBase = applicationSettings.Wms.UrlBase,
+                WmsVersion = applicationSettings.Wms.Version
+            };
+
+            Infrastructure.StartupInitializer.Initialize(services, infrastructureSettings);
+
+            // init core
+            Core.StartupInitializer.InitializeDependencies(services);
             Core.StartupInitializer.LocalPathThematicGeoJson = applicationSettings.LocalPathThematicGeoJson;
 
-            // register databases
-            Infrastructure.StartupInitializer.InitializeDatabases(
-                services,
-                applicationSettings.ConnectionStrings.KOS);
-
-            // register dependencies
-            Infrastructure.StartupInitializer.InitializeDependencies(services);
-            Core.StartupInitializer.InitializeDependencies(services);
-
+            // init web
             services.AddTransient<IContextViewModelHelper, ContextViewModelHelper>();
 
             // Add the localization services to the services container
@@ -117,6 +123,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 }
 
                 WebRequest.DefaultWebProxy = proxy;
+                HttpClient.DefaultProxy = proxy;
             }
         }
     }

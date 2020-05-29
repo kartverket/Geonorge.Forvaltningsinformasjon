@@ -3,20 +3,42 @@
 @inject IViewLocalizer Localizer
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = Localizer["Forvaltningsinformasjon"];
 }
-
-<div>
-    <div>
-        <h3>
-            FKB-data
-        </h3>
-        <span class="separator-md"></span>
+    <div class="row">
+        <article class="col-md-12">
+            <div class="ingress">
+                <p>
+                    Forvaltningsinformasjon er en samling informasjon og utvidede metadata som faller utenfor standarden for metadata, i hovedsak angående datasett forvaltet av Geovekst-samarbeidet.
+                </p>
+             </div>
+            <div class="body-text">
+                <p>
+                    Informasjonen omfatter aspekter som innhenting, forvaltning og innsikt i selve kartdataene.
+                    Sidene er under utvikling. Tilbakemeldinger på innholdet er sterkt ønskelig og kan rettes til <a href="mailto: post@norgedigitalt.no">post@norgedigitalt.no</a>.
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        FKB-data
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="~/fkb-data/management/direct-update-info">
+                        <div>@Localizer["Forvaltning FKB"]</div>
+                    </a>
+                    <p class="teaser-text">@Localizer["Informasjon om forvaltningen av FKB-datasettene, status på drift og filproduksjon, samt oversikt over aktivitet."]</p>
+                </div>
+                <div class="col-md-6">
+                    <a href="~/fkb-data/data-content/data-quality-classification">
+                        <div>@Localizer["Datainnhold FKB"]</div>
+                    </a>
+                    <p class="teaser-text">@Localizer["Informasjon om inndeling i kvalitetsklasser, samt informasjon om kvaliteten på dataene."]</p>
+                </div>
+            </div>
+        </article>
     </div>
-    <div>
-        <a href="~/fkb-data/management/direct-update-info">@Localizer["Forvaltning FKB"]</a>
-    </div>
-    <div>
-        <a href="~/fkb-data/data-content/data-quality-classification">@Localizer["Datainnhold FKB"]</a>
-    </div>
-</div>

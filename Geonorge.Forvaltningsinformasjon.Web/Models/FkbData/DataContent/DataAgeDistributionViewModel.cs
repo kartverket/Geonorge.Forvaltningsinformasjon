@@ -25,13 +25,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
- 
+        public string MetadataUrl { get; set; }
+
         public DataAgeDistributionViewModel(List<IDataAgeDistribution> distributions, Dictionary<string,string> ageCategoryColors)
         {
             InitColors(ageCategoryColors);
 
             distributions.ForEach(d => {
-                DataSetNames += $"'{d.DataSetName}',";
+                DataSetNames += $"'{d.DataSetName} ({d.ObjectCount} objekter)',";
                 _sums.Add(GetSum(d));
                 });
 

@@ -30,10 +30,7 @@
 
 @section aspectsSection
     {
-    <div class="col-md-4">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-6 col-md-push-6">
         <table class="table">
             <thead>
                 <tr>
@@ -45,11 +42,22 @@
                 @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
                 {
                     <tr>
-                        <td>FKB-@item.Class</td>
+                        <td>
+                            <svg width="20" height="20">
+                                <rect width="20" height="20" style="fill:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillColor;fill-opacity:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillOpacity;stroke-width:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeWidth;stroke:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeColor" />
+                            </svg>
+                            <span style="vertical-align:top">FKB-@item.Class</span>
+                        </td>
                         <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+    <div class="col-md-6 col-md-pull-6" style="top:35px">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+        <div style="text-align:center;margin:20px">
+            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+        </div>
     </div>
 }

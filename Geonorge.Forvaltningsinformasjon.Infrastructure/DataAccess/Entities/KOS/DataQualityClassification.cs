@@ -12,5 +12,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public double AreaB { get; set; }
         public double AreaC { get; set; }
         public double AreaD { get; set; }
+
+        public Municipality Municipality { get; set; }
     }
 }

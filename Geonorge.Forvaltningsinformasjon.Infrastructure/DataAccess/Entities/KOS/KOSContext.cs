@@ -228,6 +228,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.AreaB).HasColumnName("ArealB");
                 entity.Property(e => e.AreaC).HasColumnName("ArealC");
                 entity.Property(e => e.AreaD).HasColumnName("ArealD");
+
+                entity.HasOne(e => e.Municipality)
+                    .WithMany(m => m.DataQualityClassifications)
+                    .HasForeignKey(e => e.MunicipalityNumber);
+
+                entity.HasQueryFilter(e => e.Municipality.Active > 0);
             });
 
             modelBuilder.Entity<CoordintateSystem>(entity =>

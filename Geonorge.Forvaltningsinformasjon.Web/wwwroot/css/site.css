@@ -1,1 +1,33 @@
-﻿
+﻿button.ol-zoom-in, button.ol-zoom-out,
+button.ol-zoom-in:focus, button.ol-zoom-out:focus {
+    color: #777777;
+    background-color: rgba(255,255,255,0.5);
+    font-size: 25px;
+    outline: none;
+}
+
+button.ol-zoom-in:hover, button.ol-zoom-out:hover {
+    color: #555555;
+    background-color: rgba(240,240,240,0.5);
+    border-radius:15px;
+}
+
+.ol-scale-line {
+    background: rgba(255,255,255,0.5);
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.ol-scale-line-inner {
+    color: #555555;
+    border-color: #555555;
+    font-size: 15px;
+}
+
+.ol-overlaycontainer, .ol-overlaycontainer-stopevent {
+    pointer-events: none;
+}
+
+.ol-overlaycontainer > *, .ol-overlaycontainer-stopevent > * {
+    pointer-events: auto;
+}

@@ -27,7 +27,8 @@ module.exports = (env) => {
                 'event-source-polyfill', 
                 'jquery',
                 'geonorge-base/src/sass/base.scss',
-                'geonorge-shared-partials/src/css/pageTop.css'
+                'geonorge-shared-partials/src/css/pageTop.css',
+                'ol/ol.css'
             ]
         },
         output: {

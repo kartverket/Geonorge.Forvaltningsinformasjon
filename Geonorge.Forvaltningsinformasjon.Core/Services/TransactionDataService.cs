@@ -5,29 +5,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
+using Geonorge.Forvaltningsinformasjon.Core.Services.Common;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Services
 {
-    class TransactionDataService : ITransactionDataService
+    class TransactionDataService : MapService, ITransactionDataService
     {
-        private const string _WmsServiceName = "sfkb-transaksjoner";
-        private const string _AdminUnitsWmsServiceName = "adm_enheter2";
-
         private IRepository _repository;
         private ITransactionDataSldProvider _sldProvider;
-        private IWmsUrlProvider _wmsUrlProvider;
-        private IAdministrativeUnitSldProvider _administrativeUnitSldProvider;
 
         public TransactionDataService(
-            IRepository repository, 
-            ITransactionDataSldProvider sldProvider,
+            IRepository repository,
             IWmsUrlProvider wmsUrlProvider,
-            IAdministrativeUnitSldProvider administrativeUnitSldProvider)
+            IAdministrativeUnitSldProvider administrativeUnitSldProvider,
+            ITransactionDataSldProvider sldProvider)
+            : base(wmsUrlProvider, administrativeUnitSldProvider)
         {
             _repository = repository;
             _sldProvider = sldProvider;
-            _wmsUrlProvider = wmsUrlProvider;
-            _administrativeUnitSldProvider = administrativeUnitSldProvider;
+            _WmsServiceName = "sfkb-transaksjoner";
         }
 
         public List<ITransactionData> Get()
@@ -53,21 +49,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
         public Dictionary<string, ILegendItemStyle> GetLayerStyles(List<ITransactionData> transactionData)
         {
             return _sldProvider.GetLegendItemStyles(transactionData);
-        }
-
-        public string GetWmsUrl()
-        {
-            return _wmsUrlProvider.GetCapabilitiesUrl(_WmsServiceName);
-        }
-
-        public string GetAdministrativeUnitSld()
-        {
-            return _administrativeUnitSldProvider.GetSld();
-        }
-
-        public string GetAdminstrativeUnitsWmsUrl()
-        {
-            return _wmsUrlProvider.GetCapabilitiesUrl(_AdminUnitsWmsServiceName);
         }
     }
 }

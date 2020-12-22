@@ -1,5 +1,6 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
         public string MetadataUrl { get; set; }
+        public MapViewModel MapViewModel { get; set; } = new MapViewModel();
 
         public DataAgeDistributionViewModel(List<IDataAgeDistribution> distributions, Dictionary<string,string> ageCategoryColors)
         {

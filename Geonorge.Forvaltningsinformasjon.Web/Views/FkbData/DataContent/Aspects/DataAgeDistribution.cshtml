@@ -34,13 +34,14 @@
 
 @section aspectsSection
     {
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-6 col-md-push-6">
         <canvas id="myChart" width="400" height="400"></canvas>
         <div class="col-md-2"></div>
         <div class="col-md-10" id="myChartLegend"></div>
-        <div class="row" style="text-align:center">
+    </div>
+    <div class="col-md-6 col-md-pull-6" style="top:35px">
+        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+        <div style="text-align:center;margin:20px">
             <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
         </div>
     </div>
@@ -108,21 +109,21 @@
                     }]
                 },
                 legendCallback: function (chart) {
-                    var text = []; 
+                    var text = [];
 
                     text.push('<div class="row">');
 
                     for (var i = 0; i < chart.data.datasets.length; i++) {
                         text.push('<div class="col-md-3 myChartLegend">');
- 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>'); 
+ 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
 
-                        if (chart.data.datasets[i].label) { 
-                            text.push(chart.data.datasets[i].label); 
-                        } 
+                        if (chart.data.datasets[i].label) {
+                            text.push(chart.data.datasets[i].label);
+                        }
                         text.push('</div>');
                     }
                     text.push('</div>');
- 		            return text.join(''); 
+ 		            return text.join('');
                 }
             },
             plugins: [{

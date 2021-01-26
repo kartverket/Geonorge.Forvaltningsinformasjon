@@ -9,6 +9,7 @@ using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 {
@@ -47,11 +48,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             MapViewModel mapViewModel = new MapViewModel();
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.Get(), _applicationSettings.QualityCategoryColors)
+            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(
+                _dataQualityDistributionService.Get(), 
+                _applicationSettings.QualityCategoryColors,
+                _applicationSettings.DataQualityDataSetToLayerMap)
             {
                 Type = AdministrativeUnitType.Country,
+                AdministrativeUnitName = "Norge",
                 MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataQualityDistribution,
                 MapViewModel = mapViewModel
             };
@@ -65,9 +68,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.GetByCounty(id), _applicationSettings.QualityCategoryColors)
+            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(
+                _dataQualityDistributionService.GetByCounty(id), 
+                _applicationSettings.QualityCategoryColors,
+                _applicationSettings.DataQualityDataSetToLayerMap)
             {
                 AdministrativeUnitName = county.Name,
                 Type = AdministrativeUnitType.County,
@@ -84,9 +88,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             IMunicipality municipality = _municipalityService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(municipality);
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(_dataQualityDistributionService.GetByMunicipality(id), _applicationSettings.QualityCategoryColors)
+            DataQualityDistributionViewModel model = new DataQualityDistributionViewModel(
+                _dataQualityDistributionService.GetByMunicipality(id), 
+                _applicationSettings.QualityCategoryColors,
+                _applicationSettings.DataQualityDataSetToLayerMap)
             {
                 AdministrativeUnitName = municipality.Name,
                 Type = AdministrativeUnitType.Municipality,
@@ -94,6 +99,21 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataQualityDistribution.cshtml", model);
+        }
+
+        [HttpGet("update-map")]
+        public IActionResult UpdateMap(
+            [FromQuery] string layerName,
+            [FromQuery] string jsonMapViewModel)
+        {
+            MapViewModel mapViewModel = JsonConvert.DeserializeObject<MapViewModel>(jsonMapViewModel);
+
+            mapViewModel.Services.Clear();
+            mapViewModel.AddService(_ServiceType, _dataQualityDistributionService.GetWmsUrl(), layerName);
+
+            AddAdminUnitsToServices(mapViewModel);
+
+            return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }
 
         private void AddAdminUnitsToServices(MapViewModel mapViewModel)

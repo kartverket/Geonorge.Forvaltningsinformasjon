@@ -9,6 +9,7 @@ using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
 {
@@ -19,6 +20,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
         private const string _CountyAdminUnitLayer = "fylker_gjel";
         private const string _MunicipalityAdminUnitLayer = "kommuner_gjel";
 
+        private string _url;
         private string _urlAdminUnits;
 
         private IContextViewModelHelper _contextViewModelHelper;
@@ -39,6 +41,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             _countyService = countyService;
             _municipalityService = municipalityService;
             _applicationSettings = applicationSettings;
+            _url = _dataAgeDistributionService.GetWmsUrl();
             _urlAdminUnits = _dataAgeDistributionService.GetAdminstrativeUnitsWmsUrl();
         }
 
@@ -47,11 +50,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ViewBag.ContextViewModel = _contextViewModelHelper.Create();
             MapViewModel mapViewModel = new MapViewModel();
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.Get(), _applicationSettings.AgeCategoryColors)
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(
+                _dataAgeDistributionService.Get(), 
+                _applicationSettings.AgeCategoryColors,
+                _applicationSettings.DataAgeDataSetToLayerMap)
             {
                 Type = AdministrativeUnitType.Country,
+                AdministrativeUnitName = "Norge",
                 MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataAgeDistribution,
                 MapViewModel = mapViewModel
             };
@@ -65,9 +70,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             ICounty county = _countyService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(county);
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByCounty(id), _applicationSettings.AgeCategoryColors)
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(
+                _dataAgeDistributionService.GetByCounty(id),
+                _applicationSettings.AgeCategoryColors,
+                _applicationSettings.DataAgeDataSetToLayerMap)
             {
                 AdministrativeUnitName = county.Name,
                 Type = AdministrativeUnitType.County,
@@ -84,9 +90,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
             IMunicipality municipality = _municipalityService.Get(id);
             MapViewModel mapViewModel = new MapViewModel(municipality);
 
-            AddAdminUnitsToServices(mapViewModel);
-
-            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(_dataAgeDistributionService.GetByMunicipality(id), _applicationSettings.AgeCategoryColors)
+            DataAgeDistributionViewModel model = new DataAgeDistributionViewModel(
+                _dataAgeDistributionService.GetByMunicipality(id), 
+                _applicationSettings.AgeCategoryColors,
+                _applicationSettings.DataAgeDataSetToLayerMap)
             {
                 AdministrativeUnitName = municipality.Name,
                 Type = AdministrativeUnitType.Municipality,
@@ -94,6 +101,21 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 MapViewModel = mapViewModel
             };
             return View("Views/FkbData/DataContent/Aspects/DataAgeDistribution.cshtml", model);
+        }
+
+        [HttpGet("update-map")]
+        public IActionResult UpdateMap(
+            [FromQuery] string layerName,
+            [FromQuery] string jsonMapViewModel)
+        {
+            MapViewModel mapViewModel = JsonConvert.DeserializeObject<MapViewModel>(jsonMapViewModel);
+
+            mapViewModel.Services.Clear();
+            mapViewModel.AddService(_ServiceType, _dataAgeDistributionService.GetWmsUrl(), layerName);
+
+            AddAdminUnitsToServices(mapViewModel);
+
+            return PartialView("Views/Common/Map.cshtml", mapViewModel);
         }
 
         private void AddAdminUnitsToServices(MapViewModel mapViewModel)

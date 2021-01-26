@@ -20,6 +20,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web
 
         public Wms Wms { get; set; }       
         public Dictionary<string,string> DataSetToLayerMap { get; set; }
+        public Dictionary<string, string> DataAgeDataSetToLayerMap { get; set; }
+        public Dictionary<string, string> DataQualityDataSetToLayerMap { get; set; }
         public Dictionary<string,string> AgeCategoryColors { get; set; }
         public Dictionary<string, string> QualityCategoryColors { get; set; }
         public ChartLegendSettings ChartLegendSettings { get; set; }

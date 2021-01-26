@@ -21,8 +21,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
         private List<long> _sums = new List<long>();
         private Dictionary<QualityCategory, string> _qualityCategoryColors = new Dictionary<QualityCategory, string>();
 
-        public string DataSetNames { get; set; }
+        public Dictionary<string, string> DataSets { get; set; } = new Dictionary<string, string>();
+        public List<string> LayerNames { get; set; } = new List<string>();
         public List<Category> Categories { get; set; } = new List<Category>();
+        public string BarLabels { get; set; }
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
@@ -30,12 +32,16 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
         public MapViewModel MapViewModel { get; set; } = new MapViewModel();
 
-        public DataQualityDistributionViewModel(List<IDataQualityDistribution> distributions, Dictionary<string, string> qualityCategoryColors)
+        public DataQualityDistributionViewModel(
+            List<IDataQualityDistribution> distributions, 
+            Dictionary<string, string> qualityCategoryColors,
+            Dictionary<string, string> dataSetToLayer)
         {
             InitColors(qualityCategoryColors);
 
             distributions.ForEach(d => {
-                DataSetNames += $"'{d.DataSetName} ({d.ObjectCount} objekter)',";
+                DataSets.Add($"{d.DataSetName} ({d.ObjectCount} objekter)", dataSetToLayer[d.DataSetName]);
+                BarLabels += "'',";
                 _sums.Add(GetSum(d));
             });
 

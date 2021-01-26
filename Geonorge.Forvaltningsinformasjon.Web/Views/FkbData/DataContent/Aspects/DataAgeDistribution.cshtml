@@ -2,6 +2,7 @@
 @using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 @using System.Globalization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+@using Newtonsoft.Json
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionViewModel
 
@@ -34,17 +35,63 @@
 
 @section aspectsSection
     {
-    <div class="col-md-6 col-md-push-6">
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <div class="col-md-2"></div>
-        <div class="col-md-10" id="myChartLegend"></div>
+    <style>
+        input:checked + span {
+            font-weight: bold;
+        }
+
+        input + span {
+            font-weight: normal;
+        }
+    </style>
+
+    <div class="col-md-6 col-md-push-6" style="top:35px">
+        <div>
+            <div class="row">
+                <div style="width:40%">
+                    @for (int i = 0; i < Model.DataSets.Count; ++i)
+                    {
+                        string dataSetName = Model.DataSets.ElementAt(i).Key;
+                        <div style="position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap" id=@("chartLabel" + i)>
+                            <label style="cursor:pointer">
+                                <input type="radio" name="dataSet"
+                                       @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) { <text> disabled</text>
+                                       }
+                                       else
+                                       {
+                                           <text>onclick="updateMap('@Model.DataSets[dataSetName]')" </text> } />
+                                <span>@dataSetName</span>
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div style="margin-left:40%;display:inline-block">
+                    <canvas id="myChart" height="500"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10" id="myChartLegend"></div>
+            </div>
+        </div>
     </div>
     <div class="col-md-6 col-md-pull-6" style="top:35px">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
+        <div id="r_map">
+        </div>
         <div style="text-align:center;margin:20px">
             <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
         </div>
     </div>
+
+    <script src="~/dist/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        updateMap();
+
+        function updateMap(layerName) {
+            const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');
+            $('#r_map').load('/fkb-data/data-content/data-age-distribution/update-map?layerName=' + layerName + '&jsonMapViewModel=' + mapModel);
+        }
+    </script>
 
     <script src="/dist/js/chart/chart.js"></script>
     <script type="text/javascript">
@@ -52,7 +99,7 @@
         var myChart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels: [@Html.Raw(Model.DataSetNames)],
+                labels: [@Html.Raw(Model.BarLabels)],
                 datasets: [
                     @foreach (DataAgeDistributionViewModel.Category category in Model.Categories)
                     {
@@ -105,6 +152,9 @@
                         gridLines: {
                             display: false
                         },
+                        ticks: {
+                            display: false
+                        },
                         barPercentage: 0.5
                     }]
                 },
@@ -138,10 +188,13 @@
                         meta.data.forEach(function (bar, index) {
                             var data = dataset.data[index];
 
-                            if (i == 0 && isNaN(data)) {
-                                const text = '@Localizer["Ingen objekter med egenskap dataalder"]';
-                                const x = myChart.width / 2;
-                                myChart.ctx.fillText(text, x, bar._model.y + 3.5);
+                            if (i == 0) {
+                                if (isNaN(data)) {
+                                    const text = '@Localizer["Ingen objekter med egenskap datakvalitet"]';
+                                    const x = myChart.width / 8;
+                                    myChart.ctx.fillText(text, x, bar._model.y + 5);
+                                }
+                                document.getElementById("chartLabel" + index).style.top = bar._model.y - 11 + "px";
                             }
                         });
                     });

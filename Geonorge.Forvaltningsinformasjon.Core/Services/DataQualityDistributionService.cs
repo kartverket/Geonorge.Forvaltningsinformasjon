@@ -20,6 +20,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             : base(wmsUrlProvider, administrativeUnitSldProvider)
         {
             _repository = repository;
+            _WmsServiceName = "fkb_kvalitet";
         }
         public List<IDataQualityDistribution> Get()
         {

@@ -55,11 +55,14 @@
                         <div style="position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap" id=@("chartLabel" + i)>
                             <label style="cursor:pointer">
                                 <input type="radio" name="dataSet"
-                                       @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) { <text> disabled</text>
+                                       @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) 
+                                       {
+                                           <text> style="visibility:hidden" </text>
                                        }
                                        else
                                        {
-                                           <text>onclick="updateMap('@Model.DataSets[dataSetName]')" </text> } />
+                                           <text>onclick="updateMap('@Model.DataSets[dataSetName]')" </text> 
+                                       } />
                                 <span>@dataSetName</span>
                             </label>
                         </div>

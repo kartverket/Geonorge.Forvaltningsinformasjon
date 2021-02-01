@@ -53,11 +53,12 @@
                     {
                         string dataSetName = Model.DataSets.ElementAt(i).Key;
                         <div style="display:flex;align-items:center;position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap" id=@("chartLabel" + i)>
-                            <label style="cursor:pointer;margin:0px">
+                            <label style="@(string.IsNullOrWhiteSpace(Model.DataSets[dataSetName]) ? "" : "cursor:pointer;")margin:0px">
                                 <input type="radio" name="dataSet"
                                        @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) 
                                        {
-                                           <text> 
+                                           <text>
+                                                disabled
                                                 style="margin:0px;visibility:hidden" 
                                            </text>
                                        }

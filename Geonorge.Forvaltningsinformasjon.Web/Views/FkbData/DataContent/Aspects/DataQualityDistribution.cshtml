@@ -52,16 +52,21 @@
                     @for (int i = 0; i < Model.DataSets.Count; ++i)
                     {
                         string dataSetName = Model.DataSets.ElementAt(i).Key;
-                        <div style="position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap;top:0px" id=@("chartLabel" + i)>
-                            <label style="cursor:pointer">
+                        <div style="display:flex;align-items:center;position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap" id=@("chartLabel" + i)>
+                            <label style="cursor:pointer;margin:0px">
                                 <input type="radio" name="dataSet"
-                                       @if (string.IsNullOrWhiteSpace(Model.DataSets.ElementAt(i).Value)) 
+                                       @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) 
+                                       { 
+                                           <text>
+                                                style="margin:0px;visibility:hidden"
+                                           </text>
+                                       } 
+                                       else 
                                        {
-                                           <text> style="visibility:hidden" </text>
-                                       }
-                                       else
-                                       {
-                                           <text>onclick="updateMap('@Model.DataSets[dataSetName]')" </text> 
+                                           <text>
+                                                style="margin:0px"
+                                                onclick="updateMap('@Model.DataSets[dataSetName]')"
+                                           </text>  
                                        } />
                                 <span>@dataSetName</span>
                             </label>
@@ -189,6 +194,8 @@
                     myChart.ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
                     myChart.ctx.textAlign = 'left';
                     myChart.ctx.textBaseline = 'center';
+                    const yAxis = myChart.scales['y-axis-0'];
+                    var tickSize = yAxis.getPixelForTick(2) - yAxis.getPixelForTick(1);
 
                     myChart.data.datasets.forEach(function (dataset, i) {
                         var meta = myChart.getDatasetMeta(i);
@@ -202,7 +209,9 @@
                                     const x = myChart.width / 8;
                                     myChart.ctx.fillText(text, x, bar._model.y + 5);
                                 }
-                                document.getElementById("chartLabel" + index).style.top = bar._model.y - 11 + "px";
+                                const style = document.getElementById("chartLabel" + index).style;
+                                style.top = yAxis.getPixelForTick(index) - tickSize / 2.0 + "px";
+                                style.height = tickSize + "px";
                             }
                         });
                     });

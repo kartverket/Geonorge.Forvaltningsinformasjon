@@ -107,6 +107,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.Management
                     model.Caption = "Direkteoppdatering i Sentral FKB innført {0}";
                     model.DateTime = municipality.IntroductionDate;
                     break;
+                case IntroductionState.Geosynch:
+                    model.Caption = "Geosynkronisering innført";
+                    break;
                 default:
                     throw new InvalidEnumArgumentException();
             }

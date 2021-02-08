@@ -24,6 +24,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects
                     return "Direkteoppdatering planlagt innført {0}";
                 case IntroductionState.Introduced:
                     return "Direkteoppdatering innført";
+                case IntroductionState.Geosynch:
+                    return "Geosynkronisering innført";
                 default:
                     throw new InvalidEnumArgumentException();
             }

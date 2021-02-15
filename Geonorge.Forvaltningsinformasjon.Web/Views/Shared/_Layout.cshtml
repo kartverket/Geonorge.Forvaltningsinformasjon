@@ -25,7 +25,7 @@
     var cultureData = { supportsMultiCulture: "true", currentCulture: 'no' };
     </script>
 
-    @Html.Raw(File.ReadAllText("wwwroot/dist/partials/Header.html"))
+    <main-navigation environment="@AppSettings.EnvironmentName.ToLower()"></main-navigation>
 
     <div class="body-content">
         <div class="container container-breadcrumbs" id="navTabCont">
@@ -49,8 +49,6 @@
             @RenderBody()
         </div>
     </div>
-    
-    @Html.Raw(File.ReadAllText("wwwroot/dist/partials/Footer_v2.html"))
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
@@ -60,6 +58,7 @@
     searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.33/MainNavigation.js")"></script>
     <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
 </body>

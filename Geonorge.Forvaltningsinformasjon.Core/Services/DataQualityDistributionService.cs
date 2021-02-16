@@ -1,19 +1,26 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.MapData;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+using Geonorge.Forvaltningsinformasjon.Core.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Services
 {
-    class DataQualityDistributionService : IDataQualityDistributionService
+    class DataQualityDistributionService : MapService, IDataQualityDistributionService
     {
         private IRepository _repository;
 
-        public DataQualityDistributionService(IRepository repository)
+        public DataQualityDistributionService(
+            IRepository repository,
+            IWmsUrlProvider wmsUrlProvider,
+            IAdministrativeUnitSldProvider administrativeUnitSldProvider)
+            : base(wmsUrlProvider, administrativeUnitSldProvider)
         {
             _repository = repository;
+            _WmsServiceName = "fkb_kvalitet";
         }
         public List<IDataQualityDistribution> Get()
         {

@@ -3,6 +3,7 @@ using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Custom;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -62,21 +63,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
             }
         }
 
-        public IntroductionState IntroductionState
-        {
-            get
-            {
-                if (IntroductionDate.HasValue)
-                {
-                    return IntroductionState.Introduced;
-                }
-                else if (PlannedIntroductionDate.HasValue)
-                {
-                    return IntroductionState.Planned;
-                }
-                return IntroductionState.NotIntroduced;
-            }
-        }
+        [NotMapped]
+        public IntroductionState IntroductionState { get; set; }
         #endregion
 
         public string CountyId { get; set; }

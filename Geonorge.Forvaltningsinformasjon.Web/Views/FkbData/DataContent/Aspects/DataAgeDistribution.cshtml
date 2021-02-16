@@ -2,6 +2,7 @@
 @using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 @using System.Globalization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+@using Newtonsoft.Json
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataAgeDistributionViewModel
 
@@ -34,16 +35,72 @@
 
 @section aspectsSection
     {
-    <div class="col-md-4">
+    <style>
+        input:checked + span {
+            font-weight: bold;
+        }
+
+        input + span {
+            font-weight: normal;
+        }
+    </style>
+
+    <div class="col-md-6 col-md-push-6" style="top:35px">
+        <div>
+            <div class="row">
+                <div style="width:40%">
+                    @for (int i = 0; i < Model.DataSets.Count; ++i)
+                    {
+                        string dataSetName = Model.DataSets.ElementAt(i).Key;
+                        <div style="display:flex;align-items:center;position:absolute;width:40%;text-align:left;overflow:hidden;white-space:nowrap" id=@("chartLabel" + i)>
+                            <label style="@(string.IsNullOrWhiteSpace(Model.DataSets[dataSetName]) ? "" : "cursor:pointer;")margin:0px">
+                                <input type="radio" name="dataSet"
+                                       @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) 
+                                       {
+                                           <text>
+                                                disabled
+                                                style="margin:0px;visibility:hidden" 
+                                           </text>
+                                       }
+                                       else
+                                       {
+                                           <text>
+                                                style="margin:0px"
+                                                onclick="updateMap('@Model.DataSets[dataSetName]')" 
+                                           </text> 
+                                       } />
+                                <span>@dataSetName</span>
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div style="margin-left:40%;display:inline-block">
+                    <canvas id="myChart" height="500"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10" id="myChartLegend"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <div class="col-md-2"></div>
-        <div class="col-md-10" id="myChartLegend"></div>
-        <div class="row" style="text-align:center">
+    <div class="col-md-6 col-md-pull-6" style="top:35px">
+        <div id="r_map">
+        </div>
+        <div style="text-align:center;margin:20px">
             <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
         </div>
     </div>
+
+    <script src="~/dist/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        updateMap();
+
+        function updateMap(layerName) {
+            const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');
+            $('#r_map').load('/fkb-data/data-content/data-age-distribution/update-map?layerName=' + layerName + '&jsonMapViewModel=' + mapModel);
+        }
+    </script>
 
     <script src="/dist/js/chart/chart.js"></script>
     <script type="text/javascript">
@@ -51,7 +108,7 @@
         var myChart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
-                labels: [@Html.Raw(Model.DataSetNames)],
+                labels: [@Html.Raw(Model.BarLabels)],
                 datasets: [
                     @foreach (DataAgeDistributionViewModel.Category category in Model.Categories)
                     {
@@ -104,25 +161,28 @@
                         gridLines: {
                             display: false
                         },
+                        ticks: {
+                            display: false
+                        },
                         barPercentage: 0.5
                     }]
                 },
                 legendCallback: function (chart) {
-                    var text = []; 
+                    var text = [];
 
                     text.push('<div class="row">');
 
                     for (var i = 0; i < chart.data.datasets.length; i++) {
                         text.push('<div class="col-md-3 myChartLegend">');
- 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>'); 
+ 			            text.push('<span class="myChartLegend" style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
 
-                        if (chart.data.datasets[i].label) { 
-                            text.push(chart.data.datasets[i].label); 
-                        } 
+                        if (chart.data.datasets[i].label) {
+                            text.push(chart.data.datasets[i].label);
+                        }
                         text.push('</div>');
                     }
                     text.push('</div>');
- 		            return text.join(''); 
+ 		            return text.join('');
                 }
             },
             plugins: [{
@@ -130,6 +190,8 @@
                     myChart.ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
                     myChart.ctx.textAlign = 'left';
                     myChart.ctx.textBaseline = 'center';
+                    const yAxis = myChart.scales['y-axis-0'];
+                    var tickSize = yAxis.getPixelForTick(2) - yAxis.getPixelForTick(1);
 
                     myChart.data.datasets.forEach(function (dataset, i) {
                         var meta = myChart.getDatasetMeta(i);
@@ -137,10 +199,15 @@
                         meta.data.forEach(function (bar, index) {
                             var data = dataset.data[index];
 
-                            if (i == 0 && isNaN(data)) {
-                                const text = '@Localizer["Ingen objekter med egenskap dataalder"]';
-                                const x = myChart.width / 2;
-                                myChart.ctx.fillText(text, x, bar._model.y);
+                            if (i == 0) {
+                                if (isNaN(data)) {
+                                    const text = '@Localizer["Ingen objekter med egenskap dataalder"]';
+                                    const x = myChart.width / 8;
+                                    myChart.ctx.fillText(text, x, bar._model.y + 5);
+                                }
+                                const style = document.getElementById("chartLabel" + index).style;
+                                style.top = yAxis.getPixelForTick(index) - tickSize / 2.0 + "px";
+                                style.height = tickSize + "px";
                             }
                         });
                     });

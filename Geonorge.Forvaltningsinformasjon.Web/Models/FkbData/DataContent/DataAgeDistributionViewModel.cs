@@ -1,5 +1,6 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
 using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using System;
 using System.Collections.Generic;
@@ -20,19 +21,25 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
         private List<long> _sums = new List<long>();
         private Dictionary<AgeCategory,string> _ageCategoryColors = new Dictionary<AgeCategory, string>();
 
-        public string DataSetNames { get; set; }
+        public Dictionary<string, string> DataSets { get; set; } = new Dictionary<string, string>();
         public List<Category> Categories { get; set; } = new List<Category>();
+        public string BarLabels { get; set; }
 
         public string AdministrativeUnitName { get; set; }
         public AdministrativeUnitType Type { get; set; }
         public string MetadataUrl { get; set; }
+        public MapViewModel MapViewModel { get; set; } = new MapViewModel();
 
-        public DataAgeDistributionViewModel(List<IDataAgeDistribution> distributions, Dictionary<string,string> ageCategoryColors)
+        public DataAgeDistributionViewModel(
+            List<IDataAgeDistribution> distributions, 
+            Dictionary<string,string> ageCategoryColors,
+            Dictionary<string, string> dataSetToLayer)
         {
             InitColors(ageCategoryColors);
 
             distributions.ForEach(d => {
-                DataSetNames += $"'{d.DataSetName} ({d.ObjectCount} objekter)',";
+                DataSets.Add($"{d.DataSetName} ({d.ObjectCount} objekter)", dataSetToLayer[d.DataSetName]);
+                BarLabels += "'',";
                 _sums.Add(GetSum(d));
                 });
 

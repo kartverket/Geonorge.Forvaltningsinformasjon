@@ -8,6 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
     {
         public string KosConnectionString { get; set; }
         public Dictionary<string, string> DataSetToLayerMap { get; set; }
+        public Dictionary<string, string> DataAgeDataSetToLayerMap { get; set; }
+        public Dictionary<string, string> DataQualityDataSetToLayerMap { get; set; }
         public string MunicipalitiesGeoJsonUrl { get; set; }
         public string WmsUrlBase { get; set; }
         public string WmsVersion { get; set; }

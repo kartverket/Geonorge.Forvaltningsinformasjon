@@ -36,6 +36,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 KosConnectionString = applicationSettings.ConnectionStrings.KOS,
                 MunicipalitiesGeoJsonUrl = applicationSettings.ExternalUrls.MunicipalitiesGeoJson,
                 DataSetToLayerMap = applicationSettings.DataSetToLayerMap,
+                DataAgeDataSetToLayerMap = applicationSettings.DataAgeDataSetToLayerMap,
+                DataQualityDataSetToLayerMap = applicationSettings.DataQualityDataSetToLayerMap,
                 WmsUrlBase = applicationSettings.Wms.UrlBase,
                 WmsVersion = applicationSettings.Wms.Version
             };

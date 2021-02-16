@@ -11,6 +11,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
         DateTime? PlannedIntroductionDate { get; }
         DateTime? IntroductionDate { get; }
 
-        IntroductionState IntroductionState { get; }
+        IntroductionState IntroductionState { get; set; }
     }
 }

@@ -31,3 +31,28 @@ button.ol-zoom-in:hover, button.ol-zoom-out:hover {
 .ol-overlaycontainer > *, .ol-overlaycontainer-stopevent > * {
     pointer-events: auto;
 }
+
+﻿.fixed-menu-margin {
+    margin-top: 140px;
+}
+
+@media (min-width: 360px) {
+    .fixed-menu-margin {
+        margin-top: 103px;
+    }
+}
+
+@media (min-width: 600px) {
+    .fixed-menu-margin {
+        margin-top: 62px;
+    }
+}
+
+.container-breadcrumbs {
+    display: block !important;
+}
+
+.main-header,
+.view-header {
+    background-color: #f8f8f7;
+}

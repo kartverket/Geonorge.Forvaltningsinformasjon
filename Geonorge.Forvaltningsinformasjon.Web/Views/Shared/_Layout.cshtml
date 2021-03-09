@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="~/css/chart.css">
     <link rel="stylesheet" type="text/css" href="~/css/site.css"/>
 </head>
-<body class="geonorge-container prototype geonorge">
+<body class="geonorge-container prototype geonorge fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
     <script>
@@ -60,7 +60,7 @@
     searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.33/MainNavigation.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.41/MainNavigation.js")"></script>
     <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
 </body>

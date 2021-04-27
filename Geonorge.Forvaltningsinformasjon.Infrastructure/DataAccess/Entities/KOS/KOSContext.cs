@@ -245,6 +245,56 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Id).HasColumnName("Koordsys");
                 entity.Property(e => e.EpsgName).HasColumnName("EPSG");
             });
+
+            modelBuilder.Entity<MappingProject>(entity =>
+            {
+                entity.ToTable("PRJProsjekt");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Active).HasColumnName("Aktiv");
+                entity.Property(e => e.OfficeNumber).HasColumnName("Kartkontor_Nr");
+                entity.Property(e => e.Name).HasColumnName("Navn");
+                entity.Property(e => e.Year).HasColumnName("Ar");
+
+                entity.HasQueryFilter(e => e.Active > 0);
+            });
+
+            modelBuilder.Entity<MappingProjectActivity>(entity =>
+            {
+                entity.ToTable("PRJProsjektAktivitet");
+
+                entity.HasKey(e => e.Id);
+            });
+
+            modelBuilder.Entity<MappingProjectDelivery>(entity =>
+            {
+                entity.ToTable("PRJLeveranse");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Active).HasColumnName("Aktiv");
+
+                entity.HasQueryFilter(e => e.Active > 0);
+            });
+
+            modelBuilder.Entity<MappingProjectDeliveryType>(entity =>
+            {
+                entity.ToTable("PRJLeveranseType");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Active).HasColumnName("Aktiv");
+
+                entity.HasQueryFilter(e => e.Active > 0);
+            });
+
+            modelBuilder.Entity<MappingProjectMunicipality>(entity =>
+            {
+                entity.ToTable("PRJProsjektKommune");
+
+                entity.HasKey(e => e.Id);
+            });
         }
     }
 }

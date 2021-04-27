@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
+@model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectViewModel
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = Localizer["Prosjekter"];
+    ViewData["currentTab"] = "Projects";
+}
+
+@section projectsSection
+{
+    <div class="col-md-2" style="top:35px">
+        @*      <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
+    </div>
+    <div class="col-md-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Prosjekt."]</th>
+                    <th>@Localizer["Gjennomføringsår"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model.MappingProjects)
+                {
+                    <tr>
+                        <td>@project.Name</td>
+                        <td>@project.Year</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

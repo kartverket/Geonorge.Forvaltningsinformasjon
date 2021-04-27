@@ -29,6 +29,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure
             services.AddTransient<IDataQualityClassifications, DataQualityClassifications>();
             services.AddTransient<IDataAgeDistributions, DataAgeDistributions>();
             services.AddTransient<IDataQualityDistributions, DataQualityDistributions>();
+            services.AddTransient<IMappingProjects, MappingProjects>();
 
             // map data
             services.AddTransient<IDirectUpdateInfoGeoJsonGenerator, DirectUpdateInfoGeoJsonGenerator>();

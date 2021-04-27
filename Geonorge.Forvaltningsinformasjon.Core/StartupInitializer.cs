@@ -19,6 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core
             services.AddTransient<IDataAgeDistributionService, DataAgeDistributionService>();
             services.AddTransient<IDataQualityDistributionService, DataQualityDistributionService>();
             services.AddTransient<IDirectUpdateInfoGeoJsonService, DirectUpdateInfoGeoJsonService>();
+            services.AddTransient<IMappingProjectService, MappingProjectService>();
 
             // internals
             services.AddTransient<IGeoJsonProvider, GeoJsonProvider>();

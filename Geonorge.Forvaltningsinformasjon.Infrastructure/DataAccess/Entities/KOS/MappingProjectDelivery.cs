@@ -8,5 +8,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
     {
         public int Id { get; set; }
         public int? Active { get; set; }
+
+        public int TypeId { get; set; }
+        public int ProjectId { get; set; }
+        public MappingProject Project { get; set; }
     }
 }

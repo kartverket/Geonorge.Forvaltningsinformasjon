@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
@@ -257,6 +256,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Name).HasColumnName("Navn");
                 entity.Property(e => e.Year).HasColumnName("Ar");
 
+                entity.HasOne(e => e.Office).WithMany(o => o.MappingProjects).HasForeignKey(e => e.OfficeNumber);
+                entity.HasMany(e => e.MappingProjectMunicipalities).WithOne(mpm => mpm.Project).HasForeignKey(mpm => mpm.ProjectId);
+                entity.HasMany(e => e.Deliveries).WithOne(d => d.Project).HasForeignKey(d => d.ProjectId);
+
                 entity.HasQueryFilter(e => e.Active > 0);
             });
 
@@ -276,17 +279,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
                 entity.HasQueryFilter(e => e.Active > 0);
-            });
 
-            modelBuilder.Entity<MappingProjectDeliveryType>(entity =>
-            {
-                entity.ToTable("PRJLeveranseType");
+                entity.Property(e => e.TypeId).HasColumnName("LeveranseType_Id");
+                entity.Property(e => e.ProjectId).HasColumnName("PRJProsjekt_Id");
 
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Active).HasColumnName("Aktiv");
-
-                entity.HasQueryFilter(e => e.Active > 0);
+                entity.HasOne(e => e.Project).WithMany(mp => mp.Deliveries).HasForeignKey(e => e.ProjectId);
             });
 
             modelBuilder.Entity<MappingProjectMunicipality>(entity =>
@@ -294,6 +291,34 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.ToTable("PRJProsjektKommune");
 
                 entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ProjectId).HasColumnName("PRJProsjekt_Id");
+                entity.Property(e => e.MunicipalityNumber).HasColumnName("Kommune_Kommunenr").HasMaxLength(4);
+
+                entity.HasOne(e => e.Municipality)
+                    .WithMany(m => m.MappingProjectMunicipalities)
+                    .HasForeignKey(e => e.MunicipalityNumber);
+
+                entity.HasOne(e => e.Project)
+                    .WithMany(p => p.MappingProjectMunicipalities)
+                    .HasForeignKey(e => e.ProjectId);
+            });
+
+            modelBuilder.Entity<Office>(entity =>
+            {
+                entity.ToTable("Kartkontor");
+
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Nr");
+                entity.Property(e => e.Name).HasColumnName("Navn");
+
+                entity.HasMany(e => e.MappingProjects)
+                    .WithOne(mp => mp.Office)
+                    .HasForeignKey(e => e.OfficeNumber);
+
+                entity.Property(e => e.Active).HasColumnName("Aktiv");
+
+                entity.HasQueryFilter(e => e.Active > 0);
             });
         }
     }

@@ -23,16 +23,22 @@
             <thead>
                 <tr>
                     <th>@Localizer["Prosjekt."]</th>
+                    <th>@Localizer["Kartkontor"]</th>
+                    <th>@Localizer["Kommune"]</th>
                     <th>@Localizer["Gjennomføringsår"]</th>
+                    <th>@Localizer["Leveransetype"]</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var project in Model.MappingProjects)
                 {
-                    <tr>
-                        <td>@project.Name</td>
-                        <td>@project.Year</td>
-                    </tr>
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.OfficeName</td>
+                    <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
+                    <td>@project.Year</td>
+                    <td>@project.DeliveryTypes</td>
+                </tr>
                 }
             </tbody>
         </table>

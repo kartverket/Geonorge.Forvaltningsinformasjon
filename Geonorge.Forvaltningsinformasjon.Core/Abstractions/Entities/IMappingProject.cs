@@ -6,9 +6,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
     public interface IMappingProject : IEntityBase
     {
         string Name { get; }
-        List<string> MunicipalityNames { get; }
         string OfficeName { get; }
         int Year { get; }
         MappingProjectState State { get; }
+        List<IMunicipality> Municipalities { get; }
+        List<MappingProjectDeliveryType> DeliveryTypes { get; }
     }
 }

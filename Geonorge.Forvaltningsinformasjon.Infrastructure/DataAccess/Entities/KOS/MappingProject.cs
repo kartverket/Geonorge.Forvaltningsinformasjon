@@ -8,8 +8,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
     {
         public int Id { get; set; }
         public int? Active { get; set; }
-        public int OfficeNumber { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
+
+        public int OfficeNumber { get; set; }
+        public Office Office { get; set; }
+        public ICollection<MappingProjectMunicipality> MappingProjectMunicipalities { get; set; }
+        public ICollection<MappingProjectDelivery> Deliveries { get; set; }
     }
 }

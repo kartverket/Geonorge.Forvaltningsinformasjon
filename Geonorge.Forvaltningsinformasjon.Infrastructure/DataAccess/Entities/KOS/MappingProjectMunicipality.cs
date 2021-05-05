@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
     internal class MappingProjectMunicipality
     {
         public int Id { get; set; }
+
+        public int ProjectId { get; set; }
+        public MappingProject Project { get; set; }
+        public string MunicipalityNumber { get; set; }
+        public Municipality Municipality { get; set; }
     }
 }

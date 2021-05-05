@@ -8,8 +8,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
     {
         public string Name { get; set; }
 
-        public List<string> MunicipalityNames { get; set; }
-
         public string OfficeName { get; set; }
 
         public int Year { get; set; }
@@ -19,5 +17,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
         public int Id { get; set; }
 
         public int? Active { get; set; }
+
+        public List<IMunicipality> Municipalities { get; set; } = new List<IMunicipality>();
+        public List<MappingProjectDeliveryType> DeliveryTypes { get; set; } = new List<MappingProjectDeliveryType>();
     }
 }

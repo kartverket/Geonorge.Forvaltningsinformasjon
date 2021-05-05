@@ -17,10 +17,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.MappingProjects.Geove
         [HttpGet("")]
         public IActionResult Index()
         {
-            MappingProjectViewModel model = new MappingProjectViewModel()
-            {
-                MappingProjects = _mappingProjectService.Get()
-            };
+            MappingProjectViewModel model = new MappingProjectViewModel(_mappingProjectService.Get());
+
             return View("Views/MappingProjects/Geovekst/Projects/Projects.cshtml", model);
         }
     }

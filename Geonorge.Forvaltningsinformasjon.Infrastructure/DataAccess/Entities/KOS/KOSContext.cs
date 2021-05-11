@@ -257,8 +257,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Year).HasColumnName("Ar");
 
                 entity.HasOne(e => e.Office).WithMany(o => o.MappingProjects).HasForeignKey(e => e.OfficeNumber);
-                entity.HasMany(e => e.MappingProjectMunicipalities).WithOne(mpm => mpm.Project).HasForeignKey(mpm => mpm.ProjectId);
+                entity.HasMany(e => e.MappingProjectMunicipalityLinks).WithOne(mpm => mpm.Project).HasForeignKey(mpm => mpm.ProjectId);
                 entity.HasMany(e => e.Deliveries).WithOne(d => d.Project).HasForeignKey(d => d.ProjectId);
+                entity.HasMany(e => e.ProjectActivities).WithOne(pa => pa.Project).HasForeignKey(pa => pa.ProjectId);
 
                 entity.HasQueryFilter(e => e.Active > 0);
             });
@@ -268,6 +269,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.ToTable("PRJProsjektAktivitet");
 
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.ProjectId).HasColumnName("PRJProsjekt_Id");
+                entity.Property(e => e.Activity).HasColumnName("PRJAktivitet_Id");
+                entity.Property(e => e.Date).HasColumnName("Dato");
             });
 
             modelBuilder.Entity<MappingProjectDelivery>(entity =>
@@ -286,7 +290,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.HasOne(e => e.Project).WithMany(mp => mp.Deliveries).HasForeignKey(e => e.ProjectId);
             });
 
-            modelBuilder.Entity<MappingProjectMunicipality>(entity =>
+            modelBuilder.Entity<MappingProjectMunicipalityLink>(entity =>
             {
                 entity.ToTable("PRJProsjektKommune");
 
@@ -300,7 +304,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                     .HasForeignKey(e => e.MunicipalityNumber);
 
                 entity.HasOne(e => e.Project)
-                    .WithMany(p => p.MappingProjectMunicipalities)
+                    .WithMany(p => p.MappingProjectMunicipalityLinks)
                     .HasForeignKey(e => e.ProjectId);
             });
 

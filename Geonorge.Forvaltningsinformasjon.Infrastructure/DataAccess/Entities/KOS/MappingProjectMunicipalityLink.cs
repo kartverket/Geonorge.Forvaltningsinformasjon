@@ -1,7 +1,7 @@
 ﻿
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
-    internal class MappingProjectMunicipality
+    internal class MappingProjectMunicipalityLink
     {
         public int Id { get; set; }
 

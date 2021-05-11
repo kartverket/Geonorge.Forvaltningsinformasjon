@@ -6,6 +6,15 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 {
     internal class MappingProjectActivity
     {
+        public enum ActivityType
+        {
+            STARTED = 1,
+            COMPLETED = 16
+        }
         public int Id { get; set; }
+        public int ProjectId { get; set; }
+        public MappingProject Project {get;set; }
+        public ActivityType Activity { get; set; }
+        public string Date { get; set; }
     }
 }

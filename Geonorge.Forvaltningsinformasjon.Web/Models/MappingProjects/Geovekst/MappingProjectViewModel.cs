@@ -25,6 +25,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
         public string MunicipalityNames { get; }
         public string MunicipalityToolTip { get; }
         public string DeliveryTypes { get; }
+        public string State { get; }
 
         public ProjectListItem(IMappingProject project)
         {
@@ -74,6 +75,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
             deliveryTypes.Sort();
 
             DeliveryTypes = string.Join(", ", deliveryTypes);
+
+            // state
+            switch (project.State)
+            {
+                case MappingProjectState.Ongoing:
+                    State = "Pågående";
+                    break;
+                case MappingProjectState.Closed:
+                    State = "Avsluttet";
+                    break;
+                default:
+                    State = "";
+                    break;
+            }
         }
     }
 }

@@ -26,6 +26,7 @@
                     <th>@Localizer["Kartkontor"]</th>
                     <th>@Localizer["Kommune"]</th>
                     <th>@Localizer["Gjennomføringsår"]</th>
+                    <th>@Localizer["Prosjektstatus"]</th>
                     <th>@Localizer["Leveransetype"]</th>
                 </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td>@project.OfficeName</td>
                     <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
                     <td>@project.Year</td>
+                    <td>@project.State</td>
                     <td>@project.DeliveryTypes</td>
                 </tr>
                 }

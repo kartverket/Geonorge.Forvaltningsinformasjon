@@ -77,7 +77,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public ICollection<CentralFkb> CentralFkb { get; set; }
         public ICollection<TransactionData> TransactionData { get; set; }
         public ICollection<DataQualityClassification> DataQualityClassifications { get; set; }
-        public ICollection<MappingProjectMunicipality> MappingProjectMunicipalities { get; set; }
+        public ICollection<MappingProjectMunicipalityLink> MappingProjectMunicipalities { get; set; }
 
         public Municipality()
         {

@@ -20,11 +20,17 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public List<IMappingProject> Get()
         {
-            return _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
-                .Include(p => p.MappingProjectMunicipalities).ThenInclude(mpm => mpm.Municipality)
+            List<IMappingProject> projects = _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
+                .Include(p => p.MappingProjectMunicipalityLinks).ThenInclude(mpm => mpm.Municipality)
                 .Include(p => p.Office)
                 .Include(p => p.Deliveries)
-                .AsEnumerable().Select(mp => Create(mp)).ToList();
+                .Include(p => p.ProjectActivities)
+                .AsEnumerable()
+                .Select(mp => Create(mp))
+                .Where(p => p.State != MappingProjectState.None)
+                .ToList();
+
+            return projects;
         }
 
         private IMappingProject Create(DataAccess.Entities.KOS.MappingProject mappingProjectKos)
@@ -38,8 +44,23 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 OfficeName = mappingProjectKos.Office.Name,
             };
 
+            // determine project status
+            if (mappingProjectKos.ProjectActivities.
+                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && a.Date != null) != default)
+            {
+                mappingProject.State = MappingProjectState.Closed;
+            }
+            else if (mappingProjectKos.ProjectActivities.
+                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.STARTED && a.Date != null) != default)
+            {
+                mappingProject.State = MappingProjectState.Ongoing;
+            }
+            else
+            {
+                mappingProject.State = MappingProjectState.None;
+            }
             // @TODO: remove filtering for duplicates if they're fixed in the db
-            mappingProjectKos.MappingProjectMunicipalities.GroupBy(mpm => mpm.Municipality).ToList().ForEach(mpm => mappingProject.Municipalities.Add(mpm.First().Municipality));
+            mappingProjectKos.MappingProjectMunicipalityLinks.GroupBy(mpm => mpm.Municipality).ToList().ForEach(mpm => mappingProject.Municipalities.Add(mpm.First().Municipality));
 
             foreach(MappingProjectDelivery delivery in mappingProjectKos.Deliveries)
             {

@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectDetailsViewModel
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "../_Layout.cshtml";
+}
+
+@{
+    ViewData["Title"] = Localizer["Prosjekter"];
+    ViewData["currentTab"] = "Projects";
+}
+
+@section projectsSection
+{
+    <div class="col-md-2" style="top:35px">
+        @*      <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Localizer["Prosjekt"]</th>
+                        <th>@Localizer["Kartkontor"]</th>
+                        <th>@Localizer["Kommune"]</th>
+                        <th>@Localizer["Gjennomføringsår"]</th>
+                        <th>@Localizer["Prosjektstatus"]</th>
+                        <th>@Localizer["Leveransetype"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Project.Name</td>
+                        <td>@Model.Project.OfficeName</td>
+                        <td title="@Model.Project.MunicipalityToolTip">@Html.Raw(Model.Project.MunicipalityNames)</td>
+                        <td>@Model.Project.Year</td>
+                        <td>@Model.Project.State</td>
+                        <td>@Model.Project.DeliveryTypes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Localizer["Leveransetype"]</th>
+                        <th>@Localizer["Leveransefrist"]</th>
+                        <th>@Localizer["Ny avtalt dato"]</th>
+                        <th>@Localizer["Faktisk levert"]</th>
+                        <th>@Localizer["Data lagt inn i forvaltningssystem"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var delivery in Model.Project.Deliveries)
+                    {
+                    <tr>
+                        <td>@(delivery.TypeName + " - " + delivery.Name)</td>
+                        <td>@delivery.Deadline</td>
+                        <td>@delivery.ChangedDeadline</td>
+                        <td>@delivery.FinalDeadline</td>
+                        <td>@delivery.ReleaseDate</td>
+                        <td></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

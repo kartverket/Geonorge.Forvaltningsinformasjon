@@ -19,6 +19,6 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
         public int? Active { get; set; }
 
         public List<IMunicipality> Municipalities { get; set; } = new List<IMunicipality>();
-        public List<MappingProjectDeliveryType> DeliveryTypes { get; set; } = new List<MappingProjectDeliveryType>();
+        public List<IMappingProjectDelivery> Deliveries { get; set; } = new List<IMappingProjectDelivery>();
     }
 }

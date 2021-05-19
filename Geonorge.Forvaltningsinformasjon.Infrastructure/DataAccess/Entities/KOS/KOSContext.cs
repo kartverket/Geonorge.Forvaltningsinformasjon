@@ -282,12 +282,33 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Active > 0);
-
+                entity.Property(e => e.Name).HasColumnName("Navn");
+                entity.Property(e => e.Deadline).HasColumnName("LeveransefristDato");
+                entity.Property(e => e.ChangedDeadline).HasColumnName("LeveransefristDatoEndret");
+                entity.Property(e => e.FinalDeadline).HasColumnName("LeveransefristDatoFaktisk");
+                entity.Property(e => e.ReleaseDate).HasColumnName("ForvDato");
                 entity.Property(e => e.TypeId).HasColumnName("LeveranseType_Id");
                 entity.Property(e => e.ProjectId).HasColumnName("PRJProsjekt_Id");
 
                 entity.HasOne(e => e.Project).WithMany(mp => mp.Deliveries).HasForeignKey(e => e.ProjectId);
+                entity.HasOne(e => e.Type).WithMany(t => t.Deliveries).HasForeignKey(e => e.TypeId);
+
+                entity.HasQueryFilter(e => e.Active > 0);
+            });
+
+            modelBuilder.Entity<MappingProjectDeliveryType>(entity =>
+            {
+                entity.ToTable("PRJLeveranseType");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Active).HasColumnName("Aktiv");
+
+                entity.Property(e => e.Name).HasColumnName("Navn");
+
+                entity.HasMany(e => e.Deliveries).WithOne(t => t.Type).HasForeignKey(e => e.TypeId);
+
+                entity.HasQueryFilter(e => e.Active > 0);
             });
 
             modelBuilder.Entity<MappingProjectMunicipalityLink>(entity =>

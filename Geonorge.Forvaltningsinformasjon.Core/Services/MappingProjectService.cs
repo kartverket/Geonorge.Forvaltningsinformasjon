@@ -21,7 +21,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
         public IMappingProject Get(int id)
         {
-            throw new System.NotImplementedException();
+            return _repository.MappingProjects.Get(id);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectViewModel
 
 @inject IViewLocalizer Localizer
@@ -34,7 +33,7 @@
                 @foreach (var project in Model.MappingProjects)
                 {
                 <tr>
-                    <td>@project.Name</td>
+                    <td><a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">@project.Name</a></td>
                     <td>@project.OfficeName</td>
                     <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
                     <td>@project.Year</td>

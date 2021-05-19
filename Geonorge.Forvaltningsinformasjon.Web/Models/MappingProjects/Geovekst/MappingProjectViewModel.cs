@@ -19,6 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 
     public struct ProjectListItem
     {
+        public int Id { get; }
         public string Name { get; }
         public string OfficeName { get; }
         public int Year { get; }
@@ -27,8 +28,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
         public string DeliveryTypes { get; }
         public string State { get; }
 
-        public ProjectListItem(IMappingProject project)
+        public List<IMappingProjectDelivery> Deliveries { get; }
+
+        public ProjectListItem(IMappingProject project, bool includeDetails = false)
         {
+            Id = project.Id;
             Name = project.Name;
             OfficeName = project.OfficeName;
             Year = project.Year;
@@ -53,22 +57,17 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 
             // delivery types
             List<string> deliveryTypes = new List<string>();
+            Deliveries = new List<IMappingProjectDelivery>();
 
-            foreach(MappingProjectDeliveryType deliveryType in project.DeliveryTypes)
+            foreach (IMappingProjectDelivery delivery in project.Deliveries)
             {
-                switch (deliveryType)
+                if (includeDetails)
                 {
-                    case MappingProjectDeliveryType.OrthoPhoto:
-                        deliveryTypes.Add("Ortofoto");
-                        break;
-                    case MappingProjectDeliveryType.Laser:
-                        deliveryTypes.Add("Laser");
-                        break;
-                    case MappingProjectDeliveryType.Fkb:
-                        deliveryTypes.Add("FKB");
-                        break;
-                    default:
-                        break;
+                    Deliveries.Add(delivery);
+                }
+                else if (!deliveryTypes.Contains(delivery.TypeName))
+                {
+                    deliveryTypes.Add(delivery.TypeName);
                 }
             }
 

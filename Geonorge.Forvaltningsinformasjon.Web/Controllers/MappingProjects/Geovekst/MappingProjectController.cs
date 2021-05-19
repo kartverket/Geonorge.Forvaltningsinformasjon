@@ -21,5 +21,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.MappingProjects.Geove
 
             return View("Views/MappingProjects/Geovekst/Projects/Projects.cshtml", model);
         }
+
+        [HttpGet("project-details")]
+        public IActionResult Get(int id)
+        {
+            MappingProjectDetailsViewModel model = new MappingProjectDetailsViewModel(_mappingProjectService.Get(id));
+
+            return View("Views/MappingProjects/Geovekst/Projects/ProjectDetails.cshtml", model);
+        }
     }
 }

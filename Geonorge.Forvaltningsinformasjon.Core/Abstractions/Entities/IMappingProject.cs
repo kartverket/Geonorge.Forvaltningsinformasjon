@@ -10,6 +10,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
         int Year { get; }
         MappingProjectState State { get; }
         List<IMunicipality> Municipalities { get; }
-        List<MappingProjectDeliveryType> DeliveryTypes { get; }
+        List<IMappingProjectDelivery> Deliveries { get; }
     }
 }

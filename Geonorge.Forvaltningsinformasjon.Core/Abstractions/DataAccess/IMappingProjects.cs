@@ -6,5 +6,6 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
     public interface IMappingProjects
     {
         List<IMappingProject> Get();
+        IMappingProject Get(int id);
     }
 }

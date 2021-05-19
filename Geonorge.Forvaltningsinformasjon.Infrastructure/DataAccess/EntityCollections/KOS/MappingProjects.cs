@@ -20,17 +20,28 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
         public List<IMappingProject> Get()
         {
-            List<IMappingProject> projects = _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
+            return _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
                 .Include(p => p.MappingProjectMunicipalityLinks).ThenInclude(mpm => mpm.Municipality)
                 .Include(p => p.Office)
-                .Include(p => p.Deliveries)
+                .Include(p => p.Deliveries).ThenInclude(d => d.Type)
                 .Include(p => p.ProjectActivities)
                 .AsEnumerable()
                 .Select(mp => Create(mp))
                 .Where(p => p.State != MappingProjectState.None)
                 .ToList();
+        }
 
-            return projects;
+        public IMappingProject Get(int id)
+        {
+            return _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
+                .Where(p => p.Id == id)
+                .Include(p => p.MappingProjectMunicipalityLinks).ThenInclude(mpm => mpm.Municipality)
+                .Include(p => p.Office)
+                .Include(p => p.Deliveries).ThenInclude(d => d.Type)
+                .Include(p => p.ProjectActivities)
+                .AsEnumerable()
+                .Select(mp => Create(mp))
+                .First();
         }
 
         private IMappingProject Create(DataAccess.Entities.KOS.MappingProject mappingProjectKos)
@@ -59,32 +70,25 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             {
                 mappingProject.State = MappingProjectState.None;
             }
-            // @TODO: remove filtering for duplicates if they're fixed in the db
             mappingProjectKos.MappingProjectMunicipalityLinks.GroupBy(mpm => mpm.Municipality).ToList().ForEach(mpm => mappingProject.Municipalities.Add(mpm.First().Municipality));
 
-            foreach(MappingProjectDelivery delivery in mappingProjectKos.Deliveries)
+            // filter deliveries by type
+            int[] types = { 1, 2, 8 };
+
+            foreach(DataAccess.Entities.KOS.MappingProjectDelivery deliveryKos in mappingProjectKos.Deliveries)
             {
-                MappingProjectDeliveryType type;
-
-                switch (delivery.TypeId)
+                if (types.Contains(deliveryKos.TypeId))
                 {
-                    case 1:
-                        type = MappingProjectDeliveryType.OrthoPhoto;
-                        break;
-                    case 2:
-                        type = MappingProjectDeliveryType.Laser;
-                        break;
-                    case 8:
-                        type = MappingProjectDeliveryType.Fkb;
-                        break;
-                    default:
-                        type = MappingProjectDeliveryType.Irrelevant;
-                        break;
-                }
-
-                if (mappingProject.DeliveryTypes.Find(t => t == type) == default)
-                {
-                    mappingProject.DeliveryTypes.Add(type);
+                    DataAccess.Entities.Custom.MappingProjectDelivery delivery = new DataAccess.Entities.Custom.MappingProjectDelivery
+                    {
+                        Name = deliveryKos.Name,
+                        TypeName = deliveryKos.Type.Name,
+                        Deadline = deliveryKos.Deadline,
+                        ChangedDeadline = deliveryKos.ChangedDeadline,
+                        FinalDeadline = deliveryKos.FinalDeadline,
+                        ReleaseDate = deliveryKos.ReleaseDate
+                    };
+                    mappingProject.Deliveries.Add(delivery);
                 }
             }
 

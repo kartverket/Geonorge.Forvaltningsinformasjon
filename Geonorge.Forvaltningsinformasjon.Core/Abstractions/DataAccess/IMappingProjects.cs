@@ -1,4 +1,5 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
 using System.Collections.Generic;
 
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
@@ -6,6 +7,11 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
     public interface IMappingProjects
     {
         List<IMappingProject> Get();
-        IMappingProject Get(int id);
+        List<IMappingProject> Get(
+            string municipalityNumber, 
+            int officeId,
+            MappingProjectState state,
+            int year);
+        IMappingProject GetDetails(int id);
     }
 }

@@ -252,11 +252,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
-                entity.Property(e => e.OfficeNumber).HasColumnName("Kartkontor_Nr");
+                entity.Property(e => e.OfficeId).HasColumnName("Kartkontor_Nr");
                 entity.Property(e => e.Name).HasColumnName("Navn");
                 entity.Property(e => e.Year).HasColumnName("Ar");
 
-                entity.HasOne(e => e.Office).WithMany(o => o.MappingProjects).HasForeignKey(e => e.OfficeNumber);
+                entity.HasOne(e => e.Office).WithMany(o => o.MappingProjects).HasForeignKey(e => e.OfficeId);
                 entity.HasMany(e => e.MappingProjectMunicipalityLinks).WithOne(mpm => mpm.Project).HasForeignKey(mpm => mpm.ProjectId);
                 entity.HasMany(e => e.Deliveries).WithOne(d => d.Project).HasForeignKey(d => d.ProjectId);
                 entity.HasMany(e => e.ProjectActivities).WithOne(pa => pa.Project).HasForeignKey(pa => pa.ProjectId);
@@ -339,7 +339,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.HasMany(e => e.MappingProjects)
                     .WithOne(mp => mp.Office)
-                    .HasForeignKey(e => e.OfficeNumber);
+                    .HasForeignKey(e => e.OfficeId);
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 

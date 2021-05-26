@@ -31,7 +31,45 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 .ToList();
         }
 
-        public IMappingProject Get(int id)
+        public List<IMappingProject> Get(
+            string municipalityNumber, 
+            int officeId,
+            MappingProjectState state,
+            int year)
+        {
+            IEnumerable<IMappingProject> projects = _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
+                .Include(p => p.MappingProjectMunicipalityLinks).ThenInclude(mpm => mpm.Municipality)
+                .Include(p => p.Office)
+                .Include(p => p.Deliveries).ThenInclude(d => d.Type)
+                .Include(p => p.ProjectActivities)
+                .AsEnumerable()
+                .Select(mp => Create(mp))
+                .Where(p => p.State != MappingProjectState.None);
+
+            if (municipalityNumber != null)
+            {
+                projects = projects.Where(p => p.Municipalities.FirstOrDefault(m => m.Number == municipalityNumber) != default);
+            }
+
+            if (officeId != default)
+            {
+                projects = projects.Where(p => p.Office.Id == officeId);
+            }
+
+            if (state != default)
+            {
+                projects = projects.Where(p => p.State == state);
+            }
+
+            if (year != default)
+            {
+                projects = projects.Where(p => p.Year == year);
+            }
+
+            return projects.ToList();
+        }
+
+        public IMappingProject GetDetails(int id)
         {
             return _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
                 .Where(p => p.Id == id)
@@ -52,7 +90,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 Active = mappingProjectKos.Active,
                 Name = mappingProjectKos.Name,
                 Year = mappingProjectKos.Year,
-                OfficeName = mappingProjectKos.Office.Name,
+                Office = mappingProjectKos.Office,
             };
 
             // determine project status

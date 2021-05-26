@@ -20,6 +20,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
 
         public IMappingProjects MappingProjects { get; }
 
+        public IOffices Offices { get; }
+
         public Repository(
             ICounties counties, 
             IMunicipalities municipalities, 
@@ -28,7 +30,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
             IDataQualityClassifications dataQualityClassifications,
             IDataAgeDistributions dataAgeDistributions,
             IDataQualityDistributions dataQualityDistributions,
-            IMappingProjects mappingProjects)
+            IMappingProjects mappingProjects,
+            IOffices offices)
         {
             Counties = counties;
             Municipalities = municipalities;
@@ -38,6 +41,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
             DataAgeDistributions = dataAgeDistributions;
             DataQualityDistributions = dataQualityDistributions;
             MappingProjects = mappingProjects;
+            Offices = offices;
         }
     }
 }       

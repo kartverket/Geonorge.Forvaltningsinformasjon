@@ -1,4 +1,5 @@
-﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services;
 using Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,22 +9,40 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.MappingProjects.Geove
     public class MappingProjectController : Controller
     {
         private IMappingProjectService _mappingProjectService;
+        private IMunicipalityService _municipalityService;
+        private IOfficeService _offices;
 
-        public MappingProjectController(IMappingProjectService mappingProjectService)
+        public MappingProjectController(
+            IMappingProjectService mappingProjectService, 
+            IMunicipalityService municipalityService,
+            IOfficeService offices)
         {
             _mappingProjectService = mappingProjectService;
+            _municipalityService = municipalityService;
+            _offices = offices;
         }
 
         [HttpGet("")]
-        public IActionResult Index()
+        public IActionResult Index(
+            string municipalityNumber,
+            int officeId,
+            MappingProjectState state,
+            int year)
         {
-            MappingProjectViewModel model = new MappingProjectViewModel(_mappingProjectService.Get());
+            MappingProjectViewModel model = new MappingProjectViewModel(
+                    _mappingProjectService.Get(municipalityNumber, officeId, state, year),
+                    _municipalityService.Get(),
+                    _offices.Get(),
+                    municipalityNumber,
+                    officeId,
+                    state,
+                    year);
 
             return View("Views/MappingProjects/Geovekst/Projects/Projects.cshtml", model);
         }
 
         [HttpGet("project-details")]
-        public IActionResult Get(int id)
+        public IActionResult GetDetails(int id)
         {
             MappingProjectDetailsViewModel model = new MappingProjectDetailsViewModel(_mappingProjectService.Get(id));
 

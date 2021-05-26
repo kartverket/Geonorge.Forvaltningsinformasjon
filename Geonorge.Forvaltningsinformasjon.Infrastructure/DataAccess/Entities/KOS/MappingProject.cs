@@ -11,7 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public string Name { get; set; }
         public int Year { get; set; }
 
-        public int OfficeNumber { get; set; }
+        public int OfficeId { get; set; }
         public Office Office { get; set; }
         public ICollection<MappingProjectMunicipalityLink> MappingProjectMunicipalityLinks { get; set; }
         public ICollection<MappingProjectDelivery> Deliveries { get; set; }

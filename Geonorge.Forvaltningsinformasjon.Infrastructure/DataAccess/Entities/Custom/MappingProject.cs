@@ -8,7 +8,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.Cu
     {
         public string Name { get; set; }
 
-        public string OfficeName { get; set; }
+        public IOffice Office { get; set; }
 
         public int Year { get; set; }
 

@@ -27,15 +27,17 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.MappingProjects.Geove
             string municipalityNumber,
             int officeId,
             MappingProjectState state,
+            RelevantMappingProjectDeliveryType deliveryType,
             int year)
         {
             MappingProjectViewModel model = new MappingProjectViewModel(
-                    _mappingProjectService.Get(municipalityNumber, officeId, state, year),
+                    _mappingProjectService.Get(municipalityNumber, officeId, state, deliveryType, year),
                     _municipalityService.Get(),
                     _offices.Get(),
                     municipalityNumber,
                     officeId,
                     state,
+                    deliveryType,
                     year);
 
             return View("Views/MappingProjects/Geovekst/Projects/Projects.cshtml", model);

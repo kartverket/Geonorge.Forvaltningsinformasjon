@@ -13,11 +13,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
         public List<IMunicipality> Municipalities { get; }
         public List<IOffice> Offices;
         public List<KeyValuePair<MappingProjectState, string>> States { get; } = new List<KeyValuePair<MappingProjectState, string>>();
+        public List<KeyValuePair<RelevantMappingProjectDeliveryType, string>> DeliveryTypes { get; } = new List<KeyValuePair<RelevantMappingProjectDeliveryType, string>>();
         public List<int> Years { get; } = new List<int>();
 
         public string SelectedMunicipality { get; }
         public int SelectedOffice { get; }
         public MappingProjectState SelectedState { get; }
+        public RelevantMappingProjectDeliveryType SelectedDeliveryType { get; }
         public int SelectedYear { get; }
 
         public MappingProjectViewModel(
@@ -27,6 +29,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
             string selectedMunicipality,
             int selectedOffice,
             MappingProjectState selectedState,
+            RelevantMappingProjectDeliveryType selectedDeliveryType,
             int selectedYear)
         {
             foreach (IMappingProject project in mappingProjects)
@@ -48,6 +51,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
             }
             SelectedState = selectedState;
 
+            foreach (var deliveryType in Enum.GetValues(typeof(RelevantMappingProjectDeliveryType)).Cast<RelevantMappingProjectDeliveryType>())
+            {
+                DeliveryTypes.Add(new KeyValuePair<RelevantMappingProjectDeliveryType, string>(deliveryType, ProjectListItem.GetDeliveryTypeName(deliveryType, false)));
+            }
+            SelectedDeliveryType = selectedDeliveryType;
+
             const int startYear = 2010;
 
             Years = Enumerable.Range(startYear, DateTime.Now.Year - startYear + 1).Reverse().ToList();
@@ -68,6 +77,28 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
                     break;
                 case MappingProjectState.Closed:
                     name = "Avsluttet";
+                    break;
+                default:
+                    name = defaultIsEmpty ? "" : "Alle";
+                    break;
+            }
+            return name;
+        }
+
+        public static string GetDeliveryTypeName(RelevantMappingProjectDeliveryType type, bool defaultIsEmpty = true)
+        {
+            string name = null;
+            
+            switch (type)
+            {
+                case RelevantMappingProjectDeliveryType.OrthoPhoto:
+                    name = "Ortofoto";
+                    break;
+                case RelevantMappingProjectDeliveryType.Laser:
+                    name = "Laser";
+                    break;
+                case RelevantMappingProjectDeliveryType.Fkb:
+                    name = "FKB";
                     break;
                 default:
                     name = defaultIsEmpty ? "" : "Alle";
@@ -122,9 +153,14 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
                 {
                     Deliveries.Add(delivery);
                 }
-                else if (!deliveryTypes.Contains(delivery.TypeName))
+                else 
                 {
-                    deliveryTypes.Add(delivery.TypeName);
+                    string typeName = GetDeliveryTypeName(delivery.Type);
+
+                    if (!deliveryTypes.Contains(typeName))
+                    {
+                        deliveryTypes.Add(typeName);
+                    }
                 }
             }
 

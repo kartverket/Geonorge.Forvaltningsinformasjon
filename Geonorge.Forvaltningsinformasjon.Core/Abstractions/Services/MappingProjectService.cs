@@ -10,6 +10,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Services
             string municipalityNumber,
             int officeId,
             MappingProjectState state,
+            RelevantMappingProjectDeliveryType deliveryType,
             int year);
     }
 }

@@ -29,9 +29,10 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
             string municipalityNumber,
             int officeId,
             MappingProjectState state,
+            RelevantMappingProjectDeliveryType deliveryType,
             int year)
         {
-            return _repository.MappingProjects.Get(municipalityNumber, officeId, state, year);
+            return _repository.MappingProjects.Get(municipalityNumber, officeId, state, deliveryType, year);
         }
     }
 }

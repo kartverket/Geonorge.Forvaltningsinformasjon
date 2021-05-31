@@ -11,6 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
             string municipalityNumber, 
             int officeId,
             MappingProjectState state,
+            RelevantMappingProjectDeliveryType deliveryType,
             int year);
         IMappingProject GetDetails(int id);
     }

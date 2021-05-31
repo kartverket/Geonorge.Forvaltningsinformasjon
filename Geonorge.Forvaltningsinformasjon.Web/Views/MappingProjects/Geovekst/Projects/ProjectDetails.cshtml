@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectDetailsViewModel
 
 @inject IViewLocalizer Localizer
@@ -56,14 +57,14 @@
                 <tbody>
                     @foreach (var delivery in Model.Project.Deliveries)
                     {
-                    <tr>
-                        <td>@(delivery.TypeName + " - " + delivery.Name)</td>
-                        <td>@delivery.Deadline</td>
-                        <td>@delivery.ChangedDeadline</td>
-                        <td>@delivery.FinalDeadline</td>
-                        <td>@delivery.ReleaseDate</td>
-                        <td></td>
-                    </tr>
+                        <tr>
+                            <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>
+                            <td>@delivery.Deadline</td>
+                            <td>@delivery.ChangedDeadline</td>
+                            <td>@delivery.FinalDeadline</td>
+                            <td>@delivery.ReleaseDate</td>
+                            <td></td>
+                        </tr>
                     }
                 </tbody>
             </table>

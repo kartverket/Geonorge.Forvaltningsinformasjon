@@ -1,10 +1,11 @@
-﻿
+﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums;
+
 namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities
 {
     public interface IMappingProjectDelivery
     {
         string Name { get; }
-        string TypeName { get; }
+        RelevantMappingProjectDeliveryType Type { get; }
         string Deadline { get; }
         string ChangedDeadline { get; }
         string FinalDeadline { get; }

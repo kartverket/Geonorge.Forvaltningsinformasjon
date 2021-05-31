@@ -84,6 +84,19 @@
                         <label>Leveransetype</label>
                     </div>
                     <div class="form-group coustom-select">
+                        <select name="DeliveryType" onchange="this.form.submit()" class="chosen-select form-control">
+                            @foreach (var deliveryType in Model.DeliveryTypes)
+                            {
+                                if (deliveryType.Key == Model.SelectedDeliveryType)
+                                {
+                                    <option selected value="@deliveryType.Key">@deliveryType.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@deliveryType.Key">@deliveryType.Value</option>
+                                }
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="row">

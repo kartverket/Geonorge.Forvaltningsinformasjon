@@ -35,6 +35,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             string municipalityNumber, 
             int officeId,
             MappingProjectState state,
+            RelevantMappingProjectDeliveryType deliveryType,
             int year)
         {
             IEnumerable<IMappingProject> projects = _dbContext.Set<DataAccess.Entities.KOS.MappingProject>()
@@ -59,6 +60,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             if (state != default)
             {
                 projects = projects.Where(p => p.State == state);
+            }
+
+            if (deliveryType != default)
+            {
+                projects = projects.Where(p => p.Deliveries.FirstOrDefault(d => d.Type == deliveryType) != default);
             }
 
             if (year != default)
@@ -111,7 +117,11 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             mappingProjectKos.MappingProjectMunicipalityLinks.GroupBy(mpm => mpm.Municipality).ToList().ForEach(mpm => mappingProject.Municipalities.Add(mpm.First().Municipality));
 
             // filter deliveries by type
-            int[] types = { 1, 2, 8 };
+            int[] types = { 
+                1,  // orthophoto
+                2,  // laser
+                8   // FKB
+            };
 
             foreach(DataAccess.Entities.KOS.MappingProjectDelivery deliveryKos in mappingProjectKos.Deliveries)
             {
@@ -120,12 +130,26 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                     DataAccess.Entities.Custom.MappingProjectDelivery delivery = new DataAccess.Entities.Custom.MappingProjectDelivery
                     {
                         Name = deliveryKos.Name,
-                        TypeName = deliveryKos.Type.Name,
                         Deadline = deliveryKos.Deadline,
                         ChangedDeadline = deliveryKos.ChangedDeadline,
                         FinalDeadline = deliveryKos.FinalDeadline,
                         ReleaseDate = deliveryKos.ReleaseDate
                     };
+
+                    switch (deliveryKos.TypeId)
+                    {
+                        case 1:
+                            delivery.Type = RelevantMappingProjectDeliveryType.OrthoPhoto;
+                            break;
+                        case 2:
+                            delivery.Type = RelevantMappingProjectDeliveryType.Laser;
+                            break;
+                        case 8:
+                            delivery.Type = RelevantMappingProjectDeliveryType.Fkb;
+                            break;
+                        default:
+                            break;
+                    }
                     mappingProject.Deliveries.Add(delivery);
                 }
             }

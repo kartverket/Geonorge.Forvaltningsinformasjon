@@ -7,7 +7,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Events;
 
 namespace Geonorge.Forvaltningsinformasjon.Web
 {
@@ -24,13 +23,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         {
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File(Configuration["LogFile"], rollingInterval: RollingInterval.Day)
+                .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
-
             try
             {
                 Log.Information("Application is starting up...");

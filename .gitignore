@@ -5,7 +5,7 @@
 
 node_modules
 Geonorge.Forvaltningsinformasjon.Web/wwwroot/dist/
-Geonorge.Forvaltningsinformasjon.Web/appsettings.json
+Geonorge.Forvaltningsinformasjon.Web/appsettings.Development.json
 
 *.pubxml
 

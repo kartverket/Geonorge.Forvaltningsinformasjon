@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS
 {
-    internal partial class KosContext : DbContext
+    public partial class KosContext : DbContext
     {
         public KosContext()
         {

@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = Localizer["Dataflyt for Nasjonal Areaplandatabase (NAP)"];
+    ViewData["tabs"] = new TabViewModel[] {
+        new TabViewModel() { Caption = "Oppdateringsregime", Controller = "DirectUpdateInfo", Aspect = true}
+    };
+}
+
+@section breadcrumb
+    {
+    <li>@Localizer["Plandata"]</li>
+    <li>@Localizer["Dataflyt NAP"]</li>
+}
+
+@*<partial name="~/Views/Common/Tab.cshtml" />*@
+
+<div>
+    @RenderSection("fkbSection")
+</div>

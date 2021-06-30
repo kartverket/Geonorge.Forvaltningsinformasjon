@@ -153,14 +153,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
                 {
                     Deliveries.Add(delivery);
                 }
-                else 
-                {
-                    string typeName = GetDeliveryTypeName(delivery.Type);
 
-                    if (!deliveryTypes.Contains(typeName))
-                    {
-                        deliveryTypes.Add(typeName);
-                    }
+                string typeName = GetDeliveryTypeName(delivery.Type);
+
+                if (!deliveryTypes.Contains(typeName))
+                {
+                    deliveryTypes.Add(typeName);
                 }
             }
 

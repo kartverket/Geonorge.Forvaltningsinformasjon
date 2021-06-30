@@ -21,10 +21,10 @@
 
 @section aspectsSection
 {
-    <div class="col-md-4" style="top:35px">
-        @*      <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
+    <div class="col-md-6" style="top: -80px">
+        <div id="r_map" style="height:800px; width:600px"></div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <table class="table">
             <thead>
                 <tr>
@@ -45,4 +45,26 @@
             </tbody>
         </table>
     </div>
-}   
+}
+@section Scripts {
+    <script src="~/dist/js/jquery/jquery.js"></script>
+    <script src="~/dist/js/map/main.js"></script>
+    <script>
+        var params = [];
+        params.mapItems = [
+            {
+                'Title': 'Planregisterstatus',
+                'DistributionProtocol': 'OGC:WMS',
+                'GetCapabilitiesUrl': 'https://openwms.statkart.no/skwms1/wms.planregisterstatus?request=GetCapabilities&service=WMS',
+                'addLayers': ['Geosynkronisering']
+            }
+        ];
+
+        params.zoom = 3;
+        params.lat = 7184670.676487714;
+        params.lon = 526476.1128204655;
+        params.crs = 'EPSG:25833';
+
+        main.map(params, document.getElementById("r_map"));
+    </script>
+}

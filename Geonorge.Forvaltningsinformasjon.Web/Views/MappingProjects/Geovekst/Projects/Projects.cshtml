@@ -136,7 +136,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var project in Model.MappingProjects)
+                @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
                 {
                 <tr>
                     <td><a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">@project.Name</a></td>

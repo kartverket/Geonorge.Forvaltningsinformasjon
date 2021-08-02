@@ -343,7 +343,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
 
                 entity.Property(e => e.Active).HasColumnName("Aktiv");
 
-                entity.HasQueryFilter(e => e.Active > 0);
+                entity.HasQueryFilter(e => e.Active > 0 && e.Id != 15);
             });
         }
     }

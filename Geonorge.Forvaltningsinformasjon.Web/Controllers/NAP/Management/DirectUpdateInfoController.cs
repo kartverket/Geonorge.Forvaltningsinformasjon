@@ -49,7 +49,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
                         using (var command2 = _dbContext.Database.GetDbConnection().CreateCommand())
                         {
-                            command2.CommandText = "SELECT COUNT(PlanInfo.Kommune_Kommunenr) AS GeosynchIntroducedCount FROM PlanInfo INNER JOIN Kommune ON PlanInfo.Kommune_Kommunenr = Kommune.Kommunenr INNER JOIN Fylke ON Kommune.Fylke_Fylkesnr = Fylke.Fylkesnr WHERE(PlanInfo.GeosynkInnfort IS NOT NULL) AND(Fylke.Fylkesnr = '" + county.Number + "')";
+                            command2.CommandText = "SELECT COUNT(PlanInfo.Kommune_Kommunenr) AS GeosynchIntroducedCount FROM PlanInfo INNER JOIN Kommune ON PlanInfo.Kommune_Kommunenr = Kommune.Kommunenr INNER JOIN Fylke ON Kommune.Fylke_Fylkesnr = Fylke.Fylkesnr WHERE(PlanInfo.GeosynkInnfort IS NOT NULL) AND (Kommune.Aktiv = 1) AND (Fylke.Fylkesnr = '" + county.Number + "')";
                             using (var result2 = command2.ExecuteReader()) 
                             {
                                 if (result2.HasRows) {

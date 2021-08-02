@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var delivery in Model.Project.Deliveries)
+                    @foreach (var delivery in Model.Project.Deliveries.OrderBy(o => o.Type).ThenBy(d => d.Name).ToList())
                     {
                         <tr>
                             <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>

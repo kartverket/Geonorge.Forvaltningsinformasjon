@@ -11,5 +11,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess
         IDataQualityClassifications DataQualityClassifications { get; }
         IDataQualityDistributions DataQualityDistributions { get; }
         IDataAgeDistributions DataAgeDistributions { get; }
+        IMappingProjects MappingProjects { get; }
+        IOffices Offices { get; }
     }
 }

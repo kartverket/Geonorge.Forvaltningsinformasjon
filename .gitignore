@@ -3,9 +3,11 @@
 #resharper
 .idea
 
+\.npmrc
+
 node_modules
 Geonorge.Forvaltningsinformasjon.Web/wwwroot/dist/
-Geonorge.Forvaltningsinformasjon.Web/appsettings.json
+Geonorge.Forvaltningsinformasjon.Web/appsettings.Development.json
 
 *.pubxml
 
@@ -170,3 +172,5 @@ $RECYCLE.BIN/
 .vs/
 
 web.config
+
+Geonorge.Forvaltningsinformasjon.Web/geojson/DirectUpdateInfo_0.geojson

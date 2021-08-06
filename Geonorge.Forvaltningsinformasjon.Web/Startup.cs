@@ -1,10 +1,12 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Infrastructure;
+using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -56,6 +58,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web
 
             services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+            services.AddDbContext<KosContext>(item => item.UseSqlServer(Configuration.GetConnectionString("KOS")));
+
             ConfigureProxy(applicationSettings);
         }
 

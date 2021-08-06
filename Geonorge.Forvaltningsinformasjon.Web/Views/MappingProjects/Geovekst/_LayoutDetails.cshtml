@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Geonorge.Forvaltningsinformasjon.Web.Models.Common
+@model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectDetailsViewModel
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = Model.Project.Name;
+    ViewData["tabs"] = new TabViewModel[] {
+        new TabViewModel() { Caption = "Prosjekter", Controller = "Projects", Aspect = false},
+    };
+}
+
+@section breadcrumb
+    {
+    <li><a href="/mapping-projects/geovekst/projects">@Localizer["Kartleggingsprosjekter Geovekst"]</a></li>
+    <li>@Localizer[Model.Project.Name]</li>
+}
+
+<partial name="~/Views/Common/Tab.cshtml" />
+
+<div>
+    @RenderSection("projectsSection")
+</div>

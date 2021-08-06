@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    @Html.Raw(File.ReadAllText("wwwroot/dist/partials/Footer_v2.html"))
+    <geonorge-footer language="no" version="@AppSettings.BuildVersionNumber" environment="@AppSettings.EnvironmentName.ToLower()" />
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
@@ -60,8 +60,10 @@
     searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.41/MainNavigation.js")"></script>
+ 
     <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/MainNavigation.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/GeonorgeFooter.js")"></script>
 </body>
 </html>

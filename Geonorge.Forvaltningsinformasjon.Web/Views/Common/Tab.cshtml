@@ -26,7 +26,7 @@
             }
             else
             {
-                <a href="@Url.Action("Index", tab.Controller, !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey) ?
+                <a href="@Url.Action("Index", tab.Controller, (ViewBag.ContextViewModel != null && !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey)) ?
                     new
                     {
                         id = ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey),

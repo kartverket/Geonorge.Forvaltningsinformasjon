@@ -1,6 +1,4 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Core.Abstractions.DataAccess;
-using Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities;
-using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities;
 
 namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
 {
@@ -20,6 +18,10 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
 
         public IDataAgeDistributions DataAgeDistributions { get; }
 
+        public IMappingProjects MappingProjects { get; }
+
+        public IOffices Offices { get; }
+
         public Repository(
             ICounties counties, 
             IMunicipalities municipalities, 
@@ -27,7 +29,9 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
             ITransactionDataStore transactionData,
             IDataQualityClassifications dataQualityClassifications,
             IDataAgeDistributions dataAgeDistributions,
-            IDataQualityDistributions dataQualityDistributions)
+            IDataQualityDistributions dataQualityDistributions,
+            IMappingProjects mappingProjects,
+            IOffices offices)
         {
             Counties = counties;
             Municipalities = municipalities;
@@ -36,6 +40,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess
             DataQualityClassifications = dataQualityClassifications;
             DataAgeDistributions = dataAgeDistributions;
             DataQualityDistributions = dataQualityDistributions;
+            MappingProjects = mappingProjects;
+            Offices = offices;
         }
     }
 }       

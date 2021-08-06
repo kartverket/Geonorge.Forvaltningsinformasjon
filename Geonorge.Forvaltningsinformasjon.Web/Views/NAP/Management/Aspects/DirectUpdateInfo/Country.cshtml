@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Plandata.CountiesViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "DirectUpdateInfo";
+}
+
+@section titleSection
+{
+    <div style="text-align:center">
+        <h4>@Localizer["Landsoversikt"]</h4>
+        <p>
+            @Localizer["Antall kommuner i Norge som geosynkroniserer plandata inn til NAP: "]<strong>@Model.GeosynchIntroducedCount</strong>
+        </p>
+    </div>
+}
+
+@section aspectsSection
+{
+    <div class="col-md-6 col-md-push-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Fylkesnr."]</th>
+                    <th>@Localizer["Fylke"]</th>
+                    <th>@Localizer["Kommuner som geosynkroniserer"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var county in Model.Counties)
+                {
+                    <tr>
+                        <td>@county.Number</td>
+                        <td>@county.Name</td>
+                        <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6 col-md-pull-6" style="top:0px;">
+        <div id="r_map" style="height:800px; width:500px; border: 1px thin black;"></div>
+    </div>
+}
+@section Scripts {
+    <script src="~/dist/js/jquery/jquery.js"></script>
+    <script src="~/dist/js/map/main.js"></script>
+    <script>
+        var params = [];
+        params.mapItems = [
+            {
+                'Title': 'Planregisterstatus',
+                'DistributionProtocol': 'OGC:WMS',
+                'GetCapabilitiesUrl': 'https://openwms.statkart.no/skwms1/wms.planregisterstatus?request=GetCapabilities&service=WMS',
+                'addLayers': ['Geosynkronisering']
+            }
+        ];
+
+        params.zoom = 2.8;
+        params.lat = 6739247.779064731;
+        params.lon = 453512.7636302792;
+        params.crs = 'EPSG:25833';
+
+        main.map(params, document.getElementById("r_map"));
+    </script>
+}

@@ -24,11 +24,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         {
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File(Configuration["LogFile"], rollingInterval: RollingInterval.Day)
+                .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
 
             try

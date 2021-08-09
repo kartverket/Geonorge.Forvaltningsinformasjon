@@ -9,7 +9,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public enum ActivityType
         {
             STARTED = 1,
-            COMPLETED = 16
+            COMPLETED = 15
         }
         public int Id { get; set; }
         public int ProjectId { get; set; }

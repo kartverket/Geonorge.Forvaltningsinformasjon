@@ -60,9 +60,9 @@
                         <tr>
                             <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>
                             <td>@FormatDate(delivery.Deadline)</td>
-                            <td>@delivery.ChangedDeadline</td>
-                            <td>@delivery.FinalDeadline</td>
-                            <td>@delivery.ReleaseDate</td>
+                            <td>@FormatDate(delivery.ChangedDeadline)</td>
+                            <td>@FormatDate(delivery.FinalDeadline)</td>
+                            <td>@FormatDate(delivery.ReleaseDate)</td>
                             <td></td>
                         </tr>
                     }

@@ -286,7 +286,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.Property(e => e.Deadline).HasColumnName("LeveransefristDato");
                 entity.Property(e => e.ChangedDeadline).HasColumnName("LeveransefristDatoEndret");
                 entity.Property(e => e.FinalDeadline).HasColumnName("LeveransefristDatoFaktisk");
-                entity.Property(e => e.ReleaseDate).HasColumnName("ForvDato");
+                entity.Property(e => e.ReleaseDate).HasColumnName("VarsleDato");
                 entity.Property(e => e.TypeId).HasColumnName("LeveranseType_Id");
                 entity.Property(e => e.ProjectId).HasColumnName("PRJProsjekt_Id");
 

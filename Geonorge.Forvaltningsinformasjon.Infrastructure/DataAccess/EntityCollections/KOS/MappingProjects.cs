@@ -99,8 +99,16 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 Office = mappingProjectKos.Office,
             };
 
+            var numberOfProjectDeliveries = mappingProjectKos.Deliveries.Count;
+
+            var numberOfProjectDeliveriesWithReleaseDate = mappingProjectKos.Deliveries.Where(r => !string.IsNullOrEmpty(r.ReleaseDate)).ToList().Count;
+
             // determine project status
-            if (mappingProjectKos.ProjectActivities.
+            if(numberOfProjectDeliveries > 0 && numberOfProjectDeliveries == numberOfProjectDeliveriesWithReleaseDate) 
+            {
+                mappingProject.State = MappingProjectState.Delivered;
+            }
+            else if (mappingProjectKos.ProjectActivities.
                 FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && a.Date != null) != default)
             {
                 mappingProject.State = MappingProjectState.Closed;

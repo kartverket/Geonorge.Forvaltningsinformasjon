@@ -72,6 +72,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 
             switch (state)
             {
+                case MappingProjectState.Delivered:
+                    name = "Levert";
+                    break;
                 case MappingProjectState.Ongoing:
                     name = "Pågående";
                     break;

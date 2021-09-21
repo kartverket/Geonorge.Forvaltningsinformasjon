@@ -293,7 +293,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                 entity.HasOne(e => e.Project).WithMany(mp => mp.Deliveries).HasForeignKey(e => e.ProjectId);
                 entity.HasOne(e => e.Type).WithMany(t => t.Deliveries).HasForeignKey(e => e.TypeId);
 
-                entity.HasQueryFilter(e => e.Active > 0);
+                entity.HasQueryFilter(e => e.Active > 0 && (e.TypeId == 1 || e.TypeId == 2 || e.TypeId == 8));
             });
 
             modelBuilder.Entity<MappingProjectDeliveryType>(entity =>

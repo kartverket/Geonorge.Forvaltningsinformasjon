@@ -47,6 +47,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 .Select(mp => Create(mp))
                 .Where(p => p.State != MappingProjectState.None);
 
+            projects = projects.Where(d => d.Deliveries.Any());
+
             if (municipalityNumber != null)
             {
                 projects = projects.Where(p => p.Municipalities.FirstOrDefault(m => m.Number == municipalityNumber) != default);

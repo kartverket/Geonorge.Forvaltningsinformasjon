@@ -5,7 +5,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Abstractions.Entities.Enums
     {
         None,
         Ongoing,
-        Closed,
-        Delivered
+        Delivered,
+        Closed
     }
 }

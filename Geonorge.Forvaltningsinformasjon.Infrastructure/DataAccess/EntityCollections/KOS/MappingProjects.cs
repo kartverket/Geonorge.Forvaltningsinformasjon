@@ -106,14 +106,14 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
             var numberOfProjectDeliveriesWithReleaseDate = mappingProjectKos.Deliveries.Where(r => !string.IsNullOrEmpty(r.ReleaseDate)).ToList().Count;
 
             // determine project status
-            if(numberOfProjectDeliveries > 0 && numberOfProjectDeliveries == numberOfProjectDeliveriesWithReleaseDate) 
-            {
-                mappingProject.State = MappingProjectState.Delivered;
-            }
-            else if (mappingProjectKos.ProjectActivities.
+            if (mappingProjectKos.ProjectActivities.
                 FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && a.Date != null) != default)
             {
                 mappingProject.State = MappingProjectState.Closed;
+            }
+            else if (numberOfProjectDeliveries > 0 && numberOfProjectDeliveries == numberOfProjectDeliveriesWithReleaseDate)
+            {
+                mappingProject.State = MappingProjectState.Delivered;
             }
             else if (mappingProjectKos.ProjectActivities.
                 FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.STARTED && a.Date != null) != default)

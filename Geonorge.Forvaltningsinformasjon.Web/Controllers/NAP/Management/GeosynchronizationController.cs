@@ -162,20 +162,20 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                     }
                 }
 
-                if (statuses.ContainsKey(2))
+                if (statuses.ContainsKey(4))
                 {
-                    geosynchInfo.Status = "green";
-                    geosynchInfo.StatusDescription = statuses[2];
+                    geosynchInfo.Status = "red";
+                    geosynchInfo.StatusDescription = statuses[4];
                 }
                 else if (statuses.ContainsKey(3))
                 {
                     geosynchInfo.Status = "yellow";
                     geosynchInfo.StatusDescription = statuses[3];
                 }
-                else if (statuses.ContainsKey(4)) 
+                else if (statuses.ContainsKey(2))
                 {
-                    geosynchInfo.Status = "red";
-                    geosynchInfo.StatusDescription = statuses[4];
+                    geosynchInfo.Status = "green";
+                    geosynchInfo.StatusDescription = statuses[2];
                 }
                 else if(statuses.ContainsKey(1))
                 {

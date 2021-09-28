@@ -201,11 +201,48 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 Name = municipality.Name
             };
 
+            _dbContext.Database.OpenConnection();
+
+            using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "SELECT [PlanlagtInnforing],[DirekteoppdateringInfort] FROM [KOS_Prod_Replika].[dbo].[SentralFKB] where Kommune_Kommunenr = @kommunenr";
+                command.Parameters.Add(new SqlParameter("@kommunenr", id));
+                using (var result = command.ExecuteReader())
+                {
+                    if (result.HasRows)
+                    {
+                        result.Read();
+                        var planlagtInnforing = !result.IsDBNull(0) ? result.GetString(0) :"";
+                        var direkteoppdateringInfort = !result.IsDBNull(1) ? result.GetString(1) : "";
+
+                        if (!string.IsNullOrEmpty(direkteoppdateringInfort))
+                            model.StatusMessage = "Direkteoppdatering i Sentral FKB innført dato: " + FormatDate(direkteoppdateringInfort);
+                        else if (!string.IsNullOrEmpty(direkteoppdateringInfort))
+                            model.StatusMessage = "Direkteoppdatering i Sentral FKB planlagt innført dato: " + FormatDate(planlagtInnforing);
+                        else
+                            model.StatusMessage = "Ikke innført direkteoppdatering i Sentral FKB";
+
+                    }
+                }
+            }
+
+
 
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
 
 
             return View("Views/NAP/Management/Aspects/Geosynchronization/Municipality.cshtml", model);
+        }
+
+        private string FormatDate(string date)
+        {
+            if (!string.IsNullOrEmpty(date) && date.Length == 8)
+            {
+                var dateString = date.Substring(6, 2) + "." + date.Substring(4, 2) + "." + date.Substring(0, 4);
+                date = dateString;
+            }
+
+            return date;
         }
 
     }

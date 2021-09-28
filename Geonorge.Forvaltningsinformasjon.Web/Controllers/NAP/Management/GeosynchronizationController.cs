@@ -124,7 +124,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT DISTINCT FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type, Kommune.Kommunenavn FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr LEFT OUTER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE Kommune_Kommunenr LIKE '50%' AND Kommune.Aktiv = 1 AND[FDVProsjekt].Aktiv = 1 AND FDVDatasett.Id IN( SELECT MAX(FDVDatasett.id) FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id  GROUP BY FDVProsjekt.Kommune_Kommunenr) group by FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type,Kommune.Kommunenavn ORDER BY 1";
+                command.CommandText = "SELECT DISTINCT FDVProsjekt.Kommune_Kommunenr, Kommune.Kommunenavn, FDVDatasettForvaltningstype.Type FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr LEFT OUTER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE Kommune_Kommunenr LIKE '50%' AND Kommune.Aktiv = 1 AND[FDVProsjekt].Aktiv = 1 AND FDVDatasett.Id IN( SELECT MAX(FDVDatasett.id) FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id  GROUP BY FDVProsjekt.Kommune_Kommunenr) group by FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type,Kommune.Kommunenavn ORDER BY 1";
                 command.Parameters.Add(new SqlParameter("@fylkesnr", "%" + id));
                 using (var result = command.ExecuteReader())
                 {
@@ -133,6 +133,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                     {
                         GeosynchInfo geosynchInfo = new GeosynchInfo();
                         geosynchInfo.MunicipalityNumber = result.GetString(0);
+                        geosynchInfo.MunicipalityName = result.GetString(1);
+                        geosynchInfo.UpdateType = result.GetString(2);
                         model.Municipalities.Add(geosynchInfo);
                     }
                 }

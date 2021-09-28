@@ -193,7 +193,19 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
         [HttpGet("municipality")]
         public IActionResult Municipality([FromQuery] int id)
         {
-            return View("Views/NAP/Management/Aspects/Geosynchronization/Municipality.cshtml");
+            IMunicipality municipality = _municipalityService.Get(id);
+
+            MunicipalityViewModel model = new MunicipalityViewModel()
+            {
+                //DataSets = _dataSetService.GetByMunicipality(id),
+                Name = municipality.Name
+            };
+
+
+            ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, false));
+
+
+            return View("Views/NAP/Management/Aspects/Geosynchronization/Municipality.cshtml", model);
         }
 
     }

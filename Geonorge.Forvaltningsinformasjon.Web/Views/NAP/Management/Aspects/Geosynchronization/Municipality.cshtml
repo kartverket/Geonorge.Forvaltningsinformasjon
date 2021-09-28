@@ -2,7 +2,7 @@
 
 @inject IViewLocalizer Localizer
 
-@model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.DirectUpdateInfo.MunicipalityViewModel
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Plandata.MunicipalityViewModel
 
 @{
     Layout = "../_Layout.cshtml";
@@ -13,7 +13,7 @@
 {
     <div style="text-align:center">
         <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
-        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+        @*<p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>*@
     </div>
 }
 
@@ -25,20 +25,20 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>@Localizer["Datasett"]</th>
+                    @*<th>@Localizer["Datasett"]</th>
                     <th>@Localizer["Forvaltningstype"]</th>
-                    <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
+                    <th>@Localizer["Datasett oppdatert i Geonorge"]</th>*@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var dataSet in Model.DataSets)
+                @*@foreach (var dataSet in Model.DataSets)
                 {
                     <tr>
                         <td>@dataSet.Name</td>
                         <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
                         <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") : dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
                     </tr>
-                }
+                }*@
             </tbody>
         </table>
     </div>

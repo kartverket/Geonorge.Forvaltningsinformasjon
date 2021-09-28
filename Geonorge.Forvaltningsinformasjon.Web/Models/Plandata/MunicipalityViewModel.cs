@@ -12,9 +12,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.Plandata
     public class MunicipalityViewModel
     {
         public string Name { get; set; }
-        public List<IDataSet> DataSets { get; set; }
-        public string Caption { get; set; }
-        public DateTime? DateTime { get; set; }
+        public string StatusMessage { get; set; }
+        //public List<IDataSet> DataSets { get; set; }
+        //public string Caption { get; set; }
+        //public DateTime? DateTime { get; set; }
 
     }
 }

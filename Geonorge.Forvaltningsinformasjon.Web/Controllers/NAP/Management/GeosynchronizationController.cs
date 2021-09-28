@@ -14,6 +14,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
+using System;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 {
@@ -124,8 +125,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT DISTINCT FDVProsjekt.Kommune_Kommunenr, Kommune.Kommunenavn, FDVDatasettForvaltningstype.Type FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr LEFT OUTER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE Kommune_Kommunenr LIKE '50%' AND Kommune.Aktiv = 1 AND[FDVProsjekt].Aktiv = 1 AND FDVDatasett.Id IN( SELECT MAX(FDVDatasett.id) FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id  GROUP BY FDVProsjekt.Kommune_Kommunenr) group by FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type,Kommune.Kommunenavn ORDER BY 1";
-                command.Parameters.Add(new SqlParameter("@fylkesnr", "%" + id));
+                command.CommandText = "SELECT DISTINCT FDVProsjekt.Kommune_Kommunenr, Kommune.Kommunenavn, FDVDatasettForvaltningstype.Type FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr LEFT OUTER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE Kommune_Kommunenr LIKE @fylkesnr AND Kommune.Aktiv = 1 AND[FDVProsjekt].Aktiv = 1 AND FDVDatasett.Id IN( SELECT MAX(FDVDatasett.id) FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id  GROUP BY FDVProsjekt.Kommune_Kommunenr) group by FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type,Kommune.Kommunenavn ORDER BY 1";
+                command.Parameters.Add(new SqlParameter("@fylkesnr",  id + "%"));
                 using (var result = command.ExecuteReader())
                 {
                     model.Municipalities = new List<GeosynchInfo>();
@@ -135,6 +136,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                         geosynchInfo.MunicipalityNumber = result.GetString(0);
                         geosynchInfo.MunicipalityName = result.GetString(1);
                         geosynchInfo.UpdateType = result.GetString(2);
+                        GetStatus(ref geosynchInfo);
                         model.Municipalities.Add(geosynchInfo);
                     }
                 }
@@ -144,6 +146,48 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             ViewBag.ContextViewModel = _contextViewModelHelper.Create(_contextViewModelHelper.Id2Key(id, true));
 
             return View("Views/NAP/Management/Aspects/Geosynchronization/County.cshtml", model);
+        }
+
+        private void GetStatus(ref GeosynchInfo geosynchInfo)
+        {
+            using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                Dictionary<int, string> statuses = new Dictionary<int, string>();
+                command.CommandText = "SELECT DISTINCT PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse FROM PlanDatasett INNER JOIN PlanDatasettStatus ON PlanDatasett.PlanDatasettStatus_Id = PlanDatasettStatus.Id WHERE(PlanDatasett.Kommune_Kommunenr = "+ geosynchInfo.MunicipalityNumber + ")";
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        statuses.Add(result.GetInt32(0), result.GetString(1));
+                    }
+                }
+
+                if (statuses.ContainsKey(4)) 
+                {
+                    geosynchInfo.Status = "red";
+                    geosynchInfo.StatusDescription = statuses[4];
+                }
+                else if (statuses.ContainsKey(3))
+                {
+                    geosynchInfo.Status = "yellow";
+                    geosynchInfo.StatusDescription = statuses[3];
+                }
+                else if (statuses.ContainsKey(2))
+                {
+                    geosynchInfo.Status = "green";
+                    geosynchInfo.StatusDescription = statuses[2];
+                }
+                else if(statuses.ContainsKey(1))
+                {
+                    geosynchInfo.Status = "";
+                    geosynchInfo.StatusDescription = statuses[1];
+                }
+                else if (statuses.ContainsKey(5))
+                {
+                    geosynchInfo.Status = "";
+                    geosynchInfo.StatusDescription = statuses[5];
+                }
+            }
         }
 
         [HttpGet("municipality")]

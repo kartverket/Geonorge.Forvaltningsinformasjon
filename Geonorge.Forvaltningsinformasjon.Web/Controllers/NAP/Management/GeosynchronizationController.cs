@@ -136,6 +136,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                         geosynchInfo.MunicipalityNumber = result.GetString(0);
                         geosynchInfo.MunicipalityName = result.GetString(1);
                         geosynchInfo.UpdateType = result.GetString(2);
+                        if (geosynchInfo.UpdateType == "SOSI originaldata")
+                            geosynchInfo.UpdateType = "Periodisk ajourhold";
                         GetStatus(ref geosynchInfo);
                         model.Municipalities.Add(geosynchInfo);
                     }

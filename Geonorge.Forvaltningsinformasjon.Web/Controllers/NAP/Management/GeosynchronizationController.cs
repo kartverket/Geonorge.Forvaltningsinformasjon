@@ -199,7 +199,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
             MunicipalityViewModel model = new MunicipalityViewModel()
             {
-                //DataSets = _dataSetService.GetByMunicipality(id),
+                DataSets = GetDataSets(id),
                 Name = municipality.Name
             };
 
@@ -234,6 +234,57 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
 
             return View("Views/NAP/Management/Aspects/Geosynchronization/Municipality.cshtml", model);
+        }
+
+        public List<DataSet> GetDataSets(int id)
+        {
+            var dataSets = new List<DataSet>();
+
+            _dbContext.Database.OpenConnection();
+
+            using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "SELECT Datasett.Navn, FDVDatasettForvaltningstype.Type, PlanDatasett.SisteLeveranseKommune,PlanDatasett.FilGenerertGeonorge, PlanDatasett.OppdateringStatusKommentar,PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr INNER JOIN Datasett ON FDVDatasett.Datasett_Id = Datasett.Id INNER JOIN  PlanDatasett ON Datasett.Id = PlanDatasett.Datasett_Id INNER JOIN PlanDatasettStatus ON PlanDatasett.PlanDatasettStatus_Id = PlanDatasettStatus.Id LEFT OUTER JOIN  FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE PlanDatasett.SisteLeveranseKommune IS NOT NULL AND  (FDVProsjekt.Kommune_Kommunenr = @kommune) AND PlanDatasett.Kommune_Kommunenr = @kommune AND (Kommune.Aktiv = 1) AND (FDVProsjekt.Aktiv = 1) AND (Datasett.Aktiv = 1) AND (Datasett.Type = 'Plandata') AND (FDVDatasett.Id IN (SELECT MAX(FDVDatasett_1.Id) AS Expr1 FROM FDVDatasett AS FDVDatasett_1 INNER JOIN FDVProsjekt AS FDVProsjekt_1 ON FDVDatasett_1.FDVProsjekt_Id = FDVProsjekt_1.Id GROUP BY FDVDatasett_1.Id)) GROUP BY FDVDatasettForvaltningstype.Type, Datasett.Type, PlanDatasett.SisteLeveranseKommune, Datasett.Navn, PlanDatasett.FilGenerertGeonorge, PlanDatasett.OppdateringStatusKommentar, PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse ORDER BY PlanDatasett.SisteLeveranseKommune DESC";
+                command.Parameters.Add(new SqlParameter("@kommune", id));
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        var dataset = new DataSet();
+                        dataset.Name = result.GetString(0);
+                        dataset.UpdateTypeName = result.GetString(1);
+                        if (dataset.UpdateTypeName == "SOSI originaldata")
+                            dataset.UpdateTypeName = "Periodisk ajourhold";
+                        DateTime? lastDelivery = null;
+                        if (!result.IsDBNull(2))
+                            lastDelivery = result.GetDateTime(2);
+                        dataset.LastDeliveryFromMunicipality = lastDelivery;
+
+                        DateTime? deliveredGeonorge = null;
+                        if (!result.IsDBNull(3))
+                            deliveredGeonorge = result.GetDateTime(3);
+                        dataset.FileGeneratedGeonorge = deliveredGeonorge;
+
+                        dataset.Comment = !result.IsDBNull(4) ?result.GetString(4) : "";
+
+                        var status = !result.IsDBNull(5) ? result.GetInt32(5) : 1;
+                        dataset.StatusDescription = !result.IsDBNull(6) ? result.GetString(6) : "";
+
+                        if (status == 4)
+                            dataset.Status = "red";
+                        else if(status == 3)
+                            dataset.Status = "yellow";
+                        else if (status == 2)
+                            dataset.Status = "green";
+                        else if (status == 1 || status == 5)
+                            dataset.Status = "";                  
+
+                        dataSets.Add(dataset);
+                    }
+                }
+            }
+
+            return dataSets;
         }
 
         private string FormatDate(string date)

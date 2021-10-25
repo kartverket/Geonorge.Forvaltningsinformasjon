@@ -207,22 +207,19 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT [PlanlagtInnforing],[DirekteoppdateringInfort] FROM [KOS_Prod_Replika].[dbo].[SentralFKB] where Kommune_Kommunenr = @kommunenr";
+                command.CommandText = "SELECT [GeosynkInnfort] FROM [KOS_Prod_Replika].[dbo].[PlanInfo] where [Kommune_Kommunenr] = @kommunenr";
                 command.Parameters.Add(new SqlParameter("@kommunenr", id));
                 using (var result = command.ExecuteReader())
                 {
                     if (result.HasRows)
                     {
                         result.Read();
-                        var planlagtInnforing = !result.IsDBNull(0) ? result.GetString(0) :"";
-                        var direkteoppdateringInfort = !result.IsDBNull(1) ? result.GetString(1) : "";
+                        var geosynkInnfort = !result.IsDBNull(0) ? result.GetString(0) :"";
 
-                        if (!string.IsNullOrEmpty(direkteoppdateringInfort))
-                            model.StatusMessage = "Direkteoppdatering i Sentral FKB innført dato: " + FormatDate(direkteoppdateringInfort);
-                        else if (!string.IsNullOrEmpty(direkteoppdateringInfort))
-                            model.StatusMessage = "Direkteoppdatering i Sentral FKB planlagt innført dato: " + FormatDate(planlagtInnforing);
+                        if (!string.IsNullOrEmpty(geosynkInnfort))
+                            model.StatusMessage = "Geosynkronisering av plandata innført: " + FormatDate(geosynkInnfort);
                         else
-                            model.StatusMessage = "Ikke innført direkteoppdatering i Sentral FKB";
+                            model.StatusMessage = "Geosynkronisering av plandata ikke innført";
 
                     }
                 }

@@ -26,7 +26,7 @@
                         <th>@Localizer["Prosjekt"]</th>
                         <th>@Localizer["Kartkontor"]</th>
                         <th>@Localizer["Kommune"]</th>
-                        <th>@Localizer["Gjennomføringsår"]</th>
+                        <th>@Localizer["Datafangstår"]</th>
                         <th>@Localizer["Prosjektstatus"]</th>
                         <th>@Localizer["Leveransetype"]</th>
                     </tr>
@@ -37,7 +37,7 @@
                         <td>@Model.Project.OfficeName</td>
                         <td title="@Model.Project.MunicipalityToolTip">@Html.Raw(Model.Project.MunicipalityNames)</td>
                         <td>@Model.Project.Year</td>
-                        <td>@Model.Project.State</td>
+                        <td title="@Model.Project.StateToolTip">@Model.Project.State</td>
                         <td>@Model.Project.DeliveryTypes</td>
                     </tr>
                 </tbody>
@@ -51,7 +51,7 @@
                         <th>@Localizer["Leveransefrist"]</th>
                         <th>@Localizer["Ny avtalt dato"]</th>
                         <th>@Localizer["Faktisk levert"]</th>
-                        <th>@Localizer["Data lagt inn i forvaltningssystem"]</th>
+                        <th>@Localizer["Data tilgjengeliggjort"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,10 +59,10 @@
                     {
                         <tr>
                             <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>
-                            <td>@delivery.Deadline</td>
-                            <td>@delivery.ChangedDeadline</td>
-                            <td>@delivery.FinalDeadline</td>
-                            <td>@delivery.ReleaseDate</td>
+                            <td>@FormatDate(delivery.Deadline)</td>
+                            <td>@FormatDate(delivery.ChangedDeadline)</td>
+                            <td>@FormatDate(delivery.FinalDeadline)</td>
+                            <td>@FormatDate(delivery.ReleaseDate)</td>
                             <td></td>
                         </tr>
                     }
@@ -70,4 +70,18 @@
             </table>
         </div>
     </div>
+    <!--Get /mapping-projects/geovekst/projects/georef?name=@(Model.Project.Name) -->
+}
+
+@functions {
+    private string FormatDate(string date)
+    {
+        if(!string.IsNullOrEmpty(date) && date.Length == 8)
+        {
+            var dateString = date.Substring(0, 4) + "-" + date.Substring(4, 2) + "-" + date.Substring(6, 2);
+            date = dateString;
+        }
+
+        return date;
+    }
 }

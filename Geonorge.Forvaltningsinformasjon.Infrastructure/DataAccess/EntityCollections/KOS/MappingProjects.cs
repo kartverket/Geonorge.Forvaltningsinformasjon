@@ -47,6 +47,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 .Select(mp => Create(mp))
                 .Where(p => p.State != MappingProjectState.None);
 
+            projects = projects.Where(d => d.Deliveries.Any());
+
             if (municipalityNumber != null)
             {
                 projects = projects.Where(p => p.Municipalities.FirstOrDefault(m => m.Number == municipalityNumber) != default);
@@ -99,11 +101,19 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 Office = mappingProjectKos.Office,
             };
 
+            var numberOfProjectDeliveries = mappingProjectKos.Deliveries.Count;
+
+            var numberOfProjectDeliveriesWithReleaseDate = mappingProjectKos.Deliveries.Where(r => !string.IsNullOrEmpty(r.ReleaseDate)).ToList().Count;
+
             // determine project status
             if (mappingProjectKos.ProjectActivities.
                 FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && a.Date != null) != default)
             {
                 mappingProject.State = MappingProjectState.Closed;
+            }
+            else if (numberOfProjectDeliveries > 0 && numberOfProjectDeliveries == numberOfProjectDeliveriesWithReleaseDate)
+            {
+                mappingProject.State = MappingProjectState.Delivered;
             }
             else if (mappingProjectKos.ProjectActivities.
                 FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.STARTED && a.Date != null) != default)

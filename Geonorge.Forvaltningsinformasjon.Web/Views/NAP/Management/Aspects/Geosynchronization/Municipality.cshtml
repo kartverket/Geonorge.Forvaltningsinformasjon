@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Plandata.MunicipalityViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "Geosynchronization";
+}
+
+@section titleSection
+{
+    <div style="text-align:center">
+        <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
+        <p>@Model.StatusMessage</p>
+    </div>
+}
+
+@section aspectsSection
+    {
+    <style>
+        .green {
+            background: green;
+        }
+
+        .yellow {
+            background: yellow;
+        }
+
+        .red {
+            background: red;
+        }
+    </style>
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Datasett"]</th>
+                    <th>@Localizer["Forvaltningstype"]</th>
+                    <th title="Dato for sist gang endringer ble mottatt/utført i datasettet.">@Localizer["Siste leveranse fra kommune"]</th>
+                    <th title="Sist dato det ble registrert endring i datasettet og fil ble generert på Geonorge.no">@Localizer["Fil generert på GeoNorge"]</th>
+                    <th>@Localizer["Oppdateringsstatus"]</th>
+                    <th>@Localizer["Kommentar"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dataSet in Model.DataSets)
+                {
+                    <tr>
+                        <td>@dataSet.Name</td>
+                        <td>@dataSet.UpdateTypeName</td>
+                        <td>@(dataSet.LastDeliveryFromMunicipality.HasValue ? dataSet.LastDeliveryFromMunicipality.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                        <td>@(dataSet.FileGeneratedGeonorge.HasValue ? dataSet.FileGeneratedGeonorge.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                        <td title="@dataSet.StatusDescription" class="@dataSet.Status"></td>
+                        <td>@dataSet.Comment</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

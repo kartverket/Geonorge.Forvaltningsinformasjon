@@ -72,6 +72,9 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 
             switch (state)
             {
+                case MappingProjectState.Delivered:
+                    name = "Levert";
+                    break;
                 case MappingProjectState.Ongoing:
                     name = "Pågående";
                     break;
@@ -115,6 +118,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
         public string MunicipalityToolTip { get; }
         public string DeliveryTypes { get; }
         public string State { get; }
+        public string StateToolTip { get; }
 
         public List<IMappingProjectDelivery> Deliveries { get; }
 
@@ -168,6 +172,29 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 
             // state
             State = GetStateName(project.State);
+            StateToolTip = GetStateToolTip(project.State);
+        }
+
+        private static string GetStateToolTip(MappingProjectState state)
+        {
+            string name;
+
+            switch (state)
+            {
+                case MappingProjectState.Delivered:
+                    name = "Alle data er levert og tilgjengeliggjort, men prosjektet er ikke formelt avsluttet.";
+                    break;
+                case MappingProjectState.Ongoing:
+                    name = "Prosjektet er pågående.";
+                    break;
+                case MappingProjectState.Closed:
+                    name = "Prosjektet er avsluttet.";
+                    break;
+                default:
+                    name = "";
+                    break;
+            }
+            return name;
         }
     }
 }

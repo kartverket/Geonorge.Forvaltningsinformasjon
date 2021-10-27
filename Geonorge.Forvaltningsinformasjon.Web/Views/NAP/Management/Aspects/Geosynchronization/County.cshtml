@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Plandata.MunicipalitiesViewModel
+
+@{
+    Layout = "../_Layout.cshtml";
+    ViewData["currentTab"] = "Geosynchronization";
+}
+
+@section titleSection
+{
+    <div style="text-align:center">
+        <p>@Localizer["Antall kommuner i " + Model.CountyName + " som geosynkroniserer plandata inn til NAP: " + Model.CountGeosynch + "/" + Model.Count + ""]</p>
+    </div>
+}
+
+
+@section aspectsSection
+    {
+    <style>
+        .green {
+            background: green;
+        }
+        .yellow {
+            background: yellow;
+        }
+        .red {
+            background: red;
+        }
+    </style>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kommunenr.</th>
+                    <th>Kommune</th>
+                    <th>Oppdateringsregime</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Municipalities)
+                {
+                <tr>
+                    <td>@item.MunicipalityNumber</td>
+                    <td><a href="/nap/info/municipality?id=@item.MunicipalityNumber">@item.MunicipalityName</a></td>
+                    <td>@item.UpdateType</td>
+                    <td title="@item.StatusDescription" class="@item.Status"></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

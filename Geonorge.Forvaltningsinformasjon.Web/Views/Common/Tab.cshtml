@@ -24,6 +24,10 @@
                     <a href="@Url.Action("Municipality", tab.Controller, new { id = ContextHelper.Key2Id(ViewBag.ContextViewModel.SelectedKey) })">@Localizer[tab.Caption]</a>
                 }
             }
+            else if (tab.Controller == "Projects") 
+            {
+                <a href="/mapping-projects/geovekst/projects">@Localizer[tab.Caption]</a>
+            }
             else
             {
                 <a href="@Url.Action("Index", tab.Controller, (ViewBag.ContextViewModel != null && !string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey)) ?

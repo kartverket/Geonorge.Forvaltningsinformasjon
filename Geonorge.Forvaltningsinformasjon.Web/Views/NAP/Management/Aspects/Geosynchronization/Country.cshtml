@@ -6,7 +6,7 @@
 
 @{
     Layout = "../_Layout.cshtml";
-    ViewData["currentTab"] = "DirectUpdateInfo";
+    ViewData["currentTab"] = "Geosynchronization";
 }
 
 @section titleSection
@@ -35,7 +35,7 @@
                 {
                     <tr>
                         <td>@county.Number</td>
-                        <td>@county.Name</td>
+                        <td><a href="/nap/info/county?id=@county.Number">@county.Name</a></td>
                         <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
                     </tr>
                 }

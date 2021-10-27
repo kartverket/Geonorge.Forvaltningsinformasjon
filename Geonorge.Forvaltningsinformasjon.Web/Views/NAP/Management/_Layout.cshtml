@@ -7,13 +7,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = Localizer["Dataflyt for Nasjonal Areaplandatabase (NAP)"];
     ViewData["tabs"] = new TabViewModel[] {
-        new TabViewModel() { Caption = "Oppdateringsregime", Controller = "DirectUpdateInfo", Aspect = true}
+        new TabViewModel() { Caption = "Oppdateringsregime", Controller = "Geosynchronization", Aspect = true}
     };
 }
 
 @section breadcrumb
     {
-    <li>@Localizer["Plandata"]</li>
+    <li><a href="/nap/info">@Localizer["Plandata"]</a></li>
     <li>@Localizer["Dataflyt NAP"]</li>
 }
 

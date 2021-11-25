@@ -31,6 +31,9 @@
         .red {
             background: red;
         }
+        .code {
+            white-space: pre;
+        }
     </style>
     <div class="col-md-12">
         <table class="table">
@@ -53,7 +56,7 @@
                         <td>@(dataSet.LastDeliveryFromMunicipality.HasValue ? dataSet.LastDeliveryFromMunicipality.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
                         <td>@(dataSet.FileGeneratedGeonorge.HasValue ? dataSet.FileGeneratedGeonorge.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
                         <td title="@dataSet.StatusDescription" class="@dataSet.Status"></td>
-                        <td>@dataSet.Comment</td>
+                        <td><span class="code">@dataSet.Comment</span></td>
                     </tr>
                 }
             </tbody>

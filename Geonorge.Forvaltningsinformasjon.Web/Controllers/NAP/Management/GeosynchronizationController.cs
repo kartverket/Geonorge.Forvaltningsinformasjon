@@ -93,6 +93,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 CountyName = county.Name
             };
 
+            string idSql = id.ToString();
+            if(idSql.Length == 1)
+                idSql = "0" + idSql;
+
             _dbContext.Database.OpenConnection();
 
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
@@ -126,7 +130,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = "SELECT DISTINCT FDVProsjekt.Kommune_Kommunenr, Kommune.Kommunenavn, FDVDatasettForvaltningstype.Type FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr INNER JOIN Datasett ON FDVDatasett.Datasett_Id = Datasett.Id LEFT OUTER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE Datasett.Navn = 'Reguleringsplan - vedtatt' and(FDVProsjekt.Kommune_Kommunenr LIKE @fylkesnr) AND(Kommune.Aktiv = 1) AND(FDVProsjekt.Aktiv = 1) and FDVProsjekt.Ar = (select max(Ar) from FDVProsjekt where Kommune_Kommunenr LIKE @fylkesnr ) GROUP BY FDVProsjekt.Ar,FDVProsjekt.Kommune_Kommunenr, FDVDatasettForvaltningstype.Type, Kommune.Kommunenavn ORDER BY FDVProsjekt.Kommune_Kommunenr";
-                command.Parameters.Add(new SqlParameter("@fylkesnr",  id + "%"));
+                command.Parameters.Add(new SqlParameter("@fylkesnr", idSql + "%"));
                 using (var result = command.ExecuteReader())
                 {
                     model.Municipalities = new List<GeosynchInfo>();

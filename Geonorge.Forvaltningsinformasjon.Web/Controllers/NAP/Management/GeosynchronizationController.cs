@@ -10,7 +10,6 @@ using Geonorge.Forvaltningsinformasjon.Web.Models.Common;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Plandata;
 using Microsoft.AspNetCore.Mvc;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;

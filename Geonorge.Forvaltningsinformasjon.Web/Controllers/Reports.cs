@@ -8,7 +8,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 {
     public class Reports : Controller
     {
-        public IActionResult Index()
+        [HttpGet("/reports/{*htmlFile}")]
+        public IActionResult Index(string htmlFile)
         {
             return View();
         }

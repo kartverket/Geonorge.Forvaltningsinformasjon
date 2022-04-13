@@ -184,12 +184,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 }
                 else if(statuses.ContainsKey(1))
                 {
-                    geosynchInfo.Status = "";
+                    geosynchInfo.Status = "grey";
                     geosynchInfo.StatusDescription = statuses[1];
                 }
                 else if (statuses.ContainsKey(5))
                 {
-                    geosynchInfo.Status = "";
+                    geosynchInfo.Status = "grey";
                     geosynchInfo.StatusDescription = statuses[5];
                 }
             }

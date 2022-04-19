@@ -277,7 +277,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                         else if (status == 2)
                             dataset.Status = "green";
                         else if (status == 1 || status == 5)
-                            dataset.Status = "";                  
+                            dataset.Status = "grey";                  
 
                         dataSets.Add(dataset);
                     }

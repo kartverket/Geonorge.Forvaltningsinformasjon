@@ -59,7 +59,7 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
                 if (dataSets.Count > 0)
                 {
-                    IDataSet dataSet = dataSets.First(d => string.Compare(d.Name, "FKB-Bygning", true) == 0);
+                    IDataSet dataSet = dataSets.FirstOrDefault(d => string.Compare(d.Name, "FKB-Bygning", true) == 0);
 
                     if (dataSet != null && string.Compare(dataSet.UpdateTypeName, "Geosynkronisering", true) == 0)
                     {

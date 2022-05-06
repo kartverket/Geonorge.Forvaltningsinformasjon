@@ -56,3 +56,9 @@ button.ol-zoom-in:hover, button.ol-zoom-out:hover {
 .view-header {
     background-color: #f8f8f7;
 }
+
+.square {
+    height: 14px;
+    width: 14px;
+    background-color: #7EEE7E;
+}

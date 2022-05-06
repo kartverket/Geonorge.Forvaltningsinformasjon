@@ -43,9 +43,19 @@
         </table>
     </div>
     <div class="col-md-6 col-md-pull-6" style="top:0px;">
-        <div id="r_map" style="height:800px; width:500px; border: 1px thin black;"></div>
+        <div id="r_map" style="height:600px; width:500px; border: 1px thin black;"></div>
+        <table>
+          <tr>
+            <td><div class="square"></div></td>
+            <td>&nbsp;</td>
+            <td>
+               Geosynkroniseringskommune
+            </td>
+          </tr>
+        </table>
     </div>
 }
+
 @section Scripts {
     <script src="~/dist/js/jquery/jquery.js"></script>
     <script src="~/dist/js/map/main.js"></script>
@@ -61,8 +71,8 @@
         ];
 
         params.zoom = 2.8;
-        params.lat = 6739247.779064731;
-        params.lon = 453512.7636302792;
+        params.lat = 7162299.5988298645;
+        params.lon = 537500.9925542421;
         params.crs = 'EPSG:25833';
 
         main.map(params, document.getElementById("r_map"));

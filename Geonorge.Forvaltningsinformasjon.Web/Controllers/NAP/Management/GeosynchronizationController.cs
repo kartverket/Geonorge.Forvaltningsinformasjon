@@ -184,12 +184,12 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 }
                 else if(statuses.ContainsKey(1))
                 {
-                    geosynchInfo.Status = "";
+                    geosynchInfo.Status = "grey";
                     geosynchInfo.StatusDescription = statuses[1];
                 }
                 else if (statuses.ContainsKey(5))
                 {
-                    geosynchInfo.Status = "";
+                    geosynchInfo.Status = "grey";
                     geosynchInfo.StatusDescription = statuses[5];
                 }
             }
@@ -244,7 +244,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
             using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT Datasett.Navn, FDVDatasettForvaltningstype.Type, PlanDatasett.SisteLeveranseKommune,PlanDatasett.FilGenerertGeonorge, PlanDatasett.OppdateringStatusKommentar,PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse FROM FDVDatasett INNER JOIN FDVProsjekt ON FDVDatasett.FDVProsjekt_Id = FDVProsjekt.Id INNER JOIN Kommune ON FDVProsjekt.Kommune_Kommunenr = Kommune.Kommunenr INNER JOIN Datasett ON FDVDatasett.Datasett_Id = Datasett.Id INNER JOIN  PlanDatasett ON Datasett.Id = PlanDatasett.Datasett_Id INNER JOIN PlanDatasettStatus ON PlanDatasett.PlanDatasettStatus_Id = PlanDatasettStatus.Id LEFT OUTER JOIN  FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id WHERE PlanDatasett.SisteLeveranseKommune IS NOT NULL AND  (FDVProsjekt.Kommune_Kommunenr = @kommune) AND PlanDatasett.Kommune_Kommunenr = @kommune AND (Kommune.Aktiv = 1) AND (FDVProsjekt.Aktiv = 1) AND (Datasett.Aktiv = 1) AND (Datasett.Type = 'Plandata') and FDVProsjekt.Ar  = ( select max(Ar) from FDVProsjekt where Kommune_Kommunenr = @kommune ) GROUP BY FDVDatasettForvaltningstype.Type, Datasett.Type, PlanDatasett.SisteLeveranseKommune, Datasett.Navn, PlanDatasett.FilGenerertGeonorge, PlanDatasett.OppdateringStatusKommentar, PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse ORDER BY Datasett.Navn DESC";
+                command.CommandText = "SELECT Datasett.Navn, FDVDatasettForvaltningstype.Type, PlanDatasett.SisteLeveranseKommune,PlanDatasett.FilGenerertGeonorge, PlanDatasett.OppdateringStatusKommentar,PlanDatasett.PlanDatasettStatus_Id, PlanDatasettStatus.Beskrivelse FROM FDVProsjekt INNER JOIN FDVDatasett ON FDVProsjekt.Id = FDVDatasett.FDVProsjekt_Id AND FDVProsjekt.Kommune_Kommunenr = @kommune AND(FDVProsjekt.Ar = (SELECT MAX(Ar) FROM FDVProsjekt AS FDVProsjekt_1  WHERE(Kommune_Kommunenr = @kommune))) INNER JOIN FDVDatasettForvaltningstype ON FDVDatasett.FDVDatasettForvaltningstype_Id = FDVDatasettForvaltningstype.Id RIGHT OUTER JOIN PlanDatasett INNER JOIN Datasett ON PlanDatasett.Datasett_Id = Datasett.Id INNER JOIN PlanDatasettStatus ON PlanDatasett.PlanDatasettStatus_Id = PlanDatasettStatus.Id ON FDVDatasett.Datasett_Id = Datasett.Id WHERE(PlanDatasett.Kommune_Kommunenr = @kommune) AND(Datasett.Id IN(79, 80, 81, 82, 83, 84)) AND(Datasett.Type = 'Plandata') ORDER BY Datasett.Navn DESC";
                 command.Parameters.Add(new SqlParameter("@kommune", id));
                 using (var result = command.ExecuteReader())
                 {
@@ -252,7 +252,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                     {
                         var dataset = new DataSet();
                         dataset.Name = result.GetString(0);
-                        dataset.UpdateTypeName = result.GetString(1);
+                        if (!result.IsDBNull(1))
+                            dataset.UpdateTypeName = result.GetString(1);
                         if (dataset.UpdateTypeName == "SOSI originaldata")
                             dataset.UpdateTypeName = "Periodisk ajourhold";
                         DateTime? lastDelivery = null;
@@ -277,7 +278,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                         else if (status == 2)
                             dataset.Status = "green";
                         else if (status == 1 || status == 5)
-                            dataset.Status = "";                  
+                            dataset.Status = "grey";                  
 
                         dataSets.Add(dataset);
                     }

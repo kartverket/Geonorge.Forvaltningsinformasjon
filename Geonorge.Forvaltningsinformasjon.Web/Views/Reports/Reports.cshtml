@@ -6,14 +6,14 @@
 
 <table>
 <tr>
-    <th>Type</th>
-    <th>Beskrivelse</th>
+    <th>Fylke</th>
+    <th>Tidspunkt</th>
 </tr>
 @foreach(var report in Model)
     {
         <tr>
-            <td><a href="?rapport=@report.Type">@report.Type</a></td>
-            <td>@report.Beskrivelse</td>
+            <td><a href="?rapport=@report.Type&fnr=@report.FylkesNummer">@report.FylkesNavn</a></td>
+            <td>@report.Tidspunkt</td>
         </tr>
     }
 </table>

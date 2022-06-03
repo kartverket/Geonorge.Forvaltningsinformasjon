@@ -1,8 +1,9 @@
-﻿@section breadcrumb
+﻿@model List<Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report>
+@section breadcrumb
 {
 <li><a href="/rapport">Rapporter</a></li>
+<li>@Model.FirstOrDefault().Type</li>
 }
-@model List<Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report>
 
 <table>
 <tr>

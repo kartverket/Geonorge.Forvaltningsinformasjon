@@ -1,0 +1,9 @@
+﻿@model Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report
+@section breadcrumb
+{
+<li><a href="/rapport">Rapporter</a></li>
+<li><a href="/rapport?rapport=@Model.Type">@Model.Type</a></li>
+<li>@Model.FylkesNavn</li>
+}
+
+<p>@Html.Raw(Model.HTMLRapport)</p>

@@ -31,17 +31,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
             {
                 LegendItemStyle layerStyle = new LegendItemStyle();
 
-                if(fillStyles.Count > 0 && layerStyle?.FillColor != null) { 
-                layerStyle.FillColor = fillStyles[i].SelectSingleNode("*[@name='fill']")?.InnerText;
-                layerStyle.FillOpacity = fillStyles[i].SelectSingleNode("*[@name='fill-opacity']")?.InnerText;
-                }
-                if(strokeStyles.Count > 0 && layerStyle?.FillColor != null) { 
-                layerStyle.StrokeColor = strokeStyles[i].SelectSingleNode("*[@name='stroke']")?.InnerText;
-                layerStyle.StrokeWidth = strokeStyles[i].SelectSingleNode("*[@name='stroke-width']")?.InnerText;
-                }
+                layerStyle.FillColor = fillStyles[i].SelectSingleNode("*[@name='fill']").InnerText;
+                layerStyle.FillOpacity = fillStyles[i].SelectSingleNode("*[@name='fill-opacity']").InnerText;
+                layerStyle.StrokeColor = strokeStyles[i].SelectSingleNode("*[@name='stroke']").InnerText;
+                layerStyle.StrokeWidth = strokeStyles[i].SelectSingleNode("*[@name='stroke-width']").InnerText;
 
-                if(!legendItemStyles.ContainsKey(transactionData[i].DataSetName))
-                    legendItemStyles.Add(transactionData[i].DataSetName, layerStyle);
+                legendItemStyles.Add(transactionData[i].DataSetName, layerStyle);
             }
             return legendItemStyles;
         }

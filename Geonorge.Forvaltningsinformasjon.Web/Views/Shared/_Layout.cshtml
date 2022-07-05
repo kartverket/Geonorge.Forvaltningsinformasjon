@@ -36,6 +36,7 @@
             </ul>
         </div>
         <div class="container">
+            @if(ViewData["title"] != null){
             <section class="Heading">
                 <div class="row">
                     <div class="col-sm-12">
@@ -46,6 +47,7 @@
                     </div>
                 </div>
             </section>
+            }
             @RenderBody()
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -11,9 +11,14 @@
 
 @section titleSection
 {
-    <div style="text-align:center">
-        <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
-        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+<div style="text-align:center">
+        <heading-text>
+            <h2 size="4">@Localizer["Kommuneoversikt for "] @Model.Name</h4>
+        </heading-text>
+        <p>
+            @string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ?
+        Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")
+        </p>
     </div>
 }
 

@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -12,8 +12,12 @@
 @section titleSection
 {
     <div style="text-align:center">
-        <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
-        <p>@Model.StatusMessage</p>
+        <heading-text>
+            <h2 size="4">@Localizer["Kommuneoversikt for "] @Model.Name</h4>
+        </heading-text>
+        <p>
+            @Model.StatusMessage
+        </p>
     </div>
 }
 

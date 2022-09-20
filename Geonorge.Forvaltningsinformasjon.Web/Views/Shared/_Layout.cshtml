@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @using System.IO
 
 @inject ApplicationSettings AppSettings
@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendorfonts.min.css" asp-append-version="false" />
     <link rel="stylesheet" type="text/css" href="~/css/chart.css">
     <link rel="stylesheet" type="text/css" href="~/css/site.css"/>
 </head>
@@ -63,9 +62,9 @@
     </script>
 
  
-    <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GnTable.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GeonorgeFooter.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/MainNavigation.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/MainNavigation.js")"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/GeonorgeFooter.js")"></script>
 </body>
 </html>

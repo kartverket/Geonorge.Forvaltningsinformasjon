@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectViewModel
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
@@ -6,9 +6,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = Localizer["Kartleggingsprosjekter Geovekst"];
-    ViewData["tabs"] = new TabViewModel[] {
-        new TabViewModel() { Caption = "Prosjekter", Controller = "Projects", Aspect = false},
-    };
 }
 
 @section scripts {
@@ -31,8 +28,6 @@
     });
 </script>
 }
-
-<partial name="~/Views/Common/Tab.cshtml" />
 
 <div>
     @RenderSection("projectsSection")

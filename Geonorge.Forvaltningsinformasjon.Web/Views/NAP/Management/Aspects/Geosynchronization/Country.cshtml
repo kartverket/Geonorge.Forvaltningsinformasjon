@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -23,38 +23,42 @@
 
 @section aspectsSection
 {
-    <div class="col-md-6 col-md-push-6">
-        <table class="table">
-            <thead>
+    <div class="flex-container">
+        <div class="flex-item" style="top:0px;">
+            <div id="r_map" style="height:600px; width:500px; border: 1px thin black;"></div>
+            <gn-table>
+                <table>
                 <tr>
-                    <th>@Localizer["Fylkesnr."]</th>
-                    <th>@Localizer["Fylke"]</th>
-                    <th>@Localizer["Kommuner som geosynkroniserer"]</th>
+                    <td><div class="square"></div></td>
+                    <td>&nbsp;</td>
+                    <td>
+                    Geosynkroniseringskommune
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var county in Model.Counties)
-                {
+                </table>
+            </gn-table>
+        </div>
+        <div class="flex-item">
+            <table>
+                <thead>
                     <tr>
-                        <td>@county.Number</td>
-                        <td><a href="/nap/info/county?id=@county.Number">@county.Name</a></td>
-                        <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
+                        <th>@Localizer["Fylkesnr."]</th>
+                        <th>@Localizer["Fylke"]</th>
+                        <th>@Localizer["Kommuner som geosynkroniserer"]</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-6 col-md-pull-6" style="top:0px;">
-        <div id="r_map" style="height:600px; width:500px; border: 1px thin black;"></div>
-        <table>
-          <tr>
-            <td><div class="square"></div></td>
-            <td>&nbsp;</td>
-            <td>
-               Geosynkroniseringskommune
-            </td>
-          </tr>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var county in Model.Counties)
+                    {
+                        <tr>
+                            <td>@county.Number</td>
+                            <td><a href="/nap/info/county?id=@county.Number">@county.Name</a></td>
+                            <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 }
 

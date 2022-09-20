@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -28,25 +28,27 @@
 @*        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
     </div>
     <div class="col-md-8">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Kommunenr.</th>
-                    <th>Kommune</th>
-                    <th>Planlagt innføring SFKB</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Municipalities)
-                {
+        <gn-table>
+            <table>
+                <thead>
                     <tr>
-                        <td>@item.Number</td>
-                        <td><a href="~/fkb-data/management/direct-update-info/municipality?id=@item.Id">@item.Name</a></td>
-                        <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                        <th>Kommunenr.</th>
+                        <th>Kommune</th>
+                        <th>Planlagt innføring SFKB</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Municipalities)
+                    {
+                        <tr>
+                            <td>@item.Number</td>
+                            <td><a href="~/fkb-data/management/direct-update-info/municipality?id=@item.Id">@item.Name</a></td>
+                            <td>@string.Format(Localizer[Model.GetIntroductionStateText(item.IntroductionState)].Value, item.PlannedIntroductionDate.HasValue ? item.PlannedIntroductionDate.Value.ToString("dd'.'MM'.'yyyy") : "")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </gn-table>
     </div>
 }
 

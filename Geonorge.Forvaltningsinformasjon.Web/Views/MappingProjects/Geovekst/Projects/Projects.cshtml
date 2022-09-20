@@ -122,8 +122,8 @@
             </form>
         </div>
     </div>
-    <div class="col-md-9">
-        <table class="table">
+        <gn-table>
+            <table>
             <thead>
                 <tr>
                     <th>@Localizer["Prosjekt"]</th>
@@ -135,18 +135,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
-                {
-                <tr>
-                    <td><a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">@project.Name</a></td>
-                    <td>@project.OfficeName</td>
-                    <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
-                    <td>@project.Year</td>
+                    @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
+                    {
+                    <tr>
+                        <td>
+                            <a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">
+                                @project.Name
+                            </a>
+                        </td>
+                        <td>@project.OfficeName</td>
+                        <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
+                        <td>@project.Year</td>
                     <td title="@project.StateToolTip">@project.State</td>
                     <td>@project.DeliveryTypes</td>
                 </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
+        </gn-table>
     </div>
+</div>
 }

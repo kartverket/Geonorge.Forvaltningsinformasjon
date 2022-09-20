@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -43,8 +43,8 @@
             white-space: pre;
         }
     </style>
-    <div class="col-md-12">
-        <table class="table">
+    <gn-table>
+        <table>
             <thead>
                 <tr>
                     <th>@Localizer["Datasett"]</th>
@@ -69,5 +69,5 @@
                 }
             </tbody>
         </table>
-    </div>
+    </gn-table>
 }

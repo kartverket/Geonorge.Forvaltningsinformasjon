@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectDetailsViewModel
 
@@ -14,68 +14,68 @@
 
 @section projectsSection
 {
-    <div class="col-md-2" style="top:35px">
-        @*      <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
-    </div>
-    <div class="col-md-10">
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>@Localizer["Prosjekt"]</th>
-                        <th>@Localizer["Kartkontor"]</th>
-                        <th>@Localizer["Kommune"]</th>
-                        <th>@Localizer["Datafangstår"]</th>
-                        <th>@Localizer["Prosjektstatus"]</th>
-                        <th>@Localizer["Leveransetype"]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Model.Project.Name</td>
-                        <td>@Model.Project.OfficeName</td>
-                        <td title="@Model.Project.MunicipalityToolTip">@Html.Raw(Model.Project.MunicipalityNames)</td>
-                        <td>@Model.Project.Year</td>
-                        <td title="@Model.Project.StateToolTip">@Model.Project.State</td>
-                        <td>@Model.Project.DeliveryTypes</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>@Localizer["Leveransetype"]</th>
-                        <th>@Localizer["Leveransefrist"]</th>
-                        <th>@Localizer["Ny avtalt dato"]</th>
-                        <th>@Localizer["Faktisk levert"]</th>
-                        <th>@Localizer["Data tilgjengeliggjort"]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var delivery in Model.Project.Deliveries.OrderBy(o => o.Type).ThenBy(d => d.Name).ToList())
-                    {
-                        <tr>
-                            <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>
-                            <td>@FormatDate(delivery.Deadline)</td>
-                            <td>@FormatDate(delivery.ChangedDeadline)</td>
-                            <td>@FormatDate(delivery.FinalDeadline)</td>
-                            <td>@FormatDate(delivery.ReleaseDate)</td>
-                            <td></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--Get /mapping-projects/geovekst/projects/georef?name=@(Model.Project.Name) -->
+<div class="col-md-2" style="top:35px">
+    @* <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
+</div>
+<div class="col-md-10">
+    <gn-table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Prosjekt"]</th>
+                    <th>@Localizer["Kartkontor"]</th>
+                    <th>@Localizer["Kommune"]</th>
+                    <th>@Localizer["Datafangstår"]</th>
+                    <th>@Localizer["Prosjektstatus"]</th>
+                    <th>@Localizer["Leveransetype"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Project.Name</td>
+                    <td>@Model.Project.OfficeName</td>
+                    <td title="@Model.Project.MunicipalityToolTip">@Html.Raw(Model.Project.MunicipalityNames)</td>
+                    <td>@Model.Project.Year</td>
+                    <td title="@Model.Project.StateToolTip">@Model.Project.State</td>
+                    <td>@Model.Project.DeliveryTypes</td>
+                </tr>
+            </tbody>
+        </table>
+    </gn-table>
+    <gn-table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Leveransetype"]</th>
+                    <th>@Localizer["Leveransefrist"]</th>
+                    <th>@Localizer["Ny avtalt dato"]</th>
+                    <th>@Localizer["Faktisk levert"]</th>
+                    <th>@Localizer["Data tilgjengeliggjort"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var delivery in Model.Project.Deliveries.OrderBy(o => o.Type).ThenBy(d => d.Name).ToList())
+                {
+                <tr>
+                    <td>@(ProjectListItem.GetDeliveryTypeName(delivery.Type) + " - " + delivery.Name)</td>
+                    <td>@FormatDate(delivery.Deadline)</td>
+                    <td>@FormatDate(delivery.ChangedDeadline)</td>
+                    <td>@FormatDate(delivery.FinalDeadline)</td>
+                    <td>@FormatDate(delivery.ReleaseDate)</td>
+                    <td></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </gn-table>
+</div>
+<!--Get /mapping-projects/geovekst/projects/georef?name=@(Model.Project.Name) -->
 }
 
 @functions {
     private string FormatDate(string date)
     {
-        if(!string.IsNullOrEmpty(date) && date.Length == 8)
+        if (!string.IsNullOrEmpty(date) && date.Length == 8)
         {
             var dateString = date.Substring(0, 4) + "-" + date.Substring(4, 2) + "-" + date.Substring(6, 2);
             date = dateString;

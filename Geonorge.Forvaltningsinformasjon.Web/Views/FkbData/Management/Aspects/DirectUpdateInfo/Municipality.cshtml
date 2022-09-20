@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -23,28 +23,27 @@
 }
 
 @section aspectsSection
-    {
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-8">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Localizer["Datasett"]</th>
-                    <th>@Localizer["Oppdateringsregime"]</th>
-                    <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dataSet in Model.DataSets)
-                {
-                    <tr>
-                        <td>@dataSet.Name</td>
-                        <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
-                        <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") : dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+{
+<gn-table>
+    <table>
+        <thead>
+            <tr>
+                <th>@Localizer["Datasett"]</th>
+                <th>@Localizer["Oppdateringsregime"]</th>
+                <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataSet in Model.DataSets)
+            {
+            <tr>
+                <td>@dataSet.Name</td>
+                <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
+                <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") :
+                    dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</gn-table>
 }

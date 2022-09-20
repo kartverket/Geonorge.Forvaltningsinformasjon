@@ -26,7 +26,7 @@
 
     <main-navigation environment="@AppSettings.EnvironmentName.ToLower()"></main-navigation>
 
-    <div class="body-content">
+        <breadcrumb-list id="breadcrumb-list"></breadcrumb-list>
         <div class="container container-breadcrumbs" id="navTabCont">
             <ul class="breadcrumbs col-md-12">
                 <li><a href="@AppSettings.UrlGeonorgeRoot">Geonorge</a></li>
@@ -49,7 +49,6 @@
             }
             @RenderBody()
         </div>
-    </div>
 
     <geonorge-footer language="no" version="@AppSettings.BuildVersionNumber" environment="@AppSettings.EnvironmentName.ToLower()" />
 
@@ -58,7 +57,7 @@
     <script src="~/dist/js/geonorge-shared/main.js" asp-append-version="true"></script>
 
     <script>
-    searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
+    <script src="~/dist/js/geonorge-web-components/BreadcrumbList.js" asp-append-version="true"></script>
     </script>
 
  

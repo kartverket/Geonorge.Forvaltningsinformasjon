@@ -1,7 +1,6 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using Geonorge.Forvaltningsinformasjon.Web.Models.Common
+@using Microsoft.AspNetCore.Mvc.Localization
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectDetailsViewModel
-
+@inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 @{
@@ -12,10 +11,29 @@
     };
 }
 
-@section breadcrumb
-    {
-    <li><a href="/mapping-projects/geovekst/projects">@Localizer["Kartleggingsprosjekter Geovekst"]</a></li>
-    <li>@Localizer[Model.Project.Name]</li>
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
+        breadcrumbs: [
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            },
+            {
+                name: '@Localizer["Kartleggingsprosjekter Geovekst"]',
+                url: '/mapping-projects/geovekst/projects'
+            },
+            {
+                name: '@Localizer[Model.Project.Name]',
+                url: '/mapping-projects/geovekst/projects/project-details?id=@Model.Project.Id'
+            }
+        ]
+    });
+</script>
 }
 
 <partial name="~/Views/Common/Tab.cshtml" />

@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
 
@@ -7,9 +7,22 @@
     ViewData["Title"] = Localizer["Forvaltningsinformasjon"];
 }
     <div class="row">
-        <article class="col-md-12">
-            <div class="ingress">
-                <p>
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
+        breadcrumbs: [
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            }
+        ]
+    });
+</script>
+}
                     Forvaltningsinformasjon er en samling informasjon og utvidede metadata som faller utenfor standarden for metadata, i hovedsak angående datasett forvaltet av Geovekst-samarbeidet.
                 </p>
             </div>

@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectViewModel
 
 @inject IViewLocalizer Localizer
@@ -13,57 +13,57 @@
 
 @section projectsSection
 {
-    <div class="col-md-3" style="top:35px">
-        <div>
-            <form action="~/mapping-projects/geovekst/projects" method="get">
+<div class="flex-container">
+    <div class="flex-item" style="width: 200px; margin-top: 7px;">
+        <form action="~/mapping-projects/geovekst/projects" method="get">
             <gn-select>
                 <label for="OfficeId">Kartkontor</label>
                 <select block id="OfficeId" name="OfficeId" onchange="this.form.submit()"
                     class="chosen-select form-control">
-                            <option value="">@Localizer["Alle"]</option>
-                            @foreach (var office in Model.Offices)
-                            {
-                                if (office.Id == Model.SelectedOffice)
-                                {
-                                    <option selected value="@office.Id">@office.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@office.Id">@office.Name</option>
-                                }
-                            }
-                        </select>                    
+                    <option value="">@Localizer["Alle"]</option>
+                    @foreach (var office in Model.Offices)
+                    {
+                    if (office.Id == Model.SelectedOffice)
+                    {
+                    <option selected value="@office.Id">@office.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@office.Id">@office.Name</option>
+                    }
+                    }
+                </select>
             </gn-select>
             <gn-select>
                 <label for="MunicipalityNumber">Kommune</label>
                 <select block id="MunicipalityNumber" name="MunicipalityNumber" onchange="this.form.submit()"
                     class="chosen-select form-control">
-                            <option value="">@Localizer["Norge (hele landet)"]</option>
-                            @foreach (var municipality in Model.Municipalities)
-                            {
-                                if (municipality.Number == Model.SelectedMunicipality)
-                                {
-                                    <option selected value="@municipality.Number">@municipality.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@municipality.Number">@municipality.Name</option>
-                                }
-                            }
-                        </select>
+                    <option value="">@Localizer["Norge (hele landet)"]</option>
+                    @foreach (var municipality in Model.Municipalities)
+                    {
+                    if (municipality.Number == Model.SelectedMunicipality)
+                    {
+                    <option selected value="@municipality.Number">@municipality.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@municipality.Number">@municipality.Name</option>
+                    }
+                    }
+                </select>
             </gn-select>
             <gn-select>
                 <label for="State">Prosjektstatus</label>
                 <select block id="State" name="State" onchange="this.form.submit()" class="chosen-select form-control">
-                            @foreach (var state in Model.States)
-                            {
-                                if (state.Key == Model.SelectedState)
-                                {
-                                    <option selected value="@state.Key">@state.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@state.Key">@state.Value</option>
+                    @foreach (var state in Model.States)
+                    {
+                    if (state.Key == Model.SelectedState)
+                    {
+                    <option selected value="@state.Key">@state.Value</option>
+                    }
+                    else
+                    {
+                    <option value="@state.Key">@state.Value</option>
                     }
                     }
                 </select>
@@ -75,12 +75,12 @@
                     @foreach (var deliveryType in Model.DeliveryTypes)
                     {
                     if (deliveryType.Key == Model.SelectedDeliveryType)
-                                {
-                                    <option selected value="@deliveryType.Key">@deliveryType.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@deliveryType.Key">@deliveryType.Value</option>
+                    {
+                    <option selected value="@deliveryType.Key">@deliveryType.Value</option>
+                    }
+                    else
+                    {
+                    <option value="@deliveryType.Key">@deliveryType.Value</option>
                     }
                     }
                 </select>
@@ -91,33 +91,33 @@
                     <option value="">@Localizer["Alle"]</option>
                     @foreach (var year in Model.Years)
                     {
-                                if (year == Model.SelectedYear)
-                                {
-                                    <option selected value="@year">@year</option>
-                                }
-                                else
-                                {
-                                    <option value="@year">@year</option>
-                                }
-                            }
-                        </select>
+                    if (year == Model.SelectedYear)
+                    {
+                    <option selected value="@year">@year</option>
+                    }
+                    else
+                    {
+                    <option value="@year">@year</option>
+                    }
+                    }
+                </select>
             </gn-select>
-            </form>
-        </div>
+        </form>
+    </div>
     <div class="flex-item flex-1">
         <gn-table>
             <table>
-            <thead>
-                <tr>
-                    <th>@Localizer["Prosjekt"]</th>
-                    <th>@Localizer["Kartkontor"]</th>
-                    <th>@Localizer["Kommune"]</th>
-                    <th>@Localizer["Datafangstår"]</th>
-                    <th>@Localizer["Prosjektstatus"]</th>
-                    <th>@Localizer["Leveransetype"]</th>
-                </tr>
-            </thead>
-            <tbody>
+                <thead>
+                    <tr>
+                        <th>@Localizer["Prosjekt"]</th>
+                        <th>@Localizer["Kartkontor"]</th>
+                        <th>@Localizer["Kommune"]</th>
+                        <th>@Localizer["Datafangstår"]</th>
+                        <th>@Localizer["Prosjektstatus"]</th>
+                        <th>@Localizer["Leveransetype"]</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
                     {
                     <tr>
@@ -129,9 +129,9 @@
                         <td>@project.OfficeName</td>
                         <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
                         <td>@project.Year</td>
-                    <td title="@project.StateToolTip">@project.State</td>
-                    <td>@project.DeliveryTypes</td>
-                </tr>
+                        <td title="@project.StateToolTip">@project.State</td>
+                        <td>@project.DeliveryTypes</td>
+                    </tr>
                     }
                 </tbody>
             </table>

@@ -1,71 +1,52 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using System.IO
-
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geonorge.Forvaltningsinformasjon - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendorfonts.min.css" asp-append-version="false" />
     <link rel="stylesheet" type="text/css" href="~/css/chart.css">
-    <link rel="stylesheet" type="text/css" href="~/css/site.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
+
 <body class="geonorge-container prototype geonorge fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-    <script>
-    var applicationEnvironment = '@AppSettings.EnvironmentName'.toLowerCase();
-    var applicationVersionNumber = '@AppSettings.BuildVersionNumber';
-    var authenticationData = { supportsLogin: false, isAuthenticated: false };
-    var cultureData = { supportsMultiCulture: "true", currentCulture: 'no' };
-    </script>
-
     <main-navigation environment="@AppSettings.EnvironmentName.ToLower()"></main-navigation>
+    <content-container>
+        <breadcrumb-list id="breadcrumb-list"></breadcrumb-list>
+        @if (ViewData["title"] != null)
+        {
+            <heading-text>
+                <h1 underline>@ViewData["title"]</h1>
+            </heading-text>
+        }
+        @RenderBody()
+    </content-container>
 
-    <div class="body-content">
-        <div class="container container-breadcrumbs" id="navTabCont">
-            <ul class="breadcrumbs col-md-12">
-                <li><a href="@AppSettings.UrlGeonorgeRoot">Geonorge</a></li>
-                <li><a href="/">@Localizer["Forvaltningsinformasjon"]</a></li>
-                @RenderSection("breadcrumb", false)
-            </ul>
-        </div>
-        <div class="container">
-            @if(ViewData["title"] != null){
-            <section class="Heading">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1 class="small-h1">@ViewData["title"]</h1>
-                    </div>
-                    <div class="col-sm-12">
-                        <span class="separator-lg"></span>
-                    </div>
-                </div>
-            </section>
-            }
-            @RenderBody()
-        </div>
-    </div>
-
-    <geonorge-footer language="no" version="@AppSettings.BuildVersionNumber" environment="@AppSettings.EnvironmentName.ToLower()" />
+    <geonorge-footer language="no" version="@AppSettings.BuildVersionNumber"
+        environment="@AppSettings.EnvironmentName.ToLower()" />
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/js/geonorge-shared/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/js/geonorge-shared/main.js" asp-append-version="true"></script>
-
-    <script>
-    searchOption.epiBaseUrl = '@AppSettings.UrlGeonorgeRoot';
-    </script>
-
- 
-    <script src="~/dist/js/geonorge-base/init.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/init.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/BodyText.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/BreadcrumbList.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/ContentContainer.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GnInput.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GnSelect.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GnTable.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/GeonorgeFooter.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/HeadingText.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/MainNavigation.js" asp-append-version="true"></script>
+    <script src="~/dist/js/geonorge-web-components/NavigationTabs.js" asp-append-version="true"></script>
     @RenderSection("scripts", required: false)
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/MainNavigation.js")"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.53/GeonorgeFooter.js")"></script>
 </body>
+
 </html>

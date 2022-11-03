@@ -9,145 +9,133 @@
 
 @{
     ViewData["Title"] = Localizer["Prosjekter"];
-    ViewData["currentTab"] = "Projects";
 }
 
 @section projectsSection
 {
-    <div class="col-md-3" style="top:35px">
-        <div>
-            <form action="~/mapping-projects/geovekst/projects" method="get">
-                <div class="row">
-                    <div class="row">
-                        <label>Kartkontor</label>
-                    </div>
-                    <div class="form-group coustom-select">
-                        <select name="OfficeId" onchange="this.form.submit()" class="chosen-select form-control">
-                            <option value="">@Localizer["Alle"]</option>
-                            @foreach (var office in Model.Offices)
-                            {
-                                if (office.Id == Model.SelectedOffice)
-                                {
-                                    <option selected value="@office.Id">@office.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@office.Id">@office.Name</option>
-                                }
-                            }
-                        </select>                    
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <label>Kommune</label>
-                    </div>
-                    <div class="form-group coustom-select">
-                        <select name="MunicipalityNumber" onchange="this.form.submit()" class="chosen-select form-control">
-                            <option value="">@Localizer["Norge (hele landet)"]</option>
-                            @foreach (var municipality in Model.Municipalities)
-                            {
-                                if (municipality.Number == Model.SelectedMunicipality)
-                                {
-                                    <option selected value="@municipality.Number">@municipality.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@municipality.Number">@municipality.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <label>Prosjektstatus</label>
-                    </div>
-                    <div class="form-group coustom-select">
-                        <select name="State" onchange="this.form.submit()" class="chosen-select form-control">
-                            @foreach (var state in Model.States)
-                            {
-                                if (state.Key == Model.SelectedState)
-                                {
-                                    <option selected value="@state.Key">@state.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@state.Key">@state.Value</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <label>Leveransetype</label>
-                    </div>
-                    <div class="form-group coustom-select">
-                        <select name="DeliveryType" onchange="this.form.submit()" class="chosen-select form-control">
-                            @foreach (var deliveryType in Model.DeliveryTypes)
-                            {
-                                if (deliveryType.Key == Model.SelectedDeliveryType)
-                                {
-                                    <option selected value="@deliveryType.Key">@deliveryType.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@deliveryType.Key">@deliveryType.Value</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <label>Datafangstår</label>
-                    </div>
-                    <div class="form-group coustom-select">
-                        <select name="Year" onchange="this.form.submit()" class="chosen-select form-control">
-                            <option value="">@Localizer["Alle"]</option>
-                            @foreach (var year in Model.Years)
-                            {
-                                if (year == Model.SelectedYear)
-                                {
-                                    <option selected value="@year">@year</option>
-                                }
-                                else
-                                {
-                                    <option value="@year">@year</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="flex-container">
+    <div class="flex-item" style="width: 200px; margin-top: 7px;">
+        <form action="~/mapping-projects/geovekst/projects" method="get">
+            <gn-select>
+                <label for="OfficeId">Kartkontor</label>
+                <select block id="OfficeId" name="OfficeId" onchange="this.form.submit()"
+                    class="chosen-select form-control">
+                    <option value="">@Localizer["Alle"]</option>
+                    @foreach (var office in Model.Offices)
+                    {
+                    if (office.Id == Model.SelectedOffice)
+                    {
+                    <option selected value="@office.Id">@office.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@office.Id">@office.Name</option>
+                    }
+                    }
+                </select>
+            </gn-select>
+            <gn-select>
+                <label for="MunicipalityNumber">Kommune</label>
+                <select block id="MunicipalityNumber" name="MunicipalityNumber" onchange="this.form.submit()"
+                    class="chosen-select form-control">
+                    <option value="">@Localizer["Norge (hele landet)"]</option>
+                    @foreach (var municipality in Model.Municipalities)
+                    {
+                    if (municipality.Number == Model.SelectedMunicipality)
+                    {
+                    <option selected value="@municipality.Number">@municipality.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@municipality.Number">@municipality.Name</option>
+                    }
+                    }
+                </select>
+            </gn-select>
+            <gn-select>
+                <label for="State">Prosjektstatus</label>
+                <select block id="State" name="State" onchange="this.form.submit()" class="chosen-select form-control">
+                    @foreach (var state in Model.States)
+                    {
+                    if (state.Key == Model.SelectedState)
+                    {
+                    <option selected value="@state.Key">@state.Value</option>
+                    }
+                    else
+                    {
+                    <option value="@state.Key">@state.Value</option>
+                    }
+                    }
+                </select>
+            </gn-select>
+            <gn-select>
+                <label for="DeliveryType">Leveransetype</label>
+                <select block id="DeliveryType" name="DeliveryType" onchange="this.form.submit()"
+                    class="chosen-select form-control">
+                    @foreach (var deliveryType in Model.DeliveryTypes)
+                    {
+                    if (deliveryType.Key == Model.SelectedDeliveryType)
+                    {
+                    <option selected value="@deliveryType.Key">@deliveryType.Value</option>
+                    }
+                    else
+                    {
+                    <option value="@deliveryType.Key">@deliveryType.Value</option>
+                    }
+                    }
+                </select>
+            </gn-select>
+            <gn-select>
+                <label for="Year">Datafangstår</label>
+                <select block id="Year" name="Year" onchange="this.form.submit()" class="chosen-select form-control">
+                    <option value="">@Localizer["Alle"]</option>
+                    @foreach (var year in Model.Years)
+                    {
+                    if (year == Model.SelectedYear)
+                    {
+                    <option selected value="@year">@year</option>
+                    }
+                    else
+                    {
+                    <option value="@year">@year</option>
+                    }
+                    }
+                </select>
+            </gn-select>
+        </form>
     </div>
-    <div class="col-md-9">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Localizer["Prosjekt"]</th>
-                    <th>@Localizer["Kartkontor"]</th>
-                    <th>@Localizer["Kommune"]</th>
-                    <th>@Localizer["Datafangstår"]</th>
-                    <th>@Localizer["Prosjektstatus"]</th>
-                    <th>@Localizer["Leveransetype"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
-                {
-                <tr>
-                    <td><a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">@project.Name</a></td>
-                    <td>@project.OfficeName</td>
-                    <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
-                    <td>@project.Year</td>
-                    <td title="@project.StateToolTip">@project.State</td>
-                    <td>@project.DeliveryTypes</td>
-                </tr>
-                }
-            </tbody>
-        </table>
+    <div class="flex-item flex-1">
+        <gn-table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>@Localizer["Prosjekt"]</th>
+                        <th>@Localizer["Kartkontor"]</th>
+                        <th>@Localizer["Kommune"]</th>
+                        <th>@Localizer["Datafangstår"]</th>
+                        <th>@Localizer["Prosjektstatus"]</th>
+                        <th>@Localizer["Leveransetype"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var project in Model.MappingProjects.OrderByDescending(o => o.Year).ToList())
+                    {
+                    <tr>
+                        <td>
+                            <a href="~/mapping-projects/geovekst/projects/project-details?id=@project.Id">
+                                @project.Name
+                            </a>
+                        </td>
+                        <td>@project.OfficeName</td>
+                        <td title="@project.MunicipalityToolTip">@Html.Raw(project.MunicipalityNames)</td>
+                        <td>@project.Year</td>
+                        <td title="@project.StateToolTip">@project.State</td>
+                        <td>@project.DeliveryTypes</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </gn-table>
     </div>
+</div>
 }

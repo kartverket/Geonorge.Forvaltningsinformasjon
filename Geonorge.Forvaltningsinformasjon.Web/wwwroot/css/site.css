@@ -1,20 +1,27 @@
-﻿button.ol-zoom-in, button.ol-zoom-out,
-button.ol-zoom-in:focus, button.ol-zoom-out:focus {
+﻿body.geonorge-container {
+    margin-top: 62px;
+}
+
+button.ol-zoom-in,
+button.ol-zoom-out,
+button.ol-zoom-in:focus,
+button.ol-zoom-out:focus {
     color: #777777;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     font-size: 25px;
     outline: none;
 }
 
-button.ol-zoom-in:hover, button.ol-zoom-out:hover {
+button.ol-zoom-in:hover,
+button.ol-zoom-out:hover {
     color: #555555;
-    background-color: rgba(240,240,240,0.5);
-    border-radius:15px;
+    background-color: rgba(240, 240, 240, 0.5);
+    border-radius: 15px;
 }
 
 .ol-scale-line {
-    background: rgba(255,255,255,0.5);
-    left:50%;
+    background: rgba(255, 255, 255, 0.5);
+    left: 50%;
     transform: translateX(-50%);
 }
 
@@ -24,28 +31,14 @@ button.ol-zoom-in:hover, button.ol-zoom-out:hover {
     font-size: 15px;
 }
 
-.ol-overlaycontainer, .ol-overlaycontainer-stopevent {
+.ol-overlaycontainer,
+.ol-overlaycontainer-stopevent {
     pointer-events: none;
 }
 
-.ol-overlaycontainer > *, .ol-overlaycontainer-stopevent > * {
+.ol-overlaycontainer > *,
+.ol-overlaycontainer-stopevent > * {
     pointer-events: auto;
-}
-
-﻿.fixed-menu-margin {
-    margin-top: 140px;
-}
-
-@media (min-width: 360px) {
-    .fixed-menu-margin {
-        margin-top: 103px;
-    }
-}
-
-@media (min-width: 600px) {
-    .fixed-menu-margin {
-        margin-top: 62px;
-    }
 }
 
 .container-breadcrumbs {
@@ -60,9 +53,37 @@ button.ol-zoom-in:hover, button.ol-zoom-out:hover {
 .square {
     height: 14px;
     width: 14px;
-    background-color: #7EEE7E;
+    background-color: #7eee7e;
 }
 
 .h1-report {
     font-size: 25px !important;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.flex-item {
+    min-width: 200px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.ingress {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.block {
+    display: block;
 }

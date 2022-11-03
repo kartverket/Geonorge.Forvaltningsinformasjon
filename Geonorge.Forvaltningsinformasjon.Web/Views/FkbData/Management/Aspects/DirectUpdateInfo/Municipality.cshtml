@@ -11,35 +11,39 @@
 
 @section titleSection
 {
-    <div style="text-align:center">
-        <h4>@Localizer["Kommuneoversikt for "] @Model.Name</h4>
-        <p>@string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ? Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")</p>
+<div style="text-align:center">
+        <heading-text>
+            <h2 size="4">@Localizer["Kommuneoversikt for "] @Model.Name</h4>
+        </heading-text>
+        <p>
+            @string.Format(Localizer[Model.Caption].Value, Model.DateTime.HasValue ?
+        Model.DateTime.Value.ToString("dd'.'MM'.'yyyy") : "")
+        </p>
     </div>
 }
 
 @section aspectsSection
-    {
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-8">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Localizer["Datasett"]</th>
-                    <th>@Localizer["Oppdateringsregime"]</th>
-                    <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var dataSet in Model.DataSets)
-                {
-                    <tr>
-                        <td>@dataSet.Name</td>
-                        <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
-                        <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") : dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+{
+<gn-table>
+    <table>
+        <thead>
+            <tr>
+                <th>@Localizer["Datasett"]</th>
+                <th>@Localizer["Oppdateringsregime"]</th>
+                <th>@Localizer["Datasett oppdatert i Geonorge"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataSet in Model.DataSets)
+            {
+            <tr>
+                <td>@dataSet.Name</td>
+                <td title="@dataSet.UpdateTypeDescription">@dataSet.UpdateTypeName</td>
+                <td>@(dataSet.UpdateDate.HasValue ? dataSet.UpdateDate.Value.ToString("dd'.'MM'.'yyyy") :
+                    dataSet.IsEmpty ? Localizer["Tomt datasett"].Value : Localizer["Ikke registrert"].Value)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</gn-table>
 }

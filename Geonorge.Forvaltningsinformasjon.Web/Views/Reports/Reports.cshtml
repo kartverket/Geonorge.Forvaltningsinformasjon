@@ -1,20 +1,49 @@
-﻿@model List<Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report>
-@section breadcrumb
-{
-<li><a href="/rapport">Rapporter</a></li>
-<li>@Model.FirstOrDefault().Type</li>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model List<Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report>
+@inject ApplicationSettings AppSettings
+@inject IViewLocalizer Localizer
+
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
+        breadcrumbs: [
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            },
+            {
+                name: 'Rapporter',
+                url: '/rapport'
+            },
+            {
+                name: '@Model.FirstOrDefault().Type',
+                url: ''
+            }
+        ]
+    });
+</script>
 }
 
-<table class="table">
-<tr>
-    <th>Fylke</th>
-    <th>Tidspunkt</th>
-</tr>
-@foreach(var report in Model)
-    {
-        <tr>
-            <td><a href="?rapport=@report.Type&fnr=@report.FylkesNummer">@report.FylkesNavn</a></td>
-            <td>@report.Tidspunkt</td>
-        </tr>
-    }
-</table>
+<gn-table>
+    <table>
+        <thead>
+            <tr>
+                <th>Fylke</th>
+                <th>Tidspunkt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var report in Model)
+            {
+                <tr>
+                    <td><a href="?rapport=@report.Type&fnr=@report.FylkesNummer">@report.FylkesNavn</a></td>
+                    <td>@report.Tidspunkt</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</gn-table>

@@ -1,74 +1,76 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-
+@inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = Localizer["Forvaltningsinformasjon"];
 }
-    <div class="row">
-        <article class="col-md-12">
-            <div class="ingress">
-                <p>
-                    Forvaltningsinformasjon er en samling informasjon og utvidede metadata som faller utenfor standarden for metadata, i hovedsak angående datasett forvaltet av Geovekst-samarbeidet.
-                </p>
-            </div>
-            <div class="body-text">
-                <p>
-                    Informasjonen omfatter aspekter som innhenting, forvaltning og innsikt i selve kartdataene.
-                    Sidene er under utvikling. Tilbakemeldinger på innholdet er sterkt ønskelig og kan rettes til <a href="mailto: post@norgedigitalt.no">post@norgedigitalt.no</a>.
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>
-                        FKB-data
-                    </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="~/fkb-data/management/direct-update-info">
-                        <div>@Localizer["Forvaltning FKB"]</div>
-                    </a>
-                    <p class="teaser-text">@Localizer["Informasjon om forvaltningen av FKB-datasettene, status på drift og filproduksjon, samt oversikt over aktivitet."]</p>
-                </div>
-                <div class="col-md-6">
-                    <a href="~/fkb-data/data-content/data-quality-classification">
-                        <div>@Localizer["Datainnhold FKB"]</div>
-                    </a>
-                    <p class="teaser-text">@Localizer["Informasjon om inndeling i kvalitetsklasser, samt informasjon om kvaliteten på dataene."]</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>
-                        Kartleggingsprosjekter
-                    </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="~/mapping-projects/geovekst/projects">
-                        <div>@Localizer["Kartleggingsprosjekter Geovekst"]</div>
-                    </a>
-                    <p class="teaser-text">@Localizer["Informasjon om kartleggingsprosjekter i regi av Geovekst"]</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>
-                        Plandata i Norge Digitalt Arealplankartdatabase (NAP)
-                    </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="~/nap/info">
-                        <div>@Localizer["Dataflyt i NAP"]</div>
-                    </a>
-                    <p class="teaser-text">@Localizer["Informasjon om dataflyten i Norge Digitalt Arealplankartdatabase (NAP) – Kartverkets sammenstilte database av digitale kartdata for kommuneplaner, kommunedelplaner og reguleringsplaner."]</p>
-                </div>
-            </div>
-        </article>
+
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
+        breadcrumbs: [
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            }
+        ]
+    });
+</script>
+}
+
+<body-text>
+    <p class="ingress italic">
+        Forvaltningsinformasjon er en samling informasjon og utvidede metadata som faller utenfor standarden for metadata, i hovedsak angående datasett forvaltet av Geovekst-samarbeidet.
+    </p>
+    <p class="ingress">
+        Informasjonen omfatter aspekter som innhenting, forvaltning og innsikt i selve kartdataene.
+        Sidene er under utvikling. Tilbakemeldinger på innholdet er sterkt ønskelig og kan rettes til <a href="mailto: post@norgedigitalt.no">post@norgedigitalt.no</a>.
+    </p>
+    <heading-text>
+        <h2 underline>
+            FKB-data
+        </h2>
+    </heading-text>
+    <div class="flex-container">
+        <div class="flex-item flex-1 ingress">
+            <a href="~/fkb-data/management/direct-update-info" class="block">
+                @Localizer["Forvaltning FKB"]
+            </a>
+            @Localizer["Informasjon om forvaltningen av FKB-datasettene, status på drift og filproduksjon, samt oversikt over aktivitet."]
+        </div>
+        <div class="flex-item flex-1 ingress">
+            <a href="~/fkb-data/data-content/data-quality-classification" class="block">
+                @Localizer["Datainnhold FKB"]
+            </a>
+            @Localizer["Informasjon om inndeling i kvalitetsklasser, samt informasjon om kvaliteten på dataene."]
+        </div>
     </div>
+    <heading-text>
+        <h2 underline>
+            Kartleggingsprosjekter
+        </h2>
+    </heading-text>
+    <div class="ingress">
+        <a href="~/mapping-projects/geovekst/projects" class="block">
+            @Localizer["Kartleggingsprosjekter Geovekst"]
+        </a>
+        @Localizer["Informasjon om kartleggingsprosjekter i regi av Geovekst"]
+    </div>
+    <heading-text>
+        <h2 underline>
+            Plandata i Norge Digitalt Arealplankartdatabase (NAP)
+        </h2>
+    </heading-text>
+    <div class="ingress">
+        <a href="~/nap/info" class="block">
+            @Localizer["Dataflyt i NAP"]
+        </a>
+        @Localizer["Informasjon om dataflyten i Norge Digitalt Arealplankartdatabase (NAP) – Kartverkets sammenstilte database av digitale kartdata for kommuneplaner, kommunedelplaner og reguleringsplaner."]
+    </div>
+</body-text>

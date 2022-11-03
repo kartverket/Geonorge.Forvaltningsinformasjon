@@ -3,13 +3,6 @@
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
-@section breadcrumb
-{
-<li><a href="/rapport">Rapporter</a></li>
-<li><a href="/rapport?rapport=@Model.Type">@Model.Type</a></li>
-<li>@Model.KommuneNavn</li>
-}
-
 @section scripts {
 <script>
     geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
@@ -29,13 +22,16 @@
             {
                 name: '@Model.Type',
                 url: '/rapport?rapport=@Model.Type'
-            }
+            },
             {
-                name: '@Model.KommuneNavn'
+                name: '@Model.KommuneNavn',
+                url: ''
             }
         ]
     });
 </script>
 }
 
-@Html.Raw(Model.HTMLRapport)
+<gn-table>
+    @Html.Raw(Model.HTMLRapport)
+</gn-table>

@@ -5,10 +5,10 @@
 @inject IViewLocalizer Localizer
 @inject IContextViewModelHelper ContextHelper
 
-<ul id="tabs" class="nav nav-tabs">
+<navigation-tabs>
     @foreach (TabViewModel tab in ViewData["tabs"] as TabViewModel[])
     {
-        <li @if ((string)ViewData["currentTab"] == tab.Controller) { <text> class="active" </text> }>
+        <navigation-tab-heading slot="tab-heading" @if ((string)ViewData["currentTab"] == tab.Controller) { <text> selected </text> }>
             @if (tab.Aspect)
             {
                 if (string.IsNullOrWhiteSpace(ViewBag.ContextViewModel.SelectedKey))
@@ -41,6 +41,7 @@
                     @Localizer[tab.Caption]
                 </a>
             }
-        </li>
+        </navigation-tab-heading>
+        <navigation-tab-content slot="tab-content"></navigation-tab-content>
     }
-</ul>
+</navigation-tabs>

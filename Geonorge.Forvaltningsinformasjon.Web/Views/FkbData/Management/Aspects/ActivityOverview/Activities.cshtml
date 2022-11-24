@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-
+@inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 @{
@@ -7,9 +7,25 @@
     ViewData["currentTab"] = "Activities";
 }
 
-@section breadcrumb
-{
-    <li><a href="">@Localizer["Aktivitetsoversikt"]</a></li>
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
+        breadcrumbs: [
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            },
+            {
+                name: '@Localizer["Aktivitetsoversikt"]',
+                url: ''
+            }
+        ]
+    });
+</script>
 }
 
 @section aspectsSection

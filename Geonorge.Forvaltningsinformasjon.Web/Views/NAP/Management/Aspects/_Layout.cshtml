@@ -4,17 +4,14 @@
 
 @section fkbSection
     {
-    <div class="row">
-        <div class="col-md-4">
+    <div class="flex-container">
+        <div class="flex-item">
             <partial name="~/Views/Common/Context.cshtml" />
         </div>
-        <div class="col-md-8">
+        <div class="flex-item">
             @RenderSection("titleSection")
         </div>
     </div>
-
-    <div class="row">
-        @RenderSection("aspectsSection")
-    </div>
+    @RenderSection("aspectsSection")
     @RenderSection("Scripts", false)
 }

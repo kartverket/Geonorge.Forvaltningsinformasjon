@@ -10,6 +10,7 @@
     <Win32Resource />
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Geonorge.Forvaltningsinformasjon' " />
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\FkbData\Management\ActivityOverview\**" />

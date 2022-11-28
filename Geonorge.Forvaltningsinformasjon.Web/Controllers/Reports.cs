@@ -77,6 +77,29 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             {
                 List<Report> reports = new List<Report>();
 
+                if (string.IsNullOrEmpty(fnr)) 
+                { 
+                    using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+                    {
+                        command.CommandText = "SELECT RAPType.Type, RAPLand.Tidspunkt, RAPLand.HTMLRapport, RAPType.Beskrivelse FROM RAPLand INNER JOIN RAPType ON RAPLand.RAPType_Id = RAPType.Id WHERE(RAPLand.Aktiv = 1) AND(RAPType.Type = @type)";
+                        command.Parameters.Add(new SqlParameter("@type", rapport));
+                        using (var result = command.ExecuteReader())
+                        {
+                            if (result.HasRows)
+                            {
+                                result.Read();
+                                Report report = new Report();
+
+                                report.Type = result.GetString(0);
+                                report.Tidspunkt = result.GetDateTime(1);
+                                report.HTMLRapport = result.GetString(2);
+
+                                return View("Country", report);
+                            }
+                        }    
+                    }
+                }
+
                 using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
                 {
                     command.CommandText = "SELECT RAPType.Type, RAPFylke.Fylke_Fylkesnr,Fylke.Fylkesnavn, RAPFylke.Tidspunkt FROM RAPFylke INNER JOIN RAPType ON RAPFylke.RAPType_Id = RAPType.Id INNER JOIN Fylke ON RAPFylke.Fylke_Fylkesnr = Fylke.Fylkesnr WHERE(RAPFylke.Aktiv = 1) AND(RAPType.Type = @type) ORDER BY Fylkesnavn";

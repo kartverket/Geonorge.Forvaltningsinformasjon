@@ -7,30 +7,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = Localizer["Forvaltning FKB"];
     ViewData["tabs"] = new TabViewModel[] {
-        new TabViewModel() { Caption = "Forvaltningssystem", Controller = "DirectUpdateInfo", Aspect = true},
-        new TabViewModel() { Caption = "Transaksjonsdata", Controller = "TransactionData", Aspect = true},
-        new TabViewModel() { Caption = "Driftsstatus", Controller = "OperationalStatus", Aspect = false},
-    };
+new TabViewModel() { Caption = "Forvaltningssystem", Controller = "DirectUpdateInfo", Aspect = true},
+new TabViewModel() { Caption = "Transaksjonsdata", Controller = "TransactionData", Aspect = true},
+new TabViewModel() { Caption = "Driftsstatus", Controller = "OperationalStatus", Aspect = false},
+};
 }
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
-            {
-                name: 'Geonorge',
-                url: '@AppSettings.UrlGeonorgeRoot'
-            },
-            {
-                name: '@Localizer["Forvaltningsinformasjon"]',
-                url: '/'
-            },
-            {
-                name: '@Localizer["Forvaltning FKB"]',
-                url: 'fkb-data/management/direct-update-info'
-            }
-        ]
-    });
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: '@Localizer["Forvaltning FKB"]',
+            url: window.location.pathname
+        }
+    ]);
 </script>
 }
 

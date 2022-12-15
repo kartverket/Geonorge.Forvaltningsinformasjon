@@ -5,26 +5,24 @@
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
-            {
-                name: 'Geonorge',
-                url: '@AppSettings.UrlGeonorgeRoot'
-            },
-            {
-                name: '@Localizer["Forvaltningsinformasjon"]',
-                url: '/'
-            },
-            {
-                name: 'Rapporter',
-                url: '/rapport'
-            },
-            {
-                name: '@Model.Type',
-                url: '/rapport?rapport=@Model.Type'
-            }
-        ]
-    });
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: 'Rapporter',
+            url: '/rapport'
+        },
+        {
+            name: '@Model.Type',
+            url: '/rapport?rapport=@Model.Type'
+        }
+    ]);
 </script>
 }
 

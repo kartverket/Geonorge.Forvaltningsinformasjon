@@ -9,18 +9,16 @@
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
-            {
-                name: 'Geonorge',
-                url: '@AppSettings.UrlGeonorgeRoot'
-            },
-            {
-                name: '@Localizer["Forvaltningsinformasjon"]',
-                url: '/'
-            }
-        ]
-    });
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        }
+    ]);
 </script>
 }
 

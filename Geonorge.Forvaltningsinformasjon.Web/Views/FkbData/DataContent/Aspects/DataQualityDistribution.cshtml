@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 @using System.Globalization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
@@ -82,9 +82,9 @@
   </div> 
 
     <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
+    window.onload = function () {
         updateMap();
-    }, false)
+        }
 
         function updateMap(layerName) {
             const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');

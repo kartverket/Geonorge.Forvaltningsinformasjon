@@ -6,7 +6,14 @@
 <div style="align-self: center; text-align: center" id="legend"></div>
 
 <script type="text/javascript">
-    $.getScript("/dist/js/map/main.js", function () {
+if (typeof initMaps === 'undefined') {
+    let initMap;
+}
+if (typeof loadMapAsync === 'undefined') {
+    let loadMapAsync;
+}
+initMap = () => {
+$.getScript("/dist/js/map/main.js", function () {
         var params = [];
 
         params.mapItems = [
@@ -61,6 +68,17 @@
             </text>
         }
     });
+}
+    loadMapAsync = @( ViewData.ContainsKey("LoadMapAsync") ? @ViewData["LoadMapAsync"]?.ToString()?.ToLower() : "false" );
+    if (loadMapAsync) {
+        window.onload = ((event) => {
+            initMap();    
+        });
+    } else {
+        initMap();
+    }
+
+  
 </script>
 
 

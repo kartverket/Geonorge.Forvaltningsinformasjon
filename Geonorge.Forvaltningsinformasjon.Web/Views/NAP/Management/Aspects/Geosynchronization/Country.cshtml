@@ -23,9 +23,32 @@
 
 @section aspectsSection
 {
-    <div class="flex-container">
-        <div class="flex-item" style="top:0px;">
-            <div id="r_map" style="height:600px; width:500px; border: 1px thin black;"></div>
+    <div class="flex-container flex-row-reverse">
+        <div class="flex-item">
+            <gn-table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>@Localizer["Fylkesnr."]</th>
+                            <th>@Localizer["Fylke"]</th>
+                            <th style="max-width: 180px;">@Localizer["Kommuner som geosynkroniserer"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var county in Model.Counties)
+                        {
+                            <tr>
+                                <td>@county.Number</td>
+                                <td><a href="/nap/info/county?id=@county.Number">@county.Name</a></td>
+                                <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </gn-table>
+        </div>
+        <div class="flex-item flex-1">
+            <div id="r_map" style="height:600px; width:500px;"></div>
             <gn-table>
                 <table>
                 <tr>
@@ -37,27 +60,6 @@
                 </tr>
                 </table>
             </gn-table>
-        </div>
-        <div class="flex-item">
-            <table>
-                <thead>
-                    <tr>
-                        <th>@Localizer["Fylkesnr."]</th>
-                        <th>@Localizer["Fylke"]</th>
-                        <th>@Localizer["Kommuner som geosynkroniserer"]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var county in Model.Counties)
-                    {
-                        <tr>
-                            <td>@county.Number</td>
-                            <td><a href="/nap/info/county?id=@county.Number">@county.Name</a></td>
-                            <td>@county.GeosynchIntroducedCount av @county.MunicipalityCount</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
         </div>
     </div>
 }

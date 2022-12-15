@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 @using System.Globalization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
@@ -45,14 +45,7 @@
         }
     </style>
 
-<div class="flex-container">
- <div class="flex-item flex-1">
-        <div id="r_map">
-        </div>
-        <div style="text-align:center;margin:20px">
-            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
-        </div>
-    </div>
+<div class="flex-container flex-row-reverse">
     <div class="flex-item">
         <div class="flex-container">
             <div class="flex-item">
@@ -79,11 +72,18 @@
             </div>
         </div>
     </div>
-  </div> 
+    <div class="flex-item flex-1">
+        <div id="r_map">
+        </div>
+        <div style="text-align:center;margin:20px">
+            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+        </div>
+    </div>
+  </div>
 
     <script type="text/javascript">
     window.onload = function () {
-        updateMap();
+            updateMap();
         }
 
         function updateMap(layerName) {

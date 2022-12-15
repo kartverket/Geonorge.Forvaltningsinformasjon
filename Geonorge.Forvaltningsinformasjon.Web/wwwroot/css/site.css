@@ -67,6 +67,11 @@ button.ol-zoom-out:hover {
     gap: 20px;
 }
 
+.flex-row-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
 .flex-item {
     min-width: 200px;
 }

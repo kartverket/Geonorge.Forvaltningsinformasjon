@@ -4,12 +4,12 @@
 
 @section fkbSection
     {
-    <div class="flex-container">
-        <div class="flex-item">
-            <partial name="~/Views/Common/Context.cshtml" />
-        </div>
+    <div class="flex-container flex-row-reverse">
         <div class="flex-item">
             @RenderSection("titleSection")
+        </div>
+        <div class="flex-item flex-1">
+            <partial name="~/Views/Common/Context.cshtml" />
         </div>
     </div>
     @RenderSection("aspectsSection")

@@ -10,22 +10,20 @@
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
-            {
-                name: 'Geonorge',
-                url: '@AppSettings.UrlGeonorgeRoot'
-            },
-            {
-                name: '@Localizer["Forvaltningsinformasjon"]',
-                url: '/'
-            },
-            {
-                name: '@Localizer["Kartleggingsprosjekter Geovekst"]',
-                url: '/mapping-projects/geovekst/projects'
-            }
-        ]
-    });
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: '@Localizer["Kartleggingsprosjekter Geovekst"]',
+            url: '/mapping-projects/geovekst/projects'
+        }
+    ]);
 </script>
 }
 

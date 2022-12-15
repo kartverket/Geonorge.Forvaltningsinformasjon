@@ -13,26 +13,24 @@
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
-            {
-                name: 'Geonorge',
-                url: '@AppSettings.UrlGeonorgeRoot'
-            },
-            {
-                name: '@Localizer["Forvaltningsinformasjon"]',
-                url: '/'
-            },
-            {
-                name: '@Localizer["Plandata"]',
-                url: '/nap/info'
-            },
-            {
-                name: '@Localizer["Dataflyt NAP"]',
-                url: ''
-            }
-        ]
-    });
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: '@Localizer["Plandata"]',
+            url: '/nap/info'
+        },
+        {
+            name: '@Localizer["Dataflyt NAP"]',
+            url: ''
+        }
+    ]);
 </script>
 }
 

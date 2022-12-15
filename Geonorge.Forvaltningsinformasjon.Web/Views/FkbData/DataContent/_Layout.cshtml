@@ -15,8 +15,7 @@
 
 @section scripts {
 <script>
-    geonorge.BreadcrumbList.BreadcrumbList.setup("#breadcrumb-list", {
-        breadcrumbs: [
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
             {
                 name: 'Geonorge',
                 url: '@AppSettings.UrlGeonorgeRoot'
@@ -29,8 +28,7 @@
                 name: '@Localizer["Datainnhold FKB"]',
                 url: ''
             },
-        ]
-    });
+        ]);
 </script>
 }
 

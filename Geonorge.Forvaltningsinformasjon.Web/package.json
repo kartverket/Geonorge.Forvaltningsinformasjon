@@ -10,7 +10,7 @@
   "dependencies": {
     "@kartverket/geonorge-web-components": "^1.0.12",
     "@popperjs/core": "^2.11.6",
-    "chart.js": "^3.9.1",
+    "chart.js": "^4.0.1",
     "font-awesome": "^4.6.3",
     "map": "https://github.com/kartverket/map.git",
     "ol": "^7.0.0"

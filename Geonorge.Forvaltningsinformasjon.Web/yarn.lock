@@ -1546,6 +1546,11 @@
   resolved "https://registry.yarnpkg.com/@kartverket/geonorge-web-components/-/geonorge-web-components-1.0.13.tgz#2ac91ffe9356347b3a1635dba104531e48160efc"
   integrity sha512-0Dx+9gt+nCEsm0+wWpYuxT4lzKucqiT9x7cg2WFwJUt/W+tXSXehvcdg3bggjkZSpPIrJkL4NoMEbMwk64H8bw==
 
+"@kurkle/color@^0.3.0":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.1.tgz#ef72bc8022ccf77cdd2715097f062ee591ec145c"
+  integrity sha512-hW0GwZj06z/ZFUW2Espl7toVDjghJN+EKqyXzPSV8NV89d5BYp5rRMBJoc+aUN0x5OXDMeRQHazejr2Xmqj2tw==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -3727,10 +3732,12 @@ char-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-2.0.1.tgz#6dafdb25f9d3349914079f010ba8d0e6ff9cd01e"
   integrity sha512-oSvEeo6ZUD7NepqAat3RqoucZ5SeqLJgOvVIwkafu6IP3V0pO38s/ypdVUmDDK6qIIHNlYHJAKX9E7R7HoKElw==
 
-chart.js@^3.9.1:
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.9.1.tgz#3abf2c775169c4c71217a107163ac708515924b8"
-  integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
+chart.js@^4.0.1:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.1.0.tgz#171af17142afdb5d43859676f8aad4751b70024c"
+  integrity sha512-Xta4vonV3e1pwFGLTyUMqXk2aH03D6253DSt52pdS7247u2SpIpQb6kCewxNgx1JfeLBUnjaxHYbHpOv6w78Og==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
 
 check-types@^11.1.1:
   version "11.2.2"
@@ -6752,9 +6759,9 @@ json5@^1.0.1:
     minimist "^1.2.0"
 
 json5@^2.1.2, json5@^2.2.0, json5@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
-  integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.2.tgz#64471c5bdcc564c18f7c1d4df2e2297f2457c5ab"
+  integrity sha512-46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==
 
 jsonfile@^6.0.1:
   version "6.1.0"

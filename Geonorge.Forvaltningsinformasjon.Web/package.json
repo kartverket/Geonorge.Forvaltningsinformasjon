@@ -12,6 +12,7 @@
     "@popperjs/core": "^2.11.6",
     "chart.js": "^4.0.1",
     "font-awesome": "^4.6.3",
+    "jquery": "^3.6.2",
     "map": "https://github.com/kartverket/map.git",
     "ol": "^7.0.0"
   },

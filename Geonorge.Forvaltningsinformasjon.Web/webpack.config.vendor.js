@@ -45,6 +45,7 @@ module.exports = (env) => {
                 }),
                 new CopyWebpackPlugin({
                     patterns: [
+                        { from: 'node_modules/jquery/dist', to: 'js/jquery' },
                         { from: 'node_modules/map/dist', to: 'js/map' },
                         { from: "node_modules/chart.js/dist", to: "js/chart" },
                         { from: "node_modules/@kartverket/geonorge-web-components/", to: "js/geonorge-web-components" }

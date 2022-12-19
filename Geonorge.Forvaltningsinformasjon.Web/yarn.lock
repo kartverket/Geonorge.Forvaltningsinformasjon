@@ -1542,9 +1542,9 @@
     "@jridgewell/sourcemap-codec" "1.4.14"
 
 "@kartverket/geonorge-web-components@^1.0.12":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@kartverket/geonorge-web-components/-/geonorge-web-components-1.0.18.tgz#2bd01dae9571ef0561ee757a5f2f982fbcc924d5"
-  integrity sha512-khpJrYPJDuvrPgzVHZrDUWizQPrg9s/drPFksxvH+Zy13cGo4CjQdg+byY2G77gAnaucisrrkZQXB+xuVC8Gbw==
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@kartverket/geonorge-web-components/-/geonorge-web-components-1.0.19.tgz#1973db60c82ec2d33ec019d38ef59dd48a547429"
+  integrity sha512-hTlaMKXEPskm1gcae6HecTMz0ZWQHA99YXBsHOwFuXt2GPEfC4fmuTMZWfEQ8UsgxEZPhaQS6sd9iKyIbB1BHw==
 
 "@kurkle/color@^0.3.0":
   version "0.3.1"

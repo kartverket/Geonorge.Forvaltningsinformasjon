@@ -16,7 +16,7 @@
 <div class="flex-container">
     <div class="flex-item" style="width: 200px; margin-top: 7px;">
         <form action="~/mapping-projects/geovekst/projects" method="get">
-            <gn-select>
+            <gn-select block>
                 <label for="OfficeId">Kartkontor</label>
                 <select block id="OfficeId" name="OfficeId" onchange="this.form.submit()"
                     class="chosen-select form-control">
@@ -34,7 +34,7 @@
                     }
                 </select>
             </gn-select>
-            <gn-select>
+            <gn-select block>
                 <label for="MunicipalityNumber">Kommune</label>
                 <select block id="MunicipalityNumber" name="MunicipalityNumber" onchange="this.form.submit()"
                     class="chosen-select form-control">
@@ -52,7 +52,7 @@
                     }
                 </select>
             </gn-select>
-            <gn-select>
+            <gn-select block>
                 <label for="State">Prosjektstatus</label>
                 <select block id="State" name="State" onchange="this.form.submit()" class="chosen-select form-control">
                     @foreach (var state in Model.States)
@@ -68,7 +68,7 @@
                     }
                 </select>
             </gn-select>
-            <gn-select>
+            <gn-select block>
                 <label for="DeliveryType">Leveransetype</label>
                 <select block id="DeliveryType" name="DeliveryType" onchange="this.form.submit()"
                     class="chosen-select form-control">
@@ -85,7 +85,7 @@
                     }
                 </select>
             </gn-select>
-            <gn-select>
+            <gn-select block>
                 <label for="Year">Datafangstår</label>
                 <select block id="Year" name="Year" onchange="this.form.submit()" class="chosen-select form-control">
                     <option value="">@Localizer["Alle"]</option>

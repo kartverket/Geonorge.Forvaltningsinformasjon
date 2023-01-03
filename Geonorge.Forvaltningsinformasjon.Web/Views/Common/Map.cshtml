@@ -5,9 +5,15 @@
 <div style="display:flex;height:@MapViewModel.ViewHeight;border-style:solid;border-width:1px;border-color:#cccccc" id="root"></div>
 <div style="align-self: center; text-align: center" id="legend"></div>
 
-<script src="~/dist/js/jquery/jquery.js"></script>
 <script type="text/javascript">
-    $.getScript("/dist/js/map/main.js", function () {
+if (typeof initMaps === 'undefined') {
+    let initMap;
+}
+if (typeof loadMapAsync === 'undefined') {
+    let loadMapAsync;
+}
+initMap = () => {
+$.getScript("/dist/js/map/main.js", function () {
         var params = [];
 
         params.mapItems = [
@@ -62,6 +68,17 @@
             </text>
         }
     });
+}
+    loadMapAsync = @( ViewData.ContainsKey("LoadMapAsync") ? @ViewData["LoadMapAsync"]?.ToString()?.ToLower() : "false" );
+    if (loadMapAsync) {
+        window.onload = ((event) => {
+            initMap();    
+        });
+    } else {
+        initMap();
+    }
+
+  
 </script>
 
 

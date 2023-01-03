@@ -1,12 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
-@model Geonorge.Forvaltningsinformasjon.Web.Models.MappingProjects.Geovekst.MappingProjectViewModel
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = Localizer["Kartleggingsprosjekter Geovekst"];
-}
 
 @section scripts {
 <script>
@@ -20,13 +15,17 @@
             url: '/'
         },
         {
-            name: '@Localizer["Kartleggingsprosjekter Geovekst"]',
-            url: '/mapping-projects/geovekst/projects'
+            name: 'Rapporter',
+            url: '/rapport'
+        },
+        {
+            name: '@Model.Type',
+            url: '/rapport?rapport=@Model.Type'
         }
     ]);
 </script>
 }
 
-<div>
-    @RenderSection("projectsSection")
-</div>
+<gn-table>
+    @Html.Raw(Model.HTMLRapport)
+</gn-table>

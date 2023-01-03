@@ -15,13 +15,12 @@
 @section fkbSection
     {
     <div class="col-md-9" style="margin:10px">
-        <div class="row">
-            <h4>
+        <heading-text>
+            <h2 size="3">
                 @Localizer["Driftsstatusmeldinger fra "]
                 <a href="http://status.kartverket.no">http://status.kartverket.no</a>
-            </h4>
-            <br /><br />
-        </div>
+            </h2>
+        </heading-text>
         @foreach (var item in Model)
         {
             <div class="row">

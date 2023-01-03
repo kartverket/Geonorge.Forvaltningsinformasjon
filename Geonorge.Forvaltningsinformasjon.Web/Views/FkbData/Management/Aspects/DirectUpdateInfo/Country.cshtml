@@ -12,7 +12,9 @@
 @section titleSection
 {
     <div style="text-align:center">
-        <h4>@Localizer["Landsoversikt"]</h4>
+        <heading-text>
+            <h2 size="4">@Localizer["Landsoversikt"]</h4>
+        </heading-text>
         <p>
             @Localizer["Antall kommuner i Norge som oppdaterer FKB-data direkte i Sentral felles kartdatabase: "]<strong>@Model.DirectUpdateCount</strong>
         </p>
@@ -25,24 +27,26 @@
   @*      <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
     </div>
     <div class="col-md-8">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Localizer["Fylkesnr."]</th>
-                    <th>@Localizer["Fylke"]</th>
-                    <th>@Localizer["Kommuner med direkte oppdatering"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var county in Model.Counties)
-                {
+        <gn-table>
+            <table>
+                <thead>
                     <tr>
-                        <td>@county.Number</td>
-                        <td><a href="~/fkb-data/management/direct-update-info/county?id=@county.Id">@county.Name</a></td>
-                        <td>@county.DirectUpdateCount av @county.MunicipalityCount</td>
+                        <th>@Localizer["Fylkesnr."]</th>
+                        <th>@Localizer["Fylke"]</th>
+                        <th>@Localizer["Kommuner med direkte oppdatering"]</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var county in Model.Counties)
+                    {
+                        <tr>
+                            <td>@county.Number</td>
+                            <td><a href="~/fkb-data/management/direct-update-info/county?id=@county.Id">@county.Name</a></td>
+                            <td>@county.DirectUpdateCount av @county.MunicipalityCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </gn-table>
     </div>
 }   

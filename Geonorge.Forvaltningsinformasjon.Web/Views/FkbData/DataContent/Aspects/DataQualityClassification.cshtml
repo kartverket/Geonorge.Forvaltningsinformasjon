@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers
-
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent.DataQualityClassificationViewModel
 
 @inject IViewLocalizer Localizer
@@ -30,34 +29,42 @@
 
 @section aspectsSection
     {
-    <div class="col-md-6 col-md-push-6">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Localizer["Klasse"]</th>
-                    <th>@Localizer["Areal"] (km<sup>2</sup>)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
-                {
-                    <tr>
-                        <td>
-                            <svg width="20" height="20">
-                                <rect width="20" height="20" style="fill:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillColor;fill-opacity:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillOpacity;stroke-width:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeWidth;stroke:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeColor" />
-                            </svg>
-                            <span style="vertical-align:top">FKB-@item.Class</span>
-                        </td>
-                        <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-6 col-md-pull-6" style="top:35px">
-        <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />
-        <div style="text-align:center;margin:20px">
-            <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+    @{
+        ViewData["LoadMapAsync"] = true;
+    }
+    <div class="flex-container flex-row-reverse">
+        <div class="flex-item">
+            <gn-table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Localizer["Klasse"]</th>
+                            <th>@Localizer["Areal"] (km<sup>2</sup>)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Classifications.Where(c => c.Area >= 10.0))
+                        {
+                            <tr>
+                                <td>
+                                    <svg width="20" height="20">
+                                        <rect width="20" height="20" style="fill:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillColor;fill-opacity:@Model.LegendItemStyles[$"FKB-{item.Class}"].FillOpacity;stroke-width:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeWidth;stroke:@Model.LegendItemStyles[$"FKB-{item.Class}"].StrokeColor" />
+                                    </svg>
+                                    <span style="vertical-align:top">FKB-@item.Class</span>
+                                </td>
+                                <td>@((item.Area / 1000.0).ToString("### ##0.00"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </gn-table>
+        </div>
+        <div class="flex-item flex-1">
+            <script src="/dist/js/jquery/jquery.min.js"></script>
+            <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" view-data="ViewData"  />
+            <div style="text-align:center;margin:20px">
+                <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
+            </div>
         </div>
     </div>
 }

@@ -1,9 +1,34 @@
-﻿@model Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report
-@section breadcrumb
-{
-<li><a href="/rapport">Rapporter</a></li>
-<li><a href="/rapport?rapport=@Model.Type">@Model.Type</a></li>
-<li>@Model.FylkesNavn</li>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report
+@inject ApplicationSettings AppSettings
+@inject IViewLocalizer Localizer
+
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: 'Rapporter',
+            url: '/rapport'
+        },
+        {
+            name: '@Model.Type',
+            url: '/rapport?rapport=@Model.Type'
+        }
+        {
+            name: '@Model.FylkesNavn'
+        }
+    ]);
+</script>
 }
 
-<p>@Html.Raw(Model.HTMLRapport)</p>
+<gn-table>
+    @Html.Raw(Model.HTMLRapport)
+</gn-table>

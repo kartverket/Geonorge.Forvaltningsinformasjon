@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<LangVersion>preview</LangVersion>
+	<TargetFramework>net6.0</TargetFramework>
 	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <AssemblyName>Geonorge.Forvaltningsinformasjon.Web</AssemblyName>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
@@ -9,6 +10,7 @@
     <Win32Resource />
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Geonorge.Forvaltningsinformasjon' " />
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\FkbData\Management\ActivityOverview\**" />
@@ -25,20 +27,33 @@
   </ItemGroup> 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.10" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-    <PackageReference Include="Serilog" Version="2.8.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
-    <PackageReference Include="System.ServiceModel.Syndication" Version="4.5.0" />
+    <PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.29" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
     
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\FkbData\Management\Aspects\ActivityOverview\" />
-    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_0.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_11.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_15.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_18.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_3.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_30.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_34.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_38.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_42.geojson" />
+    <None Include="wwwroot\dist\geojson\DirectUpdateInfo_50.geojson" />
+    <None Include="wwwroot\dist\geojson\kommuner.geojson" />
   </ItemGroup>
 
   <ItemGroup>

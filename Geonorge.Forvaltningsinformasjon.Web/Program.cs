@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
+using System;
+using System.IO;
 
 namespace Geonorge.Forvaltningsinformasjon.Web
 {
@@ -31,7 +27,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             {
                 Log.Information("Application is starting up...");
 
-                BuildWebHost(args).Run();
+                var host = BuildHost(args);
+                host.Run();
 
                 return 0;
             }
@@ -46,10 +43,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseConfiguration(Configuration)
+        public static IHost BuildHost(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseConfiguration(Configuration);
+                    webBuilder.UseStartup<Startup>();
+                })
                 .UseSerilog()
                 .Build();
     }

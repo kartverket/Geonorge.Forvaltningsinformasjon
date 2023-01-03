@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common
-
+@inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 @{
@@ -13,9 +13,23 @@
 };
 }
 
-@section breadcrumb
-{
-    <li>@Localizer["Datainnhold FKB"]</li>
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+            {
+                name: 'Geonorge',
+                url: '@AppSettings.UrlGeonorgeRoot'
+            },
+            {
+                name: '@Localizer["Forvaltningsinformasjon"]',
+                url: '/'
+            },
+            {
+                name: '@Localizer["Datainnhold FKB"]',
+                url: ''
+            },
+        ]);
+</script>
 }
 
 <partial name="~/Views/Common/Tab.cshtml" />

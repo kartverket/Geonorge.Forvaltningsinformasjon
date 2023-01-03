@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Geonorge.Forvaltningsinformasjon.Web.Models.Common
-
+@inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
 @{
@@ -11,14 +11,29 @@
     };
 }
 
-@section breadcrumb
-    {
-    <li><a href="/nap/info">@Localizer["Plandata"]</a></li>
-    <li>@Localizer["Dataflyt NAP"]</li>
+@section scripts {
+<script>
+    geonorge.BreadcrumbList.BreadcrumbList.renderBreadcrumbs([
+        {
+            name: 'Geonorge',
+            url: '@AppSettings.UrlGeonorgeRoot'
+        },
+        {
+            name: '@Localizer["Forvaltningsinformasjon"]',
+            url: '/'
+        },
+        {
+            name: '@Localizer["Plandata"]',
+            url: '/nap/info'
+        },
+        {
+            name: '@Localizer["Dataflyt NAP"]',
+            url: ''
+        }
+    ]);
+</script>
 }
 
-@*<partial name="~/Views/Common/Tab.cshtml" />*@
 
-<div>
-    @RenderSection("fkbSection")
-</div>
+@*<partial name="~/Views/Common/Tab.cshtml" />*@
+@RenderSection("fkbSection")

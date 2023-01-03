@@ -2,7 +2,6 @@
 @using Newtonsoft.Json
 
 @inject IViewLocalizer Localizer
-@inject ApplicationSettings AppSettings
 
 @model Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.Management.Aspects.TransactionData.TransactionDataViewModel
 
@@ -13,75 +12,81 @@
 
 @section titleSection
 {
-    @RenderSection("titleSection")
+@RenderSection("titleSection")
 }
 
 @section aspectsSection
 {
-    <style>
-        input {
-            visibility: hidden;
-            width: 0px;
-        }
+<style>
+    input {
+        visibility: hidden;
+        width: 0px;
+        margin: 0;
+        position: absolute;
+    }
 
-        input:checked + span {
-            font-weight: bold;
-        }
+    input:checked+span {
+        font-weight: bold;
+    }
 
-        input + span {
-            font-weight: normal;
-        }
+    input+span {
+        font-weight: normal;
+    }
 
-        .tdSelected {
-            background-color: #e8e8e8;
-        }
+    .tdSelected {
+        background-color: #e8e8e8;
+    }
 
-        .tdGuide {
-            background-color: #f8f8f8;
-        }
-    </style>
-
-    <div class="col-md-6 col-md-push-6">
-        <table class="table" id="transactionDataTable">
-            <thead>
-                <tr id="periodHeader">
-                    <td></td>
-                    <td>
-                        <label style="cursor:pointer">
-                            <input type="radio" name="period" onclick="setPeriod(0)" />
-                            <span>@Localizer["Siste 7 dager"]</span>
-                        </label>
-                    </td>
-                    <td class="tdSelected">
-                        <label style="cursor:pointer">
-                            <input type="radio" name="period" onclick="setPeriod(1)" checked="checked" />
-                            <span>@Localizer["Siste 30 dager"]</span>
-                        </label>
-                    </td>
-                    <td>
-                        <label style="cursor:pointer">
-                            <input type="radio" name="period" onclick="setPeriod(2)" />
-                            <span>@Localizer["Siste 365 dager"]</span>
-                        </label>
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var transactionData in Model.TransactionData)
-                {
+    .tdGuide {
+        background-color: #f8f8f8;
+    }
+</style>
+<div class="flex-container flex-row-reverse">
+    <div class="flex-item">
+        <gn-table>
+            <table id="transactionDataTable">
+                <thead>
+                    <tr id="periodHeader">
+                        <th></th>
+                        <th>
+                            <label style="cursor:pointer">
+                                <input type="radio" name="period" onclick="setPeriod(0)" />
+                                <span>@Localizer["Siste 7 dager"]</span>
+                            </label>
+                        </th>
+                        <th class="tdSelected">
+                            <label style="cursor:pointer">
+                                <input type="radio" name="period" onclick="setPeriod(1)" checked="checked" />
+                                <span>@Localizer["Siste 30 dager"]</span>
+                            </label>
+                        </th>
+                        <th>
+                            <label style="cursor:pointer">
+                                <input type="radio" name="period" onclick="setPeriod(2)" />
+                                <span>@Localizer["Siste 365 dager"]</span>
+                            </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transactionData in Model.TransactionData)
+                    {
                     <tr>
                         <td>
                             <label style="cursor:pointer">
                                 <svg width="20" height="20">
-                                    <rect width="20" height="20" style="fill:@Model.LegendItemStyles[transactionData.DataSetName].FillColor;fill-opacity:@Model.LegendItemStyles[transactionData.DataSetName].FillOpacity;stroke-width:@Model.LegendItemStyles[transactionData.DataSetName].StrokeWidth;stroke:@Model.LegendItemStyles[transactionData.DataSetName].StrokeColor" />
+                                    <rect width="20" height="20"
+                                        style="fill:@Model.LegendItemStyles[transactionData.DataSetName].FillColor;fill-opacity:@Model.LegendItemStyles[transactionData.DataSetName].FillOpacity;stroke-width:@Model.LegendItemStyles[transactionData.DataSetName].StrokeWidth;stroke:@Model.LegendItemStyles[transactionData.DataSetName].StrokeColor" />
                                 </svg>
                                 @if (transactionData.DataSetName != "FKB-Bygning")
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName')" style="margin: 0px" />
+                                <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName')"
+                                    style="margin: 0px" />
                                 }
                                 else
                                 {
-                                    <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName')" checked="checked" style="margin:0px" />
+                                <input type="checkbox" onclick="toggleDataSet('@transactionData.DataSetName')"
+                                    checked="checked" style="margin:0px" />
                                 }
                                 <span style="vertical-align:top">@transactionData.DataSetName</span>
                             </label>
@@ -90,111 +95,112 @@
                         <td>@transactionData.SumLastMonth</td>
                         <td>@transactionData.SumLastYear</td>
                     </tr>
-                }
-                <tr>
-                    <td>@Localizer["Totalt"]</td>
-                    <td>@Model.SumLastWeek</td>
-                    <td>@Model.SumLastMonth</td>
-                    <td>@Model.SumLastYear</td>
-                </tr>
-            </tbody>
-        </table>
+                    }
+                    <tr>
+                        <td>@Localizer["Totalt"]</td>
+                        <td>@Model.SumLastWeek</td>
+                        <td>@Model.SumLastMonth</td>
+                        <td>@Model.SumLastYear</td>
+                    </tr>
+                </tbody>
+            </table>
+        </gn-table>
     </div>
-    <div class="col-md-6 col-md-pull-6" style="top:43px">
+    <div class="flex-item flex-1" style="top:43px">
         <div id="r_map"></div>
         <div style="text-align:center;margin:20px">
             <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
         </div>
     </div>
+</div>
+<script src="/dist/js/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    var period = 1;
+    var dataSetNames = ["FKB-Bygning"];
+    window.onload = function () {
+        updateGrid();
+        updateMap();
+    }
 
-    <script src="~/dist/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript">
-        var period = 1;
-        var dataSetNames = ["FKB-Bygning"];
-        window.onload = function () {
-            updateGrid();
-            updateMap();
+    function toggleDataSet(dataSetName) {
+        const idx = dataSetNames.findIndex(e => e === dataSetName);
+
+        if (idx > -1) {
+            dataSetNames.splice(idx, 1);
+        } else {
+            dataSetNames.splice(idx, 0, dataSetName);
         }
+        updateGrid();
+        updateMap();
+    }
 
-        function toggleDataSet(dataSetName) {
-            const idx = dataSetNames.findIndex(e => e === dataSetName);
+    function setPeriod(p) {
+        period = p;
+        updateGrid();
+        updateMap();
+    }
 
-            if (idx > -1) {
-                dataSetNames.splice(idx, 1);
-            } else {
-                dataSetNames.splice(idx, 0, dataSetName);
+    function updateGrid(elem) {
+        var table = document.getElementById('transactionDataTable');
+        var col = updateColHeaders(table);
+        var checkBoxes = table.querySelectorAll('input[type="checkbox"]');
+        var lastSelectedRow = 0;
+
+        for (var i = 0; i < checkBoxes.length; ++i) {
+            var cellClassName = '';
+
+            var cells = table.rows[i + 1].cells;
+
+            if (checkBoxes[i].checked) {
+                lastSelectedRow = i + 1;
+                cells[0].className = 'tdSelected';
+                cells[col].className = 'tdSelected';
+                cellClassName = 'tdGuide';
             }
-            updateGrid();
-            updateMap();
-        }
-
-        function setPeriod(p) {
-            period = p;
-            updateGrid();
-            updateMap();
-        }
-
-        function updateGrid(elem) {
-            var table = document.getElementById('transactionDataTable');
-            var col = updateColHeaders(table);
-            var checkBoxes = table.querySelectorAll('input[type="checkbox"]');
-            var lastSelectedRow = 0;
-
-            for (var i = 0; i < checkBoxes.length; ++i) {
-                var cellClassName = '';
-
-                var cells = table.rows[i + 1].cells;
-
-                if (checkBoxes[i].checked) {
-                    lastSelectedRow = i + 1;
-                    cells[0].className = 'tdSelected';
-                    cells[col].className = 'tdSelected';
-                    cellClassName = 'tdGuide';
-                }
-                else {
-                    cells[0].className = '';
-                    cells[col].className = 'tdGuide';
-                }
-
-                for (var j = 1; j < col; ++j) {
-                    cells[j].className = cellClassName;
-                }
-
-                for (j = col + 1; j < cells.length; ++j) {
-                    cells[j].className = '';
-                }
+            else {
+                cells[0].className = '';
+                cells[col].className = 'tdGuide';
             }
 
-            var lengthWithoutSumRow = table.rows.length - 1;
+            for (var j = 1; j < col; ++j) {
+                cells[j].className = cellClassName;
+            }
 
-            for (var k = lastSelectedRow + 1; k < lengthWithoutSumRow; ++k) {
-                var cells = table.rows[k].cells;
-                console.log(k);
-                for (var j = col; j < cells.length; ++j) {
-                    cells[j].className = '';
-                }
+            for (j = col + 1; j < cells.length; ++j) {
+                cells[j].className = '';
             }
         }
 
-        function updateColHeaders(table) {
-            var col;
-            var radios = table.querySelectorAll('input[type="radio"]');
+        var lengthWithoutSumRow = table.rows.length - 1;
 
-            for (var i = 0; i < radios.length; ++i) {
-                if (radios[i].checked) {
-                    radios[i].parentElement.parentElement.className = 'tdSelected';
-                    col = i;
-                }
-                else {
-                    radios[i].parentElement.parentElement.className = '';
-                }
+        for (var k = lastSelectedRow + 1; k < lengthWithoutSumRow; ++k) {
+            var cells = table.rows[k].cells;
+            console.log(k);
+            for (var j = col; j < cells.length; ++j) {
+                cells[j].className = '';
             }
-            return col + 1;
         }
+    }
 
-        function updateMap() {
-            const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');
-            $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&jsonMapViewModel=' + mapModel);
+    function updateColHeaders(table) {
+        var col;
+        var radios = table.querySelectorAll('input[type="radio"]');
+
+        for (var i = 0; i < radios.length; ++i) {
+            if (radios[i].checked) {
+                radios[i].parentElement.parentElement.className = 'tdSelected';
+                col = i;
+            }
+            else {
+                radios[i].parentElement.parentElement.className = '';
+            }
         }
-    </script>
+        return col + 1;
+    }
+
+    function updateMap() {
+        const mapModel = encodeURIComponent('@Html.Raw(JsonConvert.SerializeObject(Model.MapViewModel))');
+        $('#r_map').load('/fkb-data/management/transaction-data/update-map?dataSetNames=' + dataSetNames.toString() + '&period=' + period + '&jsonMapViewModel=' + mapModel);
+    }
+</script>
 }

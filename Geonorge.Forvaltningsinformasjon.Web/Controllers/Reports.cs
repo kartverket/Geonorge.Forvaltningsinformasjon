@@ -129,7 +129,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
                 using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
                 {
-                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 ORDER BY Type";
+                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved' and Fagfelt = 'FKB'  ORDER BY Type";
                     using (var result = command.ExecuteReader())
                     {
                         while (result.Read())

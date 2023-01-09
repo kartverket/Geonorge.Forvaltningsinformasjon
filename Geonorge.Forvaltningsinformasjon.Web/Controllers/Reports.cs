@@ -19,8 +19,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             _dbContext = kosContext;
         }
 
-        [HttpGet("/rapport")]
-        public IActionResult Index(string rapport, string fnr, string k)
+        [HttpGet("/rapport/{fagfelt}")]
+        public IActionResult Index(string fagfelt, string rapport, string fnr, string k)
         {
             _dbContext.Database.OpenConnection();
 
@@ -129,7 +129,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 
                 using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
                 {
-                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved' and Fagfelt = 'FKB'  ORDER BY Type";
+                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved' and Fagfelt = @fagfelt  ORDER BY Type";
+                    command.Parameters.Add(new SqlParameter("@fagfelt", fagfelt));
                     using (var result = command.ExecuteReader())
                     {
                         while (result.Read())

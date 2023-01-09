@@ -19,7 +19,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             _dbContext = kosContext;
         }
 
-        [HttpGet("/rapport/{fagfelt}")]
+        [HttpGet("/rapport/{fagfelt?}")]
         public IActionResult Index(string fagfelt, string rapport, string fnr, string k)
         {
             _dbContext.Database.OpenConnection();
@@ -124,7 +124,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 return View("Reports", reports);
             }
             else 
-            { 
+            {
+                if (string.IsNullOrEmpty(fagfelt))
+                    fagfelt = "FKB";
+
                 List<Report> reports = new List<Report>();
 
                 using (var command = _dbContext.Database.GetDbConnection().CreateCommand())

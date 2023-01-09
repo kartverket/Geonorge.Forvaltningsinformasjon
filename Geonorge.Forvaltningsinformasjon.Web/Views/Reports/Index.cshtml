@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Geonorge.Forvaltningsinformasjon.Web.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
 
@@ -18,11 +19,38 @@
             url: '/rapport'
         }
     ]);
+
+    function changeFagfelt()
+    {
+        var element = document.getElementById("fagfelt");
+        var fagfelt = element.value;
+        window.location = "/rapport/" + fagfelt;
+    }
+
 </script>
 }
 
 @model List<Geonorge.Forvaltningsinformasjon.Web.Models.Reports.Report>
 
+<div style="display:inline-block;padding:0">
+    <form method="get" class="custom-select">
+        <gn-select>
+            <select name="Key" id="fagfelt" onchange="changeFagfelt();">
+                    @foreach (KeyValuePair<string, FagFeltSelect> item in ViewBag.Fagfelt)
+                    {
+                        if (item.Value.Selected)
+                        {
+                            <option selected value="@item.Key">@item.Value.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value.Text</option>
+                        }
+                    }
+            </select>
+        </gn-select>
+    </form>
+</div>
 <gn-table>
     <table>
         <thead>

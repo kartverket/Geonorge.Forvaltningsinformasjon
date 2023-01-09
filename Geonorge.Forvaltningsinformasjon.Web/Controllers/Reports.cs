@@ -146,9 +146,33 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                     }
                 }
 
+                Dictionary<string,FagFeltSelect> fagFelts = new Dictionary<string, FagFeltSelect>();
+
+                using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+                {
+                    command.CommandText = "SELECT DISTINCT Fagfelt FROM [KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved'  ORDER BY Fagfelt";
+                    using (var result = command.ExecuteReader())
+                    {
+                        while (result.Read())
+                        {
+                            var key =  result.GetString(0);
+                            fagFelts.Add(key.ToLower(), new FagFeltSelect { Text = key, Selected = (key.ToLower() == fagfelt.ToLower()) });
+                        }
+                    }
+                }
+
+                ViewBag.Fagfelt = fagFelts;
+
                 return View(reports);
 
             }
         }
+    }
+
+    public class FagFeltSelect
+    {
+        public string Text { get; set; }
+        public bool Selected { get; set; }
+
     }
 }

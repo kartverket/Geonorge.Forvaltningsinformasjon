@@ -19,8 +19,8 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
             _dbContext = kosContext;
         }
 
-        [HttpGet("/rapport")]
-        public IActionResult Index(string rapport, string fnr, string k)
+        [HttpGet("/rapport/{fagfelt?}")]
+        public IActionResult Index(string fagfelt, string rapport, string fnr, string k)
         {
             _dbContext.Database.OpenConnection();
 
@@ -124,12 +124,16 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                 return View("Reports", reports);
             }
             else 
-            { 
+            {
+                if (string.IsNullOrEmpty(fagfelt))
+                    fagfelt = "FKB";
+
                 List<Report> reports = new List<Report>();
 
                 using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
                 {
-                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 ORDER BY Type";
+                    command.CommandText = "SELECT  [Id],[Type],[Beskrivelse] FROM[KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved' and Fagfelt = @fagfelt  ORDER BY Type";
+                    command.Parameters.Add(new SqlParameter("@fagfelt", fagfelt));
                     using (var result = command.ExecuteReader())
                     {
                         while (result.Read())
@@ -145,9 +149,33 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
                     }
                 }
 
+                Dictionary<string,FagFeltSelect> fagFelts = new Dictionary<string, FagFeltSelect>();
+
+                using (var command = _dbContext.Database.GetDbConnection().CreateCommand())
+                {
+                    command.CommandText = "SELECT DISTINCT Fagfelt FROM [KOS_Prod_Replika].[dbo].[RAPType] where aktiv = 1 and Nivaa='Hoved'  ORDER BY Fagfelt";
+                    using (var result = command.ExecuteReader())
+                    {
+                        while (result.Read())
+                        {
+                            var key =  result.GetString(0);
+                            fagFelts.Add(key.ToLower(), new FagFeltSelect { Text = key, Selected = (key.ToLower() == fagfelt.ToLower()) });
+                        }
+                    }
+                }
+
+                ViewBag.Fagfelt = fagFelts;
+
                 return View(reports);
 
             }
         }
+    }
+
+    public class FagFeltSelect
+    {
+        public string Text { get; set; }
+        public bool Selected { get; set; }
+
     }
 }

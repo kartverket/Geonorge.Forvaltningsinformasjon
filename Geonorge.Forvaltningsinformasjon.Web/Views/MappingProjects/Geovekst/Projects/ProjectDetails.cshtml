@@ -16,7 +16,10 @@
 {
 <div class="col-md-2" style="top:35px">
     @* <partial name="~/Views/Common/Map.cshtml" model="@Model.MapViewModel" />*@
+
+
 </div>
+    <div id="r_map" style="height:600px; width:500px;"></div>
 <div class="col-md-10">
     <gn-table>
         <table class="table">
@@ -83,4 +86,35 @@
 
         return date;
     }
+}
+
+@section Scripts {
+    <script src="~/dist/js/map/main.js"></script>
+    <script>
+        const dummyData = [
+            { "pn": "LACHTL12", "bbox": "228249,6957992,297183,7047509", "layers": "ortofoto_prosjekt_standard" }, 
+            { "pn": "LACHTL12", "bbox": "230052,6960059,295207,7045976", "layers": "fkb_prosjekt_standard" }, 
+            { "pn": "LACHTL12", "bbox": "253684,6986146,259529,6993529", "layers": "laser_prosjekt_standard" }
+        ]
+
+
+
+
+        var params = [];
+        params.mapItems = [
+            {
+                'Title': 'Planregisterstatus',
+                'DistributionProtocol': 'OGC:WMS',
+                'GetCapabilitiesUrl': 'https://openwms.statkart.no/skwms1/wms.planregisterstatus?request=GetCapabilities&service=WMS',
+                'addLayers': ['Geosynkronisering']
+            }
+        ];
+
+        params.zoom = 2.8;
+        params.lat = 7162299.5988298645;
+        params.lon = 537500.9925542421;
+        params.crs = 'EPSG:25833';
+
+        main.map(params, document.getElementById("r_map"));
+    </script>
 }

@@ -16,9 +16,12 @@
 <div class="flex-container">
     <div class="flex-item" style="width: 200px; margin-top: 7px;">
         <form action="~/mapping-projects/geovekst/projects" method="get">
-            <gn-select block>
+
+            <gn-label block>
                 <label for="OfficeId">Kartkontor</label>
-                <select block id="OfficeId" name="OfficeId" onchange="this.form.submit()"
+            </gn-label>
+            <gn-select block fullwidth>
+                <select id="OfficeId" name="OfficeId" onchange="this.form.submit()"
                     class="chosen-select form-control">
                     <option value="">@Localizer["Alle"]</option>
                     @foreach (var office in Model.Offices)
@@ -34,9 +37,12 @@
                     }
                 </select>
             </gn-select>
-            <gn-select block>
+
+            <gn-label block>
                 <label for="MunicipalityNumber">Kommune</label>
-                <select block id="MunicipalityNumber" name="MunicipalityNumber" onchange="this.form.submit()"
+            </gn-label>
+            <gn-select block fullwidth>
+                <select id="MunicipalityNumber" name="MunicipalityNumber" onchange="this.form.submit()"
                     class="chosen-select form-control">
                     <option value="">@Localizer["Norge (hele landet)"]</option>
                     @foreach (var municipality in Model.Municipalities)
@@ -52,9 +58,12 @@
                     }
                 </select>
             </gn-select>
-            <gn-select block>
+
+            <gn-label block>
                 <label for="State">Prosjektstatus</label>
-                <select block id="State" name="State" onchange="this.form.submit()" class="chosen-select form-control">
+            </gn-label>
+            <gn-select block fullwidth>
+                <select id="State" name="State" onchange="this.form.submit()" class="chosen-select form-control">
                     @foreach (var state in Model.States)
                     {
                     if (state.Key == Model.SelectedState)
@@ -68,9 +77,12 @@
                     }
                 </select>
             </gn-select>
-            <gn-select block>
+
+            <gn-label block>
                 <label for="DeliveryType">Leveransetype</label>
-                <select block id="DeliveryType" name="DeliveryType" onchange="this.form.submit()"
+            </gn-label>
+            <gn-select block fullwidth>
+                <select id="DeliveryType" name="DeliveryType" onchange="this.form.submit()"
                     class="chosen-select form-control">
                     @foreach (var deliveryType in Model.DeliveryTypes)
                     {
@@ -85,9 +97,12 @@
                     }
                 </select>
             </gn-select>
-            <gn-select block>
+
+            <gn-label block>
                 <label for="Year">Datafangstår</label>
-                <select block id="Year" name="Year" onchange="this.form.submit()" class="chosen-select form-control">
+            </gn-label>
+            <gn-select block fullwidth>
+                <select id="Year" name="Year" onchange="this.form.submit()" class="chosen-select form-control">
                     <option value="">@Localizer["Alle"]</option>
                     @foreach (var year in Model.Years)
                     {

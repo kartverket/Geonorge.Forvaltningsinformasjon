@@ -39,7 +39,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
         {
             InitColors(qualityCategoryColors);
 
+            List<IDataQualityDistribution> distributionsModified = new List<IDataQualityDistribution>();
             distributions.ForEach(d => {
+
+                if (d.DataSetName != "FKB-LedningVA" && d.DataSetName != "FKB-Servitutt")
+                    distributionsModified.Add(d);
+            });
+
+
+            distributionsModified.ForEach(d => {
                 DataSets.Add($"{d.DataSetName} ({d.ObjectCount} objekter)", dataSetToLayer[d.DataSetName]);
                 BarLabels += "'',";
                 _sums.Add(GetSum(d));
@@ -49,7 +57,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
             foreach (QualityCategory enumValue in enums)
             {
-                Categories.Add(GetCategory(enumValue, distributions));
+                Categories.Add(GetCategory(enumValue, distributionsModified));
             }
         }
 

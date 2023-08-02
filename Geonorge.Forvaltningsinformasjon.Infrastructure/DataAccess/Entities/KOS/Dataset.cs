@@ -14,6 +14,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         public string Type { get; set; }
         public string Name { get; set; }
         public int? Active { get; set; }
+        public string Versjon { get; set; }
 
         public ICollection<FdvDataSet> FdvDataSet { get; set; }
         public ICollection<TransactionData> TransactionData { get; set; }

@@ -213,7 +213,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
                     .WithMany(m => m.TransactionData)
                     .HasForeignKey(e => e.MunicipalityNumber);
 
-                entity.HasQueryFilter(e => e.Municipality.Active > 0 && e.DataSet.Active > 0);
+                entity.HasQueryFilter(e => e.Municipality.Active > 0 && e.DataSet.Active > 0 && e.DataSet.Versjon == "5.0");
             });
 
             modelBuilder.Entity<DataQualityClassification>(entity =>

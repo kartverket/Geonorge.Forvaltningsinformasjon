@@ -40,8 +40,11 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
             List<IDataAgeDistribution> distributionsModified = new List<IDataAgeDistribution>();
             distributions.ForEach(d => {
 
-                if (d.DataSetName != "FKB-LedningVA" && d.DataSetName != "FKB-Servitutt")
-                    distributionsModified.Add(d);
+                if (d.DataSetName != "FKB-LedningVA" && d.DataSetName != "FKB-Servitutt") { 
+                    var dataSetExists = distributionsModified.Where(dd => dd.DataSetName == d.DataSetName).Any();
+                    if (!dataSetExists)
+                        distributionsModified.Add(d);
+                }
             });
 
             distributionsModified.ForEach(d => {

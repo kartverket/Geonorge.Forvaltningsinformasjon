@@ -42,12 +42,15 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
             List<IDataQualityDistribution> distributionsModified = new List<IDataQualityDistribution>();
             distributions.ForEach(d => {
 
-                if (d.DataSetName != "FKB-LedningVA" && d.DataSetName != "FKB-Servitutt")
-                    distributionsModified.Add(d);
+                if (d.DataSetName != "FKB-LedningVA" && d.DataSetName != "FKB-Servitutt") { 
+                    var dataSetExists = distributionsModified.Where(dd => dd.DataSetName == d.DataSetName).Any();
+                    if (!dataSetExists) 
+                        distributionsModified.Add(d);
+                }
             });
 
 
-            distributionsModified.ForEach(d => {
+            distributionsModified.ForEach(d => {     
                 DataSets.Add($"{d.DataSetName} ({d.ObjectCount} objekter)", dataSetToLayer[d.DataSetName]);
                 BarLabels += "'',";
                 _sums.Add(GetSum(d));

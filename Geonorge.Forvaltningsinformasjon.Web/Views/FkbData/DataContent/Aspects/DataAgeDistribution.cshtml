@@ -12,6 +12,7 @@
 @{
     Layout = "_Layout.cshtml";
     ViewData["currentTab"] = "DataAgeDistribution";
+    bool outdated = true; 
 }
 
 @section titleSection
@@ -55,7 +56,7 @@
                     <div id=@("chartLabel" + i)>
                         <label style="@(string.IsNullOrWhiteSpace(Model.DataSets[dataSetName]) ? "" : "cursor:pointer;")margin:0px">
                             <input type="radio" name="dataSet"
-                                    @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName])) 
+                                    @if (string.IsNullOrWhiteSpace(Model.DataSets[dataSetName]) || outdated) 
                                     {
                                         <text>
                                             disabled
@@ -79,6 +80,7 @@
             </div>
         </div>
     </div>
+    @if (!outdated){
     <div class="flex-item flex-1">
         <div id="r_map">
         </div>
@@ -86,6 +88,7 @@
             <a href="@Model.MetadataUrl">@Localizer["Metadataoppføring på Geonorge"]</a>
         </div>
     </div>
+    }
 </div>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {

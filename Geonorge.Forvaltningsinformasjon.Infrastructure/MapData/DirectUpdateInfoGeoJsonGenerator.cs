@@ -31,10 +31,12 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.MapData
 
             foreach (IMunicipality municipality in municipalities)
             {
-                JToken feature = (JToken)(originalModel["features"].Where(f => f["properties"]["kommunenummer"].ToString() == municipality.Number).First());
+                JToken feature = (JToken)(originalModel["features"].Where(f => f["properties"]["kommunenummer"]?.ToString() == municipality.Number).FirstOrDefault());
+                if(feature != null) { 
                 ((JObject)feature["properties"]).Add("IntroductionState", (int)municipality.IntroductionState);
                 
                 features.Add(feature);
+                }
             }
 
             JObject mergedModel = new JObject(

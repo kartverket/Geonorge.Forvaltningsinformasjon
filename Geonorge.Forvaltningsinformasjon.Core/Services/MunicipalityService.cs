@@ -43,27 +43,30 @@ namespace Geonorge.Forvaltningsinformasjon.Core.Services
 
         private void InitIntroductionState(IMunicipality municipality)
         {
-            if (municipality.IntroductionDate.HasValue)
-            {
-                municipality.IntroductionState = IntroductionState.Introduced;
-            }
-            else if (municipality.PlannedIntroductionDate.HasValue)
-            {
-                municipality.IntroductionState = IntroductionState.Planned;
-            }
-            else
-            {
-                municipality.IntroductionState = IntroductionState.NotIntroduced;
-
-                List<IDataSet> dataSets = _repository.DataSets.GetByMunicipality(municipality.Id);
-
-                if (dataSets.Count > 0)
+            if (municipality != null) 
+            { 
+                if (municipality.IntroductionDate.HasValue)
                 {
-                    IDataSet dataSet = dataSets.FirstOrDefault(d => string.Compare(d.Name, "FKB-Bygning", true) == 0);
+                    municipality.IntroductionState = IntroductionState.Introduced;
+                }
+                else if (municipality.PlannedIntroductionDate.HasValue)
+                {
+                    municipality.IntroductionState = IntroductionState.Planned;
+                }
+                else
+                {
+                    municipality.IntroductionState = IntroductionState.NotIntroduced;
 
-                    if (dataSet != null && string.Compare(dataSet.UpdateTypeName, "Geosynkronisering", true) == 0)
+                    List<IDataSet> dataSets = _repository.DataSets.GetByMunicipality(municipality.Id);
+
+                    if (dataSets.Count > 0)
                     {
-                        municipality.IntroductionState = IntroductionState.Geosynch;
+                        IDataSet dataSet = dataSets.FirstOrDefault(d => string.Compare(d.Name, "FKB-Bygning", true) == 0);
+
+                        if (dataSet != null && string.Compare(dataSet.UpdateTypeName, "Geosynkronisering", true) == 0)
+                        {
+                            municipality.IntroductionState = IntroductionState.Geosynch;
+                        }
                     }
                 }
             }

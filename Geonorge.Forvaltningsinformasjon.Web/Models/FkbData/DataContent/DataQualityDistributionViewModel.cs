@@ -63,7 +63,10 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Models.FkbData.DataContent
 
             for (int i = 0; i < distributions.Count; ++i)
             {
-                category.Percents.Add(((double)distributions[i].TransactionCounts[qualityCategory] / _sums[i]) * 100);
+                var perCent = ((double)distributions[i].TransactionCounts[qualityCategory] / _sums[i]) * 100;
+                if (Double.IsNaN(perCent))
+                    perCent = 0;
+                category.Percents.Add(perCent);
             }
             return category;
         }

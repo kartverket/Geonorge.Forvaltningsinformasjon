@@ -95,7 +95,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web.Controllers.FkbData.DataContent
                 _applicationSettings.AgeCategoryColors,
                 _applicationSettings.DataAgeDataSetToLayerMap)
             {
-                AdministrativeUnitName = municipality.Name,
+                AdministrativeUnitName = municipality?.Name,
                 Type = AdministrativeUnitType.Municipality,
                 MetadataUrl = _applicationSettings.ExternalUrls.MetadataDataAgeDistribution,
                 MapViewModel = mapViewModel

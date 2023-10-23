@@ -24,7 +24,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
         public override IMunicipality Get(int id)
         {
             string strId = string.Format("{0:D4}", id);
-            return _dbContext.Set<Municipality>().Where(m => m.Active > 0 && m.Number == strId).Include(m => m.CentralFkb).Include(m => m.CoordinateSystemObject).First();
+            return _dbContext.Set<Municipality>().Where(m => m.Active > 0 && m.Number == strId).Include(m => m.CentralFkb).Include(m => m.CoordinateSystemObject).FirstOrDefault();
         }
 
         public override List<IMunicipality> Get()

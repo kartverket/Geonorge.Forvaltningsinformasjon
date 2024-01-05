@@ -51,7 +51,8 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KO
         {
             get
             {
-                if (CentralFkb.Count == 0 || CentralFkb.First().DirectUpdateIntroduced == null)
+                if (CentralFkb.Count == 0 || CentralFkb.First().DirectUpdateIntroduced == null
+                    || CentralFkb.First().DirectUpdateIntroduced == "None")
                 {
                     return null;
                 }

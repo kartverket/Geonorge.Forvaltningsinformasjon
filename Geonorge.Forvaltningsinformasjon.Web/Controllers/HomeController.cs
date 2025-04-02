@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Serilog;
 
 namespace Geonorge.Forvaltningsinformasjon.Controllers
 {
@@ -37,6 +38,9 @@ namespace Geonorge.Forvaltningsinformasjon.Controllers
             {
                 redirectUrl = "/";
             }
+
+            Log.Debug("Login redirectUrl: {redirectUrl}", redirectUrl);
+
             return Challenge(new AuthenticationProperties { RedirectUri = redirectUrl }, OpenIdConnectDefaults.AuthenticationScheme);
         }
 

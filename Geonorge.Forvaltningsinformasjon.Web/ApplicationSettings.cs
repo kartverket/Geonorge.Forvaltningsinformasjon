@@ -25,6 +25,30 @@ namespace Geonorge.Forvaltningsinformasjon.Web
         public Dictionary<string,string> AgeCategoryColors { get; set; }
         public Dictionary<string, string> QualityCategoryColors { get; set; }
         public ChartLegendSettings ChartLegendSettings { get; set; }
+
+        public Urls Urls { get; set; }
+        public string BaatAuthzApiCredentials { get; set; }
+        public string RedirectUri { get; set; }
+        public string PostLogoutRedirectUri { get; set; }
+
+        public auth auth { get; set; }
+    }
+
+    public class Urls
+    {
+        public string BaatAuthzApi { get; set; }
+    }
+
+    public class auth
+    {
+        public oidc oidc { get; set; }
+    }
+
+    public class oidc
+    {
+        public string clientid { get; set; }
+        public string clientsecret { get; set; }
+        public string IntrospectionUrl { get; set; }
     }
 
     public class Wms

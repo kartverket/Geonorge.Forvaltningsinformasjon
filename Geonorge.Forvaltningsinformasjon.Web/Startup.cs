@@ -120,6 +120,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                // Geonorge proxy does not send correct header - force https scheme
+                app.Use((context, next) =>
+                {
+                    context.Request.Scheme = "https";
+                    return next();
+                });
             }
 
             var supportedCultures = new[]

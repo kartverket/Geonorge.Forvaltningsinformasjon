@@ -1,7 +1,12 @@
 ﻿using Geonorge.Forvaltningsinformasjon.Infrastructure;
 using Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.Entities.KOS;
+using Geonorge.Forvaltningsinformasjon.Utils;
 using Geonorge.Forvaltningsinformasjon.Web.Abstractions.Common.Helpers;
 using Geonorge.Forvaltningsinformasjon.Web.Models.Common.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -9,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
@@ -52,6 +58,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
 
             // init web
             services.AddTransient<IContextViewModelHelper, ContextViewModelHelper>();
+            services.AddHttpClient();
 
             // Add the localization services to the services container
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -60,6 +67,45 @@ namespace Geonorge.Forvaltningsinformasjon.Web
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
             services.AddDbContext<KosContext>(item => item.UseSqlServer(Configuration.GetConnectionString("KOS")));
+
+            services.AddScoped<GeonorgeOpenIdConnectEvents>();
+            services.AddTransient<IGeonorgeAuthorizationService, GeonorgeAuthorizationService>();
+            services.AddTransient<IBaatAuthzApi, BaatAuthzApi>();
+
+            services
+             .AddAuthentication(options => {
+                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+
+             })
+             .AddCookie()
+             .AddOpenIdConnect(options =>
+             {
+                 options.TokenValidationParameters.ValidIssuer = Configuration["auth:oidc:issuer"];
+                 options.Authority = Configuration["auth:oidc:authority"];
+                 options.ClientId = Configuration["auth:oidc:clientid"];
+                 options.ClientSecret = Configuration["auth:oidc:clientsecret"];
+                 options.MetadataAddress = Configuration["auth:oidc:metadataaddress"];
+                 options.ResponseType = OpenIdConnectResponseType.CodeIdTokenToken;
+                 options.SignedOutRedirectUri = Configuration["PostLogoutRedirectUri"];
+                 options.SaveTokens = true;
+                 options.EventsType = typeof(GeonorgeOpenIdConnectEvents);
+             })
+             .AddJwtBearer(options =>
+             {
+                 options.Authority = Configuration["auth:oidc:authority"];
+                 options.Audience = Configuration["auth:oidc:clientid"];
+                 options.MetadataAddress = Configuration["auth:oidc:metadataaddress"];
+             });
+
+            // authorize both via cookies and jwt bearer tokens
+            services.AddAuthorization(options =>
+            {
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
+                    CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme);
+                defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
 
             ConfigureProxy(applicationSettings);
         }
@@ -74,6 +120,13 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                // Geonorge proxy does not send correct header - force https scheme
+                app.Use((context, next) =>
+                {
+                    context.Request.Scheme = "https";
+                    return next();
+                });
             }
 
             var supportedCultures = new[]
@@ -98,6 +151,7 @@ namespace Geonorge.Forvaltningsinformasjon.Web
             });
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseEndpoints(e =>
             {
                 e.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

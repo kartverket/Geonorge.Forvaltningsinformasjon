@@ -1,6 +1,19 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Geonorge.Forvaltningsinformasjon.Services.Authorization;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject ApplicationSettings AppSettings
 @inject IViewLocalizer Localizer
+
+@{
+    var loggedInCookie = Context.Request.Cookies["_loggedIn"];
+    if (loggedInCookie != null && loggedInCookie == "true" && !User.IsAuthenticated())
+    {
+
+        var currentUrl = $"https://{Context.Request.Host}{Context.Request.Path}";
+        Context.Response.Redirect("/LogIn?redirectUrl=" + currentUrl);
+
+    }
+}
 
 <!DOCTYPE html>
 <html lang="no">
@@ -28,11 +41,52 @@
         }</script>
 
 </head>
+@{
+    var access_token = "";
+    dynamic userInfo = new System.Dynamic.ExpandoObject();
+    userInfo.name = "";
+    userInfo.email = "";
 
+    dynamic organization = new System.Dynamic.ExpandoObject();
+    organization.organizationName = "";
+    organization.organizationNumber = "";
+
+    <!-- user claims: -->
+    var cp = (ClaimsPrincipal)User;
+    foreach (var claim in cp.Claims)
+    {
+        <!-- @claim.Type = @claim.Value -->
+        if (claim.Type == "Name")
+        {
+            userInfo.name = claim.Value;
+        }
+        if (claim.Type == "Email")
+        {
+            userInfo.email = claim.Value;
+        }
+        if (claim.Type == "OrganizationOrgnr")
+        {
+            organization.organizationNumber = claim.Value;
+        }
+        if (claim.Type == "OrganizationName")
+        {
+            organization.organizationName = claim.Value;
+        }
+        if (claim.Type == "access_token")
+        {
+            access_token = claim.Value;
+        }
+    }
+
+    string userInfoJson = Newtonsoft.Json.JsonConvert.SerializeObject(userInfo);
+    string organizationJson = Newtonsoft.Json.JsonConvert.SerializeObject(organization);
+}
 <body class="geonorge-container prototype geonorge fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-    <main-navigation environment="@AppSettings.EnvironmentName.ToLower()"></main-navigation>
+    <main-navigation userinfo='@userInfoJson' organization='@organizationJson' environment="@AppSettings.EnvironmentName.ToLower()" signinurl="@AppSettings.RedirectUri.Replace("logout", "login")"
+                     signouturl="@AppSettings.RedirectUri"
+                     isLoggedIn="@User.IsAuthenticated().ToString().ToLower()"></main-navigation>
     <content-container>
         <breadcrumb-list id="breadcrumb-list"></breadcrumb-list>
         @if (ViewData["title"] != null)

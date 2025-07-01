@@ -107,7 +107,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
 
             // determine project status
             if (mappingProjectKos.ProjectActivities.
-                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && a.Date != null) != default)
+                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.COMPLETED && !string.IsNullOrEmpty(a.Date)) != default)
             {
                 mappingProject.State = MappingProjectState.Closed;
             }
@@ -116,7 +116,7 @@ namespace Geonorge.Forvaltningsinformasjon.Infrastructure.DataAccess.EntityColle
                 mappingProject.State = MappingProjectState.Delivered;
             }
             else if (mappingProjectKos.ProjectActivities.
-                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.STARTED && a.Date != null) != default)
+                FirstOrDefault(a => a.Activity == MappingProjectActivity.ActivityType.STARTED && !string.IsNullOrEmpty(a.Date)) != default)
             {
                 mappingProject.State = MappingProjectState.Ongoing;
             }

@@ -17,6 +17,7 @@ using System;
 
 namespace Geonorge.Forvaltningsinformasjon.Web.Controllers
 {
+    [NonController] //disable
     [Route("nap/info")]
     public class GeosynchronizationController : Controller, IAdministrativeUnitController
     {
